@@ -977,8 +977,8 @@ function renderQ() {
   document.getElementById('phase-name').textContent = q.phase;
   document.getElementById('q-counter').textContent = `${currentQ + 1} / ${questions.length}`;
   document.getElementById('q-large-num').textContent = String(currentQ + 1).padStart(2, '0');
-  document.getElementById('q-text').textContent = q.q;
-  document.getElementById('q-note').textContent = q.note;
+  document.getElementById('q-text').innerHTML = q.q;
+  document.getElementById('q-note').innerHTML = q.note;
 
   const wrap = document.getElementById('choices');
   wrap.innerHTML = '';
@@ -1019,11 +1019,11 @@ function showResult() {
   const r = results[top];
 
   document.getElementById('result-type-name').textContent = r.type;
-  document.getElementById('result-type-sub').textContent = r.sub;
-  document.getElementById('r-core-title').textContent = r.coreTitle;
-  document.getElementById('r-core-body').innerHTML = r.coreBody.replace(/\n\n/g, '<br><br>');
-  document.getElementById('r-taka').textContent = r.taka;
-  document.getElementById('r-action').textContent = r.action;
+  document.getElementById('result-type-sub').innerHTML = r.sub;
+  document.getElementById('r-core-title').innerHTML = r.coreTitle;
+  document.getElementById('r-core-body').innerHTML = r.coreBody;
+  document.getElementById('r-taka').innerHTML = r.taka;
+  document.getElementById('r-action').innerHTML = r.action;
 
   showScreen('result');
 
