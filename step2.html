@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>今の髪、整理してみよう。| bridge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8f4ef;
+    --ink: #181410;
+    --ink-light: #5a4a3a;
+    --accent: #5a3a24;
+    --gold: #b8953a;
+    --gold-light: #d4b06a;
+    --cream: #f0ebe3;
+    --line: rgba(90,58,36,0.15);
+    --font-serif: 'Noto Serif JP', serif;
+    --font-mincho: 'Zen Old Mincho', serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-mincho);
+    min-height: 100vh;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Progress Bar ── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.6s ease;
+    z-index: 100;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    padding: 48px 24px 32px;
+    position: relative;
+  }
+  .header-step {
+    font-family: var(--font-serif);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .header-title {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+  .header-line {
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+    margin: 16px auto 0;
+  }
+
+  /* ── Screen Container ── */
+  .screen {
+    display: none;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .screen.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Start Screen ── */
+  .start-wrap {
+    text-align: center;
+    padding: 16px 0 40px;
+  }
+  .start-eyebrow {
+    font-family: var(--font-serif);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .start-copy {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+  }
+  .start-sub {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    color: var(--ink-light);
+    line-height: 1.9;
+    margin-bottom: 36px;
+  }
+  .start-deco {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    margin: 0 auto 36px;
+  }
+  .start-note {
+    font-family: var(--font-serif);
+    font-size: 11px;
+    color: var(--ink-light);
+    opacity: 0.7;
+    margin-bottom: 40px;
+    line-height: 1.8;
+  }
+
+  /* ── Question ── */
+  .q-number {
+    font-family: var(--font-serif);
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .q-text {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1.65;
+    margin-bottom: 8px;
+    letter-spacing: 0.03em;
+  }
+  .q-sub {
+    font-family: var(--font-serif);
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 32px;
+    line-height: 1.8;
+  }
+
+  /* ── Options ── */
+  .options { display: flex; flex-direction: column; gap: 12px; }
+
+  .option {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    padding: 18px 22px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: left;
+    font-family: var(--font-mincho);
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.65;
+    position: relative;
+    overflow: hidden;
+  }
+  .option::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.25s ease;
+  }
+  .option:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+  .option:hover::before { width: 3px; }
+  .option-main { display: block; font-weight: 500; }
+  .option-sub {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 11px;
+    color: var(--ink-light);
+    margin-top: 4px;
+    line-height: 1.7;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 40px 0;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--line); }
+  .divider-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  /* ── Email Screen ── */
+  .email-intro {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    color: var(--ink-light);
+    line-height: 1.9;
+    margin-bottom: 28px;
+  }
+  .email-wrap {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    padding: 28px 24px;
+    margin-bottom: 16px;
+  }
+  .email-label {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  input[type="email"] {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 12px 14px;
+    font-family: var(--font-mincho);
+    font-size: 14px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input[type="email"]:focus { border-color: var(--accent); }
+  .email-skip {
+    display: block;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: 11px;
+    color: var(--ink-light);
+    opacity: 0.6;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-top: 8px;
+  }
+  .email-skip:hover { opacity: 1; }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    display: block;
+    width: 100%;
+    background: var(--accent);
+    color: #f8f4ef;
+    border: none;
+    border-radius: 3px;
+    padding: 18px 24px;
+    font-family: var(--font-serif);
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: center;
+  }
+  .btn-primary:hover {
+    background: #3d2618;
+    transform: translateY(-1px);
+  }
+  .btn-gold {
+    display: block;
+    width: 100%;
+    background: transparent;
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+    border-radius: 3px;
+    padding: 16px 24px;
+    font-family: var(--font-serif);
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: center;
+  }
+  .btn-gold:hover {
+    background: var(--gold);
+    color: var(--bg);
+  }
+
+  /* ── Result Screen ── */
+  .result-intro {
+    text-align: center;
+    padding: 16px 0 32px;
+  }
+  .result-tag {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+  .result-heading {
+    font-size: 21px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .result-sub {
+    font-family: var(--font-serif);
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.9;
+  }
+
+  .result-card {
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .result-card-header {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 14px 22px;
+    font-family: var(--font-serif);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .result-card-body {
+    padding: 24px 22px;
+    font-size: 14px;
+    line-height: 2;
+    color: var(--ink);
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .result-card-body strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .result-divider {
+    text-align: center;
+    margin: 28px 0;
+    position: relative;
+  }
+  .result-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 0; right: 0;
+    height: 1px;
+    background: var(--line);
+  }
+  .result-divider span {
+    position: relative;
+    background: var(--bg);
+    padding: 0 14px;
+    font-family: var(--font-serif);
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+  }
+
+  /* ── Signature ── */
+  .signature {
+    text-align: center;
+    padding: 36px 0 16px;
+  }
+  .sig-line {
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 24px;
+  }
+  .sig-copy {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    color: var(--ink-light);
+    line-height: 2;
+    margin-bottom: 28px;
+  }
+  .sig-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+  .sig-link {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: 11px;
+    color: var(--ink-light);
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: all 0.2s;
+  }
+  .sig-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ── Email result notice ── */
+  .email-sent-notice {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 14px 18px;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    border-top: 1px solid var(--line);
+    margin-top: 40px;
+  }
+  .footer p {
+    font-family: var(--font-serif);
+    font-size: 10px;
+    color: var(--ink-light);
+    opacity: 0.4;
+    letter-spacing: 0.15em;
+  }
+
+  /* ── Product Link Block ── */
+  .product-link-block {
+    background: var(--cream);
+    border: 1.5px solid var(--gold-light);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    transition: border-color 0.25s;
+  }
+  .product-link-block:hover {
+    border-color: var(--gold);
+  }
+  .product-link-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-decoration: none;
+  }
+  .product-link-inner:hover .product-link-main {
+    opacity: 0.75;
+  }
+  .product-link-label {
+    font-family: var(--font-serif);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .product-link-main {
+    font-family: var(--font-mincho);
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .product-link-sub {
+    font-family: var(--font-serif);
+    font-size: 11px;
+    color: var(--ink-light);
+    line-height: 1.7;
+  }
+  .line-link {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* ── Result Nav ── */
+  .result-nav {
+    padding: 32px 0 16px;
+  }
+  .result-nav-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+  }
+  .result-nav-link {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 18px 12px;
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+  .result-nav-link:hover:not(.result-nav-link--disabled) {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .result-nav-link--disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
+  }
+  .result-nav-label {
+    font-family: var(--font-serif);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .result-nav-name {
+    font-family: var(--font-mincho);
+    font-size: 12px;
+    color: var(--ink);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 480px) {
+    .header-title { font-size: 18px; }
+    .start-copy { font-size: 20px; }
+    .q-text { font-size: 17px; }
+    .option { padding: 16px 18px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-step"><span style="text-transform:none;">bridge</span> · DIAGNOSIS · 02</div>
+  <div class="header-title">今の髪、整理してみよう。</div>
+  <div class="header-line"></div>
+</div>
+
+<!-- ── Screen 0: Start ── -->
+<div class="screen active" id="screen-start">
+  <div class="start-wrap">
+    <div class="start-eyebrow">hair care check</div>
+    <div class="start-copy">気になっていること、<br>ちゃんと言葉にしてみよう。</div>
+    <div class="start-sub">
+      なんとなく鏡が気になる日。<br>
+      なんとなく今の美容室がしっくりこない日。<br><br>
+      そういう感覚は、<br>あなたの髪が「変わりたい」と言っているのかもしれません。<br><br>
+      3つの質問に答えるだけで、<br>今の状態と、次のヒントが見えてきます。
+    </div>
+    <div class="start-deco"></div>
+    <div class="start-note">
+      所要時間：約1〜2分<br>
+      回答はメールで受け取ることができます（任意）
+    </div>
+    <button class="btn-primary" onclick="goTo('screen-q1')">はじめる</button>
+  </div>
+</div>
+
+<!-- ── Screen 1: Q1 ── -->
+<div class="screen" id="screen-q1">
+  <div class="q-number">Question 01 / 03</div>
+  <div class="q-text">最近、鏡を見て<br>一番気になるのは？</div>
+  <div class="q-sub">今の自分に一番近いものを選んでください。</div>
+  <div class="options">
+    <button class="option" onclick="selectQ1('damage')">
+      <span class="option-main">髪のダメージが気になる</span>
+      <span class="option-sub">枝毛・絡まり・乾かすのが大変…</span>
+    </button>
+    <button class="option" onclick="selectQ1('gray')">
+      <span class="option-main">白髪が増えてきた気がする</span>
+      <span class="option-sub">どう向き合えばいいのか、迷っている</span>
+    </button>
+    <button class="option" onclick="selectQ1('touch')">
+      <span class="option-main">パサつき・乾燥が気になる</span>
+      <span class="option-sub">触るたびに気になる。うるおいが戻りにくい</span>
+    </button>
+    <button class="option" onclick="selectQ1('volume')">
+      <span class="option-main">ボリュームが減ってきた気がする</span>
+      <span class="option-sub">トップがぺたんとしやすくなった</span>
+    </button>
+    <button class="option" onclick="selectQ1('wave')">
+      <span class="option-main">うねり・くせ毛が気になる</span>
+      <span class="option-sub">朝のセットが読めない。毎日大変</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── Screen 2: Q2 (dynamic) ── -->
+<div class="screen" id="screen-q2">
+  <div class="q-number">Question 02 / 03</div>
+  <div class="q-text" id="q2-text"></div>
+  <div class="q-sub">より近いものを選んでください。</div>
+  <div class="options" id="q2-options"></div>
+</div>
+
+<!-- ── Screen 3: Q3 ── -->
+<div class="screen" id="screen-q3">
+  <div class="q-number">Question 03 / 03</div>
+  <div class="q-text">今、美容師に<br>聞いてみたいことがあるとしたら？</div>
+  <div class="q-sub">正直な気持ちで選んでください。</div>
+  <div class="options">
+    <button class="option" onclick="selectQ3('mind_01')">
+      <span class="option-main">カラーに少し不安を感じたことがある</span>
+      <span class="option-sub">頭皮への影響・過去の違和感・妊娠中のことなど</span>
+    </button>
+    <button class="option" onclick="selectQ3('mind_02')">
+      <span class="option-main">トレンドより「似合う自分らしい色」を選びたい</span>
+      <span class="option-sub">失敗したくない。自分に合う色が知りたい</span>
+    </button>
+    <button class="option" onclick="selectQ3('mind_03')">
+      <span class="option-main">切るべきか、このままでいいか迷っている</span>
+      <span class="option-sub">変えたい気持ちと、今を大切にしたい気持ちが両方ある</span>
+    </button>
+    <button class="option" onclick="selectQ3('mind_04')">
+      <span class="option-main">美容院に行くこと自体、少しハードルを感じる</span>
+      <span class="option-sub">なんとなく気が重い。前の体験が影響しているかも</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── Screen 4: Email ── -->
+<div class="screen" id="screen-email">
+  <div class="q-number">最後に</div>
+  <div class="q-text">結果をメールで<br>受け取りますか？</div>
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+  <div class="email-intro">
+    あとで読み返したい方は、メールアドレスをどうぞ。<br>
+    入力しなくても、結果はこのページでご覧いただけます。
+  </div>
+  <div class="email-wrap">
+    <label class="email-label" for="emailInput">email address</label>
+    <input type="email" id="emailInput" placeholder="example@mail.com">
+  </div>
+  <button class="btn-primary" onclick="showResult()">結果を見る</button>
+  <span class="email-skip" onclick="showResult()">メールは不要です。このまま結果を見る</span>
+</div>
+
+<!-- ── Screen 5: Result ── -->
+<div class="screen" id="screen-result">
+
+  <div class="result-intro">
+    <div class="result-tag">YOUR RESULT</div>
+    <div class="result-heading">あなたの今の状態と、<br>次のヒント。</div>
+    <div class="result-sub">
+      答えてくれてありがとうございます。<br>
+      TAKAから、あなたへのメッセージです。
+    </div>
+  </div>
+
+  <div class="result-card">
+    <div class="result-card-header">今の髪の状態について</div>
+    <div class="result-card-body" id="result-technic"></div>
+  </div>
+
+  <div class="product-link-block">
+    <a href="https://www.personalhairstylist.info/product" target="_blank" rel="noopener" class="product-link-inner">
+      <span class="product-link-label">HOME CARE</span>
+      <span class="product-link-main">TAKAが選んだホームケア商品 →</span>
+    </a>
+    <p class="product-link-sub">
+      <a href="https://line.me/R/ti/p/@921idccd" target="_blank" rel="noopener" class="line-link">LINE公式アカウント</a>でサロンコードをお渡ししています。
+    </p>
+  </div>
+
+  <div class="result-divider"><span>＋</span></div>
+
+  <div class="result-card">
+    <div class="result-card-header">美容師に相談するとしたら</div>
+    <div class="result-card-body" id="result-mind"></div>
+  </div>
+
+  <div id="email-sent-area"></div>
+
+  <div class="signature">
+    <div class="sig-line"></div>
+    <div class="sig-copy">
+      答えに迷いながらも、<br>
+      ここまで来てくれたこと自体が<br>
+      自分の髪を大切にしている証拠だと思っています。<br><br>
+      焦らなくて大丈夫です。<br>
+      あなたのペースで、あなたらしく。
+    </div>
+    <div class="sig-name">bridge &nbsp; TAKA</div>
+    <a class="sig-link" href="https://www.personalhairstylist.info/infomation" target="_blank" rel="noopener">
+      bridgeについて詳しくはこちら →
+    </a>
+  </div>
+
+  <div class="result-nav">
+    <button class="btn-primary" onclick="restartDiagnosis()" style="margin-bottom:12px;">
+      もう一度診断する
+    </button>
+    <div class="result-nav-links">
+      <a href="https://takahair-bridge.github.io/bridge-diagnosis/" class="result-nav-link">
+        <span class="result-nav-label">STEP 01</span>
+        <span class="result-nav-name">美容師に言えていないことチェック</span>
+      </a>
+      <a href="#" class="result-nav-link result-nav-link--disabled">
+        <span class="result-nav-label">STEP 03</span>
+        <span class="result-nav-name">準備中</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>© bridge hair salon &nbsp;|&nbsp; personal hair stylist TAKA</p>
+</div>
+
+<script>
+// ── State ──
+let q1Answer = '';
+let q2Answer = '';
+let q3Answer = '';
+
+// ── Q2 branches ──
+const q2Data = {
+  damage: {
+    text: 'ダメージ、もう少し<br>詳しく教えて。',
+    options: [
+      {
+        key: 'damage_01',
+        main: 'ブラシでとかすと毛先が引っかかる',
+        sub: '見た目はそこまで悪くないけど、触ると気になる'
+      },
+      {
+        key: 'damage_02',
+        main: '濡らすと絡まりやすく、ケアしても手触りが戻りにくい',
+        sub: 'ちゃんとケアしているのに、改善を感じにくい'
+      },
+      {
+        key: 'damage_03',
+        main: '枝毛・毛先の切れが目につく／触るとザラつく',
+        sub: '毛先が疲れて見え、清潔感が落ちて感じる'
+      },
+      {
+        key: 'damage_04',
+        main: '乾かすのに時間がかかり、まとまりにくい',
+        sub: '水分を含んだままで、スタイルが決まらない'
+      }
+    ]
+  },
+  gray: {
+    text: '白髪との<br>向き合い方を教えて。',
+    options: [
+      {
+        key: 'gray_01',
+        main: 'しっかり染めて、白髪を気にせず過ごしたい',
+        sub: '見た目の安心感を大切にしたい'
+      },
+      {
+        key: 'gray_02',
+        main: '白髪はあるけど、暗めな色にするのは違う気がする',
+        sub: '自然な印象で整えたい'
+      },
+      {
+        key: 'gray_03',
+        main: '出かけるときだけ、目立たなければ十分',
+        sub: '普段はあまり気にしていない'
+      },
+      {
+        key: 'gray_04',
+        main: 'できるだけ髪に負担をかけずに整えたい',
+        sub: 'ダメージが心配'
+      },
+      {
+        key: 'gray_05',
+        main: '白髪も含めて、今の自分と自然に付き合いたい',
+        sub: '無理に隠さなくてもいい気がしている'
+      }
+    ]
+  },
+  touch: {
+    text: 'パサつき・乾燥、<br>どんな感じ？',
+    options: [
+      {
+        key: 'touch_01',
+        main: 'カラーやパーマを続けていて、うるおいが戻りにくい',
+        sub: '触ったとき、少しざらつきを感じることがある'
+      },
+      {
+        key: 'touch_02',
+        main: '朝は整うけれど、時間が経つと乾燥してくる',
+        sub: '一日中しっとりは続かない'
+      },
+      {
+        key: 'touch_03',
+        main: '毛先のパサつきが、どうしても気になる',
+        sub: 'つい触ったり、目がいってしまう'
+      },
+      {
+        key: 'touch_04',
+        main: '髪が少し固く感じて、扱いづらい',
+        sub: '疲れて見える気がする'
+      },
+      {
+        key: 'touch_05',
+        main: 'ケアも何を選べばいいか、正直よくわからない',
+        sub: '相談したいけれど、決めきれない'
+      }
+    ]
+  },
+  volume: {
+    text: 'ボリューム、<br>どんな変化を感じてる？',
+    options: [
+      {
+        key: 'volume_01',
+        main: '以前より、トップや根元がぺたんとしやすい',
+        sub: 'スタイルが決まりにくくなった'
+      },
+      {
+        key: 'volume_02',
+        main: '頭皮の状態も、少し気になってきた',
+        sub: 'ベタつき・におい・疲れを感じる'
+      },
+      {
+        key: 'volume_03',
+        main: '分け目や顔まわりが、前より気になる',
+        sub: '鏡を見ると目がいく'
+      },
+      {
+        key: 'volume_04',
+        main: '将来のことを考えると、今からケアしておきたい',
+        sub: 'まだ大きな悩みではない'
+      },
+      {
+        key: 'volume_05',
+        main: '正直、どう向き合えばいいのかわからない',
+        sub: '何をすればいいか迷っている'
+      }
+    ]
+  },
+  wave: {
+    text: 'うねり・くせ毛、<br>どんな状態？',
+    options: [
+      {
+        key: 'wave_01',
+        main: '全体的にうねりが出て、毎日のセットが大変',
+        sub: '朝のたびに、仕上がりが読めない'
+      },
+      {
+        key: 'wave_02',
+        main: '前髪・顔まわりなど、一部だけ気になる',
+        sub: 'そこだけ決まらないのが、いちばん気になる'
+      },
+      {
+        key: 'wave_03',
+        main: '広がりやパサつきが原因で、くせが強く見える',
+        sub: 'くせというより、疲れて見える感じ'
+      },
+      {
+        key: 'wave_04',
+        main: '本当は自宅ケアでどうにかしたい',
+        sub: 'できれば、今の生活のままで楽になりたい'
+      },
+      {
+        key: 'wave_05',
+        main: 'くせを活かしたほうが自分らしい気がする',
+        sub: '抑えるより、味方にしたい'
+      }
+    ]
+  }
+};
+
+// ── Result content ──
+const results = {
+  volume_01: `【今の状態について】
+ボリュームの変化は、
+髪そのものよりも「育つ環境」が
+影響していることが多いです。
+気づけた今は、ちょうどいいタイミングです。
+
+【今できる選択肢】
+→ エイジングケアのホームケア
+頭皮を整えることで、これから生えてくる髪の質が変わっていきます。
+※今ある髪を責めなくて大丈夫です。
+
+もし、顔まわりやトップの変化が強く気になる場合は、
+専門の相談窓口に話を聞きに行くのもひとつの選択です。
+これは「逃げ」ではなく、自分に合う方法を知るための前向きな行動です。`,
+
+  volume_02: `【今の状態について】
+頭皮が疲れていると、
+髪は元気に立ち上がりにくくなります。
+汚れだけでなく、負担の蓄積も原因になります。
+
+【今できる選択肢】
+→ ヘアクレンジング
+必要以上に取りすぎず、頭皮を軽くリセットするケアです。
+※「やりすぎない」ことが大切です。
+
+もし、顔まわりやトップの変化が強く気になる場合は、
+専門の相談窓口に話を聞きに行くのもひとつの選択です。
+これは「逃げ」ではなく、自分に合う方法を知るための前向きな行動です。`,
+
+  volume_03: `【今の状態について】
+分け目や顔まわりは、
+血流の影響を受けやすい場所です。
+変化を感じ始めたら、ケアを足してあげると安心です。
+
+【今できる選択肢】
+→ 血流を促すケア
+サロンでの短時間マッサージと、
+ご自宅でのマッサージケアを組み合わせて行います。
+※数分程度でも、続けることで違いが出ます。
+
+もし、顔まわりやトップの変化が強く気になる場合は、
+専門の相談窓口に話を聞きに行くのもひとつの選択です。
+これは「逃げ」ではなく、自分に合う方法を知るための前向きな行動です。`,
+
+  volume_04: `【今の状態について】
+「まだ大丈夫だけど、気になる」
+その感覚は、とても健全です。
+
+【今できる選択肢】
+→ 予防としてのエイジングケアを
+大きな変化が出る前に整えておくことで、
+今の状態を長く保ちやすくなります。
+※一番は血行促進です。
+
+食べ物、睡眠、運動、そしてストレスの開放。
+できることから少しづつ行うことが
+未来へつながっていきます。
+ちょっとでも行動することが、自分に合う方法を知るための前向きな行動です。`,
+
+  volume_05: `【今の状態について】
+情報が多くて、
+何が正解かわからなくなりますよね。
+迷っている時点で、ちゃんと向き合えています。
+
+【今できる選択肢】
+→ ホームケアの見直し
+今使っているものを整理するだけでも、頭皮と髪は楽になります。
+※無理に答えを出さなくて大丈夫です。
+
+現状の状態によって変わる商品。
+気になっている部分を担当美容師さんと話し合うのが一番の近道。
+無駄なコストや時間をかけずにあなたに合う商品が見つかるはず！
+いきなり遠くへは飛べないです。一歩一歩です。`,
+
+  gray_01: `【今の状態について】
+白髪をきちんと染めておくと、
+鏡を見るたびの安心感が違いますよね。
+「気にしなくていい状態」をつくるのは、
+とても前向きな選択です。
+
+【今できる選択肢】
+→ 白髪染め
+ムラなく整えることで、毎日のストレスを減らすことができます。
+
+頻度や色味は、無理のないペースで大丈夫です。
+根元が少し気になった場合、顔回り・分け目程度であれば
+市販のもので染めても大丈夫です。
+その際は担当美容師さんにも相談してみてください。`,
+
+  gray_02: `【今の状態について】
+白髪は気になるけれど、
+いかにも染めた感じにはしたくない。
+そう感じる方は、とても多いです。
+
+【今できる選択肢】
+→ 白髪をぼかすカラー
+白と黒のコントラストをやわらげることで、
+自然な印象に整えられます。
+
+「隠す」より「なじませる」選択です。
+普通のファッションカラーでもなじむ程度にすることは可能です。
+ナチュラルな範囲であれば通常のカラーでも気にならなくなると思います。
+色には限りが出てくるので、担当美容師さんと相談してください。`,
+
+  gray_03: `【今の状態について】
+普段はそこまで気にならないけれど、
+出かける前だけ少し整えたい。
+とても現実的で、賢い向き合い方です。
+
+【今できる選択肢】
+→ 白髪スティック＋自宅マッサージ
+必要なときだけカバーしながら、
+頭皮を動かして血流を整えるケアも一緒に行う。
+シリコンブラシやブラッシングで血流促進です。
+
+無理に染めなくても大丈夫です。
+ですが、抜いたり（毛根ダメージ）、
+切ること（他の毛まで切ってしまう）は避けてください。
+未来の髪を大切にしてください。`,
+
+  gray_04: `【今の状態について】
+白髪よりも、髪の体力やダメージが気になる。
+そう感じ始めたら、とても良いタイミングです。
+
+【今できる選択肢】
+→ ヘアマニキュア
+髪の表面をコーティングする方法なので、
+負担を抑えながら色味を整えられます。
+ですが、水にぬれると落ちていくので、タオルやシャツなど
+注意するべきこともあります。
+
+これから先を考えた、やさしい選択です。
+その他にもヘナなどもございますが、
+メリットもデメリットもありますので
+担当美容師さんとご相談くださいね。`,
+
+  gray_05: `【今の状態について】
+白髪があっても、
+今の自分をそのまま受け入れたい。
+そう思える感覚は、とても素敵です。本当に。
+
+【今できる選択肢】
+→ 無理に変えず、整えながら付き合う
+ツヤやフォルムを大切にするだけで、
+印象は十分きれいに整います。
+トリートメントや軽いストレートなどで
+うねりやツヤを改善することもOK。
+
+ヘアオイルやスタイリング剤などを用いて
+お出かけの際に充実したヘアライフを過ごせると思います。`,
+
+  touch_01: `【今の状態について】
+カラーやパーマを重ねていると、
+髪の中のうるおいや栄養が
+少しずつ外に出やすくなります。
+きちんとお手入れをしている方ほど、起こりやすい変化です。
+
+【今できる選択肢】
+→ 酸熱トリートメントがおススメ
+無理に変えるのではなく、
+うるおいがとどまりやすい土台をしっかり整えるケアです。
+
+今すぐでなくても大丈夫。
+気になり続けるようなら、思い出してください。
+ホームケアを週２回することでもうるおいをキープできますよ。`,
+
+  touch_02: `【今の状態について】
+朝はまとまるのに、午後に乾燥を感じるのは、
+髪の水分を保つ力が少し弱くなっているサインかもしれません。
+
+【今できる選択肢】
+→ 自宅での集中トリートメント
+週2回、丁寧に行うことで、
+日中のパサつき方が変わってくることがあります。
+
+まずは家でできることからで十分です。
+乾かす前のミルクで保湿を促したり
+オイルで乾燥させないようにすることも。
+ドライヤーを変えてみたり。
+髪の状態をすぐに改善できるので頑張ってください！`,
+
+  touch_03: `【今の状態について】
+毛先は、これまでの時間を一番受け止めてきた場所。
+乾燥が出やすいのは、とても自然なことです。
+根元から20センチあったら、
+その髪は一年半以上の時間を共にしてきたんですよ。
+
+【今できる選択肢】
+→ 集中トリートメント＋ヘアオイル
+夜のケアでドライ前にミルク。
+ドライ後にオイルでうるおいを閉じ込めてあげると、
+朝の触り心地が少しずつ変わっていきます。
+
+気づけていること自体が、ケアの第一歩です。
+大丈夫です。少しの手間が未来を変えます！`,
+
+  touch_04: `【今の状態について】
+乾燥は、パサつきだけでなく
+「固さ」や「ごわつき」として感じることもあります。
+ケアをしてあげたのはいつでしょうか？
+
+【今できる選択肢】
+→ サロンでのトリートメント
+髪の内側から整えることで、
+やわらかさや自然なまとまりが戻りやすくなります。
+これは柔らかくする重要な薬剤が必須。
+市販のものだとどうしても浸透しきれないんです。
+
+一度で完璧を目指す必要はありません。
+もしかしたら、要らないものの付着が原因かもしれません。
+銅イオン、シリコンなど、髪のクレンジングもおすすめです。`,
+
+  touch_05: `【今の状態について】
+情報が多いほど、迷ってしまいますよね。
+パサつきや乾燥は、原因がひとつではないことも多いです。
+
+【今できる選択肢】
+→ まずは状態を見てから考える
+整理するだけでも、気持ちが軽くなる方が多いです。
+「この状態を脱却したい！」と伝えて
+あとは丸投げでも大丈夫なんです。
+必要な情報や商品も進めてくれると思います。
+
+相談だけでも大丈夫です。
+無理に決めなくていい場所として、公式LINEを気軽に使ってください。`,
+
+  wave_01: `【今の状態】
+毎朝、髪のご機嫌をうかがう感じになりますよね。
+がんばっても思うようにいかないと、少し疲れてしまうと思います。
+
+うねりが全体に出る場合は、
+一度ベースを整えてあげると、
+毎日のセットがかなり楽になります。
+たぶん今までもトリートメントで頑張ってきたと思います。
+それでも今そう思っているということは、
+必要以上に真っ直ぐにするのではなく、
+扱いやすさを優先した弱めなストレートが向いていそうです。
+
+「自然に見えるか不安」そんな気持ちがあれば、
+まずは相談だけでも大丈夫ですよ。`,
+
+  wave_02: `【今の状態】
+前髪や顔まわりだけ決まらないと、
+一日中そこが気になってしまいますよね。
+頑張ってアイロン使ってくれていますよね？
+
+全体を変えなくても、気になるところだけ整えることで、
+印象は驚くほど安定します。
+ナチュラルな状態を作れるかもしれません。
+必要なところだけに、必要なことを。
+そんな選択も、十分アリだと思います。
+
+「全部やるほどじゃないかも…」そう感じているなら、
+ポイントストレートやポイント矯正がちょうどいい方法です。
+襟足だけ、後ろだけ、顔回りだけなど
+必要に合わせてできます！`,
+
+  wave_03: `【今の状態】
+きっと本当に疲れているのかも。
+まず休んでくださいね。
+
+実は、くせそのものより
+"乾燥"で強く見えているケースも多いです。
+髪の中が整うと、
+うねりはそのままでも広がり方が穏やかになります。
+まずは髪のコンディションを整えるトリートメント。
+そこから考えるのも、とても賢いやり方です。
+
+おススメは、集中トリートメント、乾かす前のミルク
+乾かした後のオイル。
+この3つでツヤが出てくると思います。
+※トリートメントだけで足りるかどうかは、
+担当美容師さんに見せてから決めたほうがよいと思います。`,
+
+  wave_04: `そりゃそうです。
+うまく付き合っていきたいですよね。
+
+くせ毛は、「やり方」より「順番」と「触り方」で
+かなり差が出ます。
+無理に変えなくても、少し楽になる方法はあります。
+
+シャワーの時間を昼夜逆にしたり
+いろいろ試しているかと思いますが、
+灯台下暗し。
+意外と本来の使い方していない可能性も…。
+
+「頑張っているのに変わらない」
+そう感じたら、一度プロの視点を足すだけでも違います。
+是非、担当美容師さんに相談してみてください。`,
+
+  wave_05: `くせを隠すより、
+活かしたほうがしっくりくる。
+そう感じるのも、とても自然です。
+
+今のくせに合わせて
+あえてデジタルパーマなどで動きを足してあげると、
+スタイルとして"完成度"が増します。
+整えて、活かす。それも立派な選択です。
+短くて、くるくる。可愛いですよね。
+クセそのものが個性なんですよ。
+個性を愛せるのも大切です。
+
+「活かしたいけど、似合うか不安」
+その迷いごと、担当美容師さんのところへ持っていってくださいね。`,
+
+  damage_01: `【今の状態】
+毛先に少し疲れが出ているサインですね。
+触ったときに気になると、少し残念な気持ちになりますよね。
+今の段階であれば、無理に美容院に行かなくても大丈夫そうです。
+
+日々のケアを少し丁寧にしてあげるだけで、手触りは十分に変わってきます。
+ご自宅では
+・週2回の集中トリートメント
+・シャンプーとコンディショナーの間に
+・粗目のコームで引っ張らず、やさしくなじませる
+この3つだけ意識してみてください。
+
+「ケアしても変わらないな」と感じたら、
+そのタイミングで一度ご相談くださいね。`,
+
+  damage_02: `【今の状態】
+きちんとケアしているのに…
+それ、少しもどかしいですよね。
+髪の中の栄養が抜け始めていて、
+ケアの"質"で差が出やすい状態です。
+
+週2回の集中トリートメントに加えて、
+乾かす前にミルクを毛先中心になじませ
+乾かした後のケア用オイルを
+内側からゆっくりなじませてあげてください。
+
+2週間ほど続けても実感が薄い場合は、
+一度プロのケアを挟むと、
+その後のお手入れがぐっと楽になります。`,
+
+  damage_03: `【今の状態】
+鏡を見るたび、つい目がいってしまいますよね。
+枝毛は、髪が少し裂けてしまっている状態なので、
+どうしても栄養が留まりにくくなります。
+
+長さを大きく変えなくても、
+気になる部分だけ整えるだけで、
+見た目も手触りもかなり楽になります。
+正直トリートメントは一時的なものになってしまうと思うので、
+アクロバティックに考えると
+クリアのマニキュアなどでコーティングがよいかと。
+
+「このまま伸ばしたい」「切るか迷う」
+どちらでも大丈夫です。
+迷ったままでも、担当美容師と相談してください。一度一緒に見て決めましょう。`,
+
+  damage_04: `【今の状態】
+腕もしんどいですし、
+眠い時間だと余計につらいですよね。
+
+乾きにくさは、
+髪の中に水分が残りやすくなっているサインです。
+この場合は、自宅ケアだけで頑張りすぎなくても大丈夫。
+一度、内部から整えてあげると、
+毎日のドライが驚くほど楽になります。
+水分がとどまってしまうところが増えてしまった証拠なので、
+原因がわかれば対処も可能です！
+
+「最近、急にまとまらなくなった」と感じたら、
+その変化が相談のタイミングです。`,
+
+  mind_01: `【気持ちの整理について】
+そう感じたことがある、という感覚は
+とても大切なものだと思います。
+髪や頭皮は人それぞれ違いますし、
+過去の経験があると
+「また同じことにならないかな」と
+ふと不安になるのは自然なことです。
+無理に前向きにならなくて大丈夫です。
+
+────────────────
+■ 頭皮が敏感で、刺激が怖いと感じる方へ
+刺激を抑えたカラー剤や事前に確認できるパッチテストのご相談が可能です。
+最近はノンジアミンカラー、ハラル認証を受けたカラー剤など、選択肢も増えています。
+ジアミンに反応しやすい方も、実はとても多いです。
+
+■ 以前、かゆみや違和感が出たことがある方へ
+体調やホルモンバランス、年齢による変化で
+以前は大丈夫だったものが合わなくなることもあります。
+施術中に少しでも違和感があれば遠慮なく伝えてください。
+根元につけない塗り分け、薬剤の変更など
+その場で対応できることもあります。（妊婦さんにも使える方法です）
+
+■ 継続的なカラーが負担に感じている方へ
+毎回同じ染め方をしなくても、大丈夫です。
+ハイライトを使って染める回数を減らす、
+バレイヤージュでグラデーションを楽しむ。
+根元を地毛に近づけることで、
+頭皮への負担を抑えながら長いスパンでカラーを楽しめます。
+────────────────
+「迷ったまま相談する」ことも選択肢のひとつです。
+今は知っておくだけ、でも大丈夫です。`,
+
+  mind_02: `【気持ちの整理について】
+そう思うようになったのは、
+今の自分をちゃんと大切にしようとしている証拠だと思います。
+
+似合う色を選びたい気持ちの奥には、
+「失敗したくない」「浮いて見えたらどうしよう」
+そんな小さな迷いが混ざることもありますよね。
+無理に決めきらなくて大丈夫です。
+
+────────────────
+■ リタッチカラー　変えたいわけではないけれど、整えたい方へ
+根元だけを整えることで、清潔感やまとまりは十分保てます。
+
+■ 全体カラー　今の自分に、少しだけスイッチを入れたい方へ
+肌の色や服のトーンに自然となじむ、「変えすぎない変化」をつくりやすい方法です。
+
+■ ハイライト　軽さはほしいけれど、主張しすぎたくない方へ
+自然な立体感。人とはちょっと違う、プチおしゃれを楽しみたい方に。
+
+■ バレイヤージュ　先の予定まで考えて、無理なく楽しみたい方へ
+根元からのグラデーション。頻繁に通えない方に選ばれる方法です。
+
+■ ポイントカラー　全部は変えたくない、という気分の方へ
+顔まわりなど一部だけ。「少しだけ遊びたい」気分のときに合います。
+
+■ 地毛に戻す　今は、足すより整えたいと感じている方へ
+あえて染めない選択も。地毛に戻す過程をきれいにつなぎます。
+────────────────
+どの方法も、「正解」や「流行」ではなく、
+今のあなたが心地よくいられるかどうかを大切な軸にして選んでいいものです。
+迷いながら選ぶことも、とても自然なプロセスです。`,
+
+  mind_03: `【気持ちの整理について】
+迷う、という感覚は
+今の自分を雑に扱っていない証拠だと思います。
+「変えたい気持ち」と「今を大切にしたい気持ち」。
+どちらがあっても、間違いではありません。
+
+────────────────
+ほんの少し整えるだけでいい気がする
+→「ポイントカット（毛先のみ）」で十分です。
+必要以上に切らなくても、清潔感や扱いやすさは戻ります。
+
+気分は変えたいけど、長さは守りたい
+→ 量調整／前髪・顔まわりのポイントカット。
+見えるところだけを整えると、印象は思った以上に軽くなります。
+
+切るかどうかも含めて、話してから決めたい
+→ 相談だけして、決めないという選択もあります。
+今が心地いいなら、無理に変える必要はありません。
+────────────────
+今は、大きく変えなくても大丈夫です。
+「こういうやり方もある」と知るだけで、
+気持ちは自然と落ち着きます。
+あなたのペースで、あなたに合うところからで大丈夫です。`,
+
+  mind_04: `【気持ちの整理について】
+美容院って、行きたい気持ちはあるのに
+「なんとなく気が重い」
+そんな日もありますよね。
+それって決して "変" なんかじゃなく、
+環境や過去の体験が心に積み重なっているだけかもしれません。
+
+────────────────
+雑談や人との距離がしんどい
+→「静かに過ごしたい」と、最初にだけ伝えておくことで
+気持ちがぐっと楽になります。
+美容師側もそう言ってもらえると助かるんです。
+
+前回の対応がしっくりこなかった
+→「不安なことがあるんです」と一言添えるだけで、
+美容師の対応が変わることもあります。
+僕はそう言ってもらえたら、聞きたくなります！
+
+環境や雰囲気が落ち着かない
+→ 静かな時間帯の予約、席の配置を変えてもらう、
+少し照明の調整を頼む。
+ちょっとした工夫で過ごしやすさは変わります。
+────────────────
+どんな不安も "普通のこと" です。
+美容院は「気持ちよく、安心して任せられる場所」であるべきです。
+
+迷っているのは、あなたが心地よさを大切にしているから。
+それだけで十分価値のある感覚です。`
+};
+
+// ── Navigation ──
+function goTo(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(screenId);
+  target.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  updateProgress(screenId);
+}
+
+function updateProgress(screenId) {
+  const map = {
+    'screen-start': 0,
+    'screen-q1': 20,
+    'screen-q2': 45,
+    'screen-q3': 68,
+    'screen-email': 85,
+    'screen-result': 100
+  };
+  document.getElementById('progressBar').style.width = (map[screenId] || 0) + '%';
+}
+
+// ── Q1 ──
+function selectQ1(key) {
+  q1Answer = key;
+  renderQ2(key);
+  goTo('screen-q2');
+}
+
+// ── Q2 ──
+function renderQ2(key) {
+  const data = q2Data[key];
+  document.getElementById('q2-text').innerHTML = data.text;
+  const container = document.getElementById('q2-options');
+  container.innerHTML = '';
+  data.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="option-main">${opt.main}</span><span class="option-sub">${opt.sub}</span>`;
+    btn.onclick = () => selectQ2(opt.key);
+    container.appendChild(btn);
+  });
+}
+
+function selectQ2(key) {
+  q2Answer = key;
+  goTo('screen-q3');
+}
+
+// ── Q3 ──
+function selectQ3(key) {
+  q3Answer = key;
+  goTo('screen-email');
+}
+
+// ── Show Result ──
+function showResult() {
+  const emailEl = document.getElementById('emailInput');
+  const email = emailEl ? emailEl.value.trim() : '';
+
+  // Render technic result
+  const technicText = results[q2Answer] || '';
+  document.getElementById('result-technic').textContent = technicText;
+
+  // Render mind result
+  const mindText = results[q3Answer] || '';
+  document.getElementById('result-mind').textContent = mindText;
+
+  // Email notice
+  const sentArea = document.getElementById('email-sent-area');
+  if (email && email.includes('@')) {
+    sentArea.innerHTML = `<div class="email-sent-notice">
+      ご入力いただいたアドレスへ、この結果をお送りします。<br>
+      <strong style="color:var(--accent);">${email}</strong>
+    </div>`;
+    sendEmail(email, technicText, mindText);
+  }
+
+  goTo('screen-result');
+}
+
+// ── Restart ──
+function restartDiagnosis() {
+  q1Answer = '';
+  q2Answer = '';
+  q3Answer = '';
+  document.getElementById('emailInput').value = '';
+  document.getElementById('email-sent-area').innerHTML = '';
+  goTo('screen-start');
+}
+
+// ── Send Email (GAS) ──
+async function sendEmail(email, technic, mind) {
+  const GAS_URL = 'https://script.google.com/macros/s/YOUR_GAS_ENDPOINT/exec';
+  try {
+    await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        q1: q1Answer,
+        q2: q2Answer,
+        q3: q3Answer,
+        technic: technic,
+        mind: mind,
+        timestamp: new Date().toISOString()
+      })
+    });
+  } catch(e) {
+    console.log('Email send skipped:', e);
+  }
+}
+</script>
+</body>
+</html>
