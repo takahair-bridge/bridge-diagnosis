@@ -1434,12 +1434,11 @@ function restartDiagnosis() {
   goTo('screen-start');
 }
 
-// ── GAS送信（キーのみ・スプレッドシート記録） ──
+// ── GAS送信（Imageタグ方式・CORS完全回避） ──
 function sendToGAS(q1, q2, q3) {
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbzf74GxE_smsfaKLZUVJHJheiZifzgxee2iS0rILNps33SvEgBaKcqVe4D9vnsJXKz4/exec';
   const params  = new URLSearchParams({ q1: q1, q2: q2, q3: q3 });
-  fetch(`${GAS_URL}?${params.toString()}`, { method: 'GET', mode: 'no-cors' })
-    .catch(e => console.log('GAS送信エラー（無視可）:', e));
+  new Image().src = `${GAS_URL}?${params.toString()}`;
 }
 </script>
 </body>
