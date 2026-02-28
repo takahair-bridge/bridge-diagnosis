@@ -576,8 +576,7 @@
     </div>
     <div class="start-deco"></div>
     <div class="start-note">
-      所要時間：約1〜2分<br>
-      回答はメールで受け取ることができます（任意）
+      所要時間：約1〜2分
     </div>
     <button class="btn-primary" onclick="goTo('screen-q1')">はじめる</button>
   </div>
@@ -645,22 +644,7 @@
   </div>
 </div>
 
-<!-- ── Screen 4: Email ── -->
-<div class="screen" id="screen-email">
-  <div class="q-number">最後に</div>
-  <div class="q-text">結果をメールで<br>受け取りますか？</div>
-  <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
-  <div class="email-intro">
-    あとで読み返したい方は、メールアドレスをどうぞ。<br>
-    入力しなくても、結果はこのページでご覧いただけます。
-  </div>
-  <div class="email-wrap">
-    <label class="email-label" for="emailInput">email address</label>
-    <input type="email" id="emailInput" placeholder="example@mail.com">
-  </div>
-  <button class="btn-primary" onclick="showResult()">結果を見る</button>
-  <span class="email-skip" onclick="showResult()">メールは不要です。このまま結果を見る</span>
-</div>
+
 
 <!-- ── Screen 5: Result ── -->
 <div class="screen" id="screen-result">
@@ -696,9 +680,7 @@
     <div class="result-card-body" id="result-mind"></div>
   </div>
 
-  <div id="email-sent-area"></div>
 
-  <div class="signature">
     <div class="sig-line"></div>
     <div class="sig-copy">
       答えに迷いながらも、<br>
@@ -1391,8 +1373,7 @@ function updateProgress(screenId) {
     'screen-start': 0,
     'screen-q1': 20,
     'screen-q2': 45,
-    'screen-q3': 68,
-    'screen-email': 85,
+    'screen-q3': 70,
     'screen-result': 100
   };
   document.getElementById('progressBar').style.width = (map[screenId] || 0) + '%';
@@ -1428,31 +1409,19 @@ function selectQ2(key) {
 // ── Q3 ──
 function selectQ3(key) {
   q3Answer = key;
-  goTo('screen-email');
+  showResult();
 }
 
 // ── Show Result ──
 function showResult() {
-  const emailEl = document.getElementById('emailInput');
-  const email = emailEl ? emailEl.value.trim() : '';
-
-  // Render technic result
+  // 結果テキスト表示
   const technicText = results[q2Answer] || '';
+  const mindText    = results[q3Answer] || '';
   document.getElementById('result-technic').textContent = technicText;
+  document.getElementById('result-mind').textContent    = mindText;
 
-  // Render mind result
-  const mindText = results[q3Answer] || '';
-  document.getElementById('result-mind').textContent = mindText;
-
-  // Email notice
-  const sentArea = document.getElementById('email-sent-area');
-  if (email && email.includes('@')) {
-    sentArea.innerHTML = `<div class="email-sent-notice">
-      ご入力いただいたアドレスへ、この結果をお送りします。<br>
-      <strong style="color:var(--accent);">${email}</strong>
-    </div>`;
-    sendEmail(email, technicText, mindText);
-  }
+  // GASへキーだけ送信（スプレッドシート記録）
+  sendToGAS(q1Answer, q2Answer, q3Answer);
 
   goTo('screen-result');
 }
@@ -1462,31 +1431,15 @@ function restartDiagnosis() {
   q1Answer = '';
   q2Answer = '';
   q3Answer = '';
-  document.getElementById('emailInput').value = '';
-  document.getElementById('email-sent-area').innerHTML = '';
   goTo('screen-start');
 }
 
-// ── Send Email (GAS) ──
-async function sendEmail(email, technic, mind) {
-  const GAS_URL = 'https://script.google.com/macros/s/YOUR_GAS_ENDPOINT/exec';
-  try {
-    await fetch(GAS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email,
-        q1: q1Answer,
-        q2: q2Answer,
-        q3: q3Answer,
-        technic: technic,
-        mind: mind,
-        timestamp: new Date().toISOString()
-      })
-    });
-  } catch(e) {
-    console.log('Email send skipped:', e);
-  }
+// ── GAS送信（キーのみ・スプレッドシート記録） ──
+function sendToGAS(q1, q2, q3) {
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbzf74GxE_smsfaKLZUVJHJheiZifzgxee2iS0rILNps33SvEgBaKcqVe4D9vnsJXKz4/exec';
+  const params  = new URLSearchParams({ q1: q1, q2: q2, q3: q3 });
+  fetch(`${GAS_URL}?${params.toString()}`, { method: 'GET', mode: 'no-cors' })
+    .catch(e => console.log('GAS送信エラー（無視可）:', e));
 }
 </script>
 </body>
