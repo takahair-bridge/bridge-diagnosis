@@ -226,6 +226,89 @@
     letter-spacing: 0.15em;
   }
 
+  /* ── Buttons ── */
+  .btn-primary {
+    display: block; width: 100%;
+    background: var(--accent); color: #f8f4ef;
+    border: none; border-radius: 3px; padding: 18px 24px;
+    font-family: var(--font-serif); font-size: 13px;
+    letter-spacing: 0.15em; cursor: pointer;
+    transition: all 0.25s; text-align: center;
+  }
+  .btn-primary:hover { background: #1c3349; transform: translateY(-1px); }
+  .btn-gold {
+    display: block; width: 100%;
+    background: transparent; color: var(--gold);
+    border: 1.5px solid var(--gold); border-radius: 3px; padding: 16px 24px;
+    font-family: var(--font-serif); font-size: 13px;
+    letter-spacing: 0.15em; cursor: pointer;
+    transition: all 0.25s; text-align: center;
+  }
+  .btn-gold:hover { background: var(--gold); color: var(--bg); }
+
+  /* ── Result Intro ── */
+  .result-intro { text-align: center; padding: 16px 0 24px; }
+  .result-tag {
+    display: inline-block; font-family: var(--font-serif);
+    font-size: 10px; letter-spacing: 0.25em; color: var(--gold);
+    border: 1px solid var(--gold); padding: 4px 14px;
+    border-radius: 2px; margin-bottom: 16px;
+  }
+  .result-heading {
+    font-family: var(--font-serif); font-size: 20px;
+    font-weight: 500; color: var(--accent);
+    line-height: 1.6; margin-bottom: 10px; letter-spacing: 0.05em;
+  }
+  .result-sub {
+    font-family: var(--font-serif); font-size: 12px;
+    color: var(--ink-light); line-height: 1.9;
+  }
+
+  /* ── Result Card ── */
+  .result-card {
+    background: #fff; border: 1.5px solid var(--line);
+    border-radius: 4px; margin-bottom: 16px; overflow: hidden;
+  }
+  .result-card-header {
+    background: var(--accent); color: #f8f4ef;
+    padding: 12px 22px; font-family: var(--font-serif);
+    font-size: 11px; letter-spacing: 0.2em;
+  }
+  .result-card-body {
+    padding: 20px 22px; font-family: var(--font-serif);
+    font-size: 13px; color: var(--ink-light);
+    line-height: 2; white-space: pre-line;
+  }
+
+  /* ── Result Divider ── */
+  .result-divider {
+    text-align: center; padding: 8px 0 16px;
+    font-family: var(--font-serif); font-size: 18px;
+    color: var(--gold); opacity: 0.5;
+  }
+
+  /* ── Signature ── */
+  .signature { padding: 32px 0 24px; text-align: center; }
+  .sig-line {
+    width: 32px; height: 1px;
+    background: var(--gold); margin: 0 auto 24px;
+  }
+  .sig-copy {
+    font-family: var(--font-serif); font-size: 13px;
+    color: var(--ink-light); line-height: 2;
+    margin-bottom: 16px;
+  }
+  .sig-name {
+    font-family: var(--font-serif); font-size: 12px;
+    letter-spacing: 0.25em; color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .sig-link {
+    font-family: var(--font-serif); font-size: 11px;
+    color: var(--ink-light); text-decoration: underline;
+    text-underline-offset: 3px; opacity: 0.6;
+  }
+
   /* ── Product Link Block ── */
   .product-link-block {
     background: var(--cream);
@@ -352,9 +435,10 @@
     <div class="start-deco"></div>
     <div class="start-note">
       所要時間：約1〜2分<br>
-      回答はメールで受け取ることができます（任意）
+      直感でお答えください<br><br>
+      bridge　TAKA
     </div>
-    <button class="btn-primary" onclick="goTo('screen-q1')">はじめる</button>
+    <button class="btn-primary" onclick="goTo('screen-q1')">診断をはじめる</button>
   </div>
 </div>
 
@@ -457,20 +541,23 @@
   <div class="signature">
     <div class="sig-line"></div>
     <div class="sig-copy">
-      気づいてくれたこと、それだけでもう十分です。<br><br>
-      「なんとなく気になる」という感覚は、<br>
-      正直でとても大切なサインです。<br><br>
-      そのまま次のステップに持っていってください。<br>
-      あなたのペースで、一緒に整えていきましょう。
+      答えに迷いながらも、<br>
+      ここまで来てくれたこと自体が<br>
+      自分の髪を大切にしている証拠だと思っています。<br><br>
+      焦らなくて大丈夫です。<br>
+      あなたのペースで、あなたらしく。
     </div>
     <div class="sig-name">bridge &nbsp; TAKA</div>
+    <a class="sig-link" href="https://www.personalhairstylist.info/infomation" target="_blank" rel="noopener">
+      bridgeについて詳しくはこちら →
+    </a>
   </div>
 
   <div class="result-nav">
-    <a href="https://lin.ee/KR1qGTc" target="_blank" rel="noopener" class="btn-primary" style="margin-bottom:16px;text-decoration:none;display:block;text-align:center;">
+    <a href="https://lin.ee/KR1qGTc" target="_blank" rel="noopener" class="btn-primary" style="margin-bottom:12px;text-decoration:none;display:block;text-align:center;">
       LINEで予約・相談する
     </a>
-    <button class="btn-gold" onclick="restartDiagnosis()" style="margin-bottom:16px;">
+    <button class="btn-gold" onclick="restartDiagnosis()" style="margin-bottom:12px;">
       もう一度診断する
     </button>
     <div class="result-nav-links">
