@@ -11,12 +11,12 @@
   :root {
     --bg: #f8f4ef;
     --ink: #181410;
-    --ink-light: #5a4a3a;
-    --accent: #5a3a24;
+    --ink-light: #3a4a5a;
+    --accent: #2a4a6a;
     --gold: #b8953a;
     --gold-light: #d4b06a;
-    --cream: #f0ebe3;
-    --line: rgba(90,58,36,0.15);
+    --cream: #edf0f4;
+    --line: rgba(42,74,106,0.15);
     --font-serif: 'Noto Serif JP', serif;
     --font-mincho: 'Zen Old Mincho', serif;
   }
@@ -277,7 +277,7 @@
     text-align: center;
   }
   .btn-primary:hover {
-    background: #3d2618;
+    background: #1c3349;
     transform: translateY(-1px);
   }
   .btn-gold {
@@ -558,7 +558,7 @@
 
 <!-- Header -->
 <div class="header">
-  <div class="header-step"><span style="text-transform:none;">bridge</span> · DIAGNOSIS · 02</div>
+  <div class="header-step">STEP 02</div>
   <div class="header-title">今の髪、整理してみよう。</div>
   <div class="header-line"></div>
 </div>
@@ -576,7 +576,8 @@
     </div>
     <div class="start-deco"></div>
     <div class="start-note">
-      所要時間：約1〜2分
+      所要時間：約1〜2分<br>
+      回答はメールで受け取ることができます（任意）
     </div>
     <button class="btn-primary" onclick="goTo('screen-q1')">はじめる</button>
   </div>
@@ -644,7 +645,22 @@
   </div>
 </div>
 
-
+<!-- ── Screen 4: Email ── -->
+<div class="screen" id="screen-email">
+  <div class="q-number">最後に</div>
+  <div class="q-text">結果をメールで<br>受け取りますか？</div>
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+  <div class="email-intro">
+    あとで読み返したい方は、メールアドレスをどうぞ。<br>
+    入力しなくても、結果はこのページでご覧いただけます。
+  </div>
+  <div class="email-wrap">
+    <label class="email-label" for="emailInput">email address</label>
+    <input type="email" id="emailInput" placeholder="example@mail.com">
+  </div>
+  <button class="btn-primary" onclick="showResult()">結果を見る</button>
+  <span class="email-skip" onclick="showResult()">メールは不要です。このまま結果を見る</span>
+</div>
 
 <!-- ── Screen 5: Result ── -->
 <div class="screen" id="screen-result">
@@ -680,23 +696,25 @@
     <div class="result-card-body" id="result-mind"></div>
   </div>
 
+  <div id="email-sent-area"></div>
 
+  <div class="signature">
     <div class="sig-line"></div>
     <div class="sig-copy">
-      答えに迷いながらも、<br>
-      ここまで来てくれたこと自体が<br>
-      自分の髪を大切にしている証拠だと思っています。<br><br>
-      焦らなくて大丈夫です。<br>
-      あなたのペースで、あなたらしく。
+      気づいてくれたこと、それだけでもう十分です。<br><br>
+      「なんとなく気になる」という感覚は、<br>
+      正直でとても大切なサインです。<br><br>
+      そのまま次のステップに持っていってください。<br>
+      あなたのペースで、一緒に整えていきましょう。
     </div>
     <div class="sig-name">bridge &nbsp; TAKA</div>
-    <a class="sig-link" href="https://www.personalhairstylist.info/infomation" target="_blank" rel="noopener">
-      bridgeについて詳しくはこちら →
-    </a>
   </div>
 
   <div class="result-nav">
-    <button class="btn-primary" onclick="restartDiagnosis()" style="margin-bottom:12px;">
+    <a href="https://lin.ee/KR1qGTc" target="_blank" rel="noopener" class="btn-primary" style="margin-bottom:16px;text-decoration:none;display:block;text-align:center;">
+      LINEで予約・相談する
+    </a>
+    <button class="btn-gold" onclick="restartDiagnosis()" style="margin-bottom:16px;">
       もう一度診断する
     </button>
     <div class="result-nav-links">
@@ -704,9 +722,9 @@
         <span class="result-nav-label">STEP 01</span>
         <span class="result-nav-name">美容師に言えていないことチェック</span>
       </a>
-      <a href="#" class="result-nav-link result-nav-link--disabled">
+      <a href="https://takahair-bridge.github.io/bridge-diagnosis/step3.html" class="result-nav-link">
         <span class="result-nav-label">STEP 03</span>
-        <span class="result-nav-name">準備中</span>
+        <span class="result-nav-name">自分らしいヘアケア診断</span>
       </a>
     </div>
   </div>
@@ -1373,7 +1391,8 @@ function updateProgress(screenId) {
     'screen-start': 0,
     'screen-q1': 20,
     'screen-q2': 45,
-    'screen-q3': 70,
+    'screen-q3': 68,
+    'screen-email': 85,
     'screen-result': 100
   };
   document.getElementById('progressBar').style.width = (map[screenId] || 0) + '%';
@@ -1409,19 +1428,31 @@ function selectQ2(key) {
 // ── Q3 ──
 function selectQ3(key) {
   q3Answer = key;
-  showResult();
+  goTo('screen-email');
 }
 
 // ── Show Result ──
 function showResult() {
-  // 結果テキスト表示
-  const technicText = results[q2Answer] || '';
-  const mindText    = results[q3Answer] || '';
-  document.getElementById('result-technic').textContent = technicText;
-  document.getElementById('result-mind').textContent    = mindText;
+  const emailEl = document.getElementById('emailInput');
+  const email = emailEl ? emailEl.value.trim() : '';
 
-  // GASへキーだけ送信（スプレッドシート記録）
-  sendToGAS(q1Answer, q2Answer, q3Answer);
+  // Render technic result
+  const technicText = results[q2Answer] || '';
+  document.getElementById('result-technic').textContent = technicText;
+
+  // Render mind result
+  const mindText = results[q3Answer] || '';
+  document.getElementById('result-mind').textContent = mindText;
+
+  // Email notice
+  const sentArea = document.getElementById('email-sent-area');
+  if (email && email.includes('@')) {
+    sentArea.innerHTML = `<div class="email-sent-notice">
+      ご入力いただいたアドレスへ、この結果をお送りします。<br>
+      <strong style="color:var(--accent);">${email}</strong>
+    </div>`;
+    sendEmail(email, technicText, mindText);
+  }
 
   goTo('screen-result');
 }
@@ -1431,14 +1462,31 @@ function restartDiagnosis() {
   q1Answer = '';
   q2Answer = '';
   q3Answer = '';
+  document.getElementById('emailInput').value = '';
+  document.getElementById('email-sent-area').innerHTML = '';
   goTo('screen-start');
 }
 
-// ── GAS送信（Imageタグ方式・CORS完全回避） ──
-function sendToGAS(q1, q2, q3) {
-  const GAS_URL = 'https://script.google.com/macros/s/AKfycbzf74GxE_smsfaKLZUVJHJheiZifzgxee2iS0rILNps33SvEgBaKcqVe4D9vnsJXKz4/exec';
-  const params  = new URLSearchParams({ q1: q1, q2: q2, q3: q3 });
-  new Image().src = `${GAS_URL}?${params.toString()}`;
+// ── Send Email (GAS) ──
+async function sendEmail(email, technic, mind) {
+  const GAS_URL = 'https://script.google.com/macros/s/YOUR_GAS_ENDPOINT/exec';
+  try {
+    await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        q1: q1Answer,
+        q2: q2Answer,
+        q3: q3Answer,
+        technic: technic,
+        mind: mind,
+        timestamp: new Date().toISOString()
+      })
+    });
+  } catch(e) {
+    console.log('Email send skipped:', e);
+  }
 }
 </script>
 </body>

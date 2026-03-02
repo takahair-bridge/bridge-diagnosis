@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>言えていないこと診断 | bridge TAKA</title>
+
+<!-- 基本meta -->
+<meta name="description" content="美容室で「うまく伝えられなかった」「なんか違う気がした」——その気持ちの正体を言語化する診断です。全8問・約3分。bridge TAKAが、あなたの言えていないことを一緒に見つけます。">
+<meta name="keywords" content="美容室,ヘア診断,言えていないこと,bridge TAKA,カウンセリング,ヘアケア,美容師">
+<meta name="author" content="bridge TAKA">
+<meta name="robots" content="index, follow">
+
+<!-- OGP（LINE・SNSシェア用） -->
+<meta property="og:title" content="美容室で言えなかった気持ち、ありますか？｜言えていないこと診断">
+<meta property="og:description" content="「うまく伝えられなかった」「なんか違う気がした」——その気持ちの正体を、全8問で言語化します。bridge TAKAが、あなたと美容師の間に橋をかけます。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="bridge TAKA">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="美容室で言えなかった気持ち、ありますか？｜言えていないこと診断">
+<meta name="twitter:description" content="「うまく伝えられなかった」「なんか違う気がした」——その気持ちの正体を、全8問で言語化します。bridge TAKAが、あなたと美容師の間に橋をかけます。">
+
+<!-- 構造化データ（AI・検索エンジン向け） -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Quiz",
+  "name": "言えていないこと診断",
+  "description": "美容室で言えなかった気持ちの正体を言語化する診断コンテンツ。全8問・約3分。美容師とのコミュニケーションに悩む30代〜50代女性に向けて、bridge TAKAが設計。",
+  "author": {
+    "@type": "Person",
+    "name": "bridge TAKA",
+    "url": "https://www.personalhairstylist.info"
+  },
+  "educationalUse": "self-assessment",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "美容室に通う女性・30代〜50代"
+  },
+  "about": [
+    { "@type": "Thing", "name": "美容室コミュニケーション" },
+    { "@type": "Thing", "name": "ヘアケア" },
+    { "@type": "Thing", "name": "自己理解" }
+  ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Zen+Old+Mincho:wght@400;700&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* フォント読み込み失敗時のフォールバック */
+:root {
+  --font-serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-sans: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  --font-old: 'Zen Old Mincho', 'Hiragino Mincho ProN', serif;
+}
+</style>
+<style>
+  :root {
+    --bg: #f8f4ef;
+    --surface: #fffcf9;
+    --surface2: #f2ede7;
+    --ink: #181410;
+    --ink-soft: #342e27;
+    --muted: #6b5f54;
+    --accent: #5a3a24;
+    --accent-mid: #8a5e42;
+    --accent-light: #a8845e;
+    --accent-pale: #eddec9;
+    --border: #cfc4b6;
+    --gold: #b8953a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { font-size: 16px; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    min-height: 100vh;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 上部の細いゴールドライン */
+  body::before {
+    content: '';
+    display: block;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+  }
+
+  .wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 28px 100px;
+  }
+
+  /* ===== SCREENS ===== */
+  .screen { display: none; }
+  .screen.active {
+    display: block;
+    animation: emerge 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+  }
+  @keyframes emerge {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== TOP ===== */
+  #top { padding-top: 72px; }
+
+  .brand-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 56px;
+  }
+  .brand-line::before,
+  .brand-line::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .brand-name {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.55em;
+    color: var(--accent-light);
+    white-space: nowrap;
+    text-transform: none;
+  }
+
+  .top-catch {
+    font-family: var(--font-serif);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: clamp(26px, 6.5vw, 38px);
+    line-height: 1.65;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    margin-bottom: 36px;
+  }
+
+  h1 .accent-word {
+    color: var(--accent);
+    position: relative;
+    display: inline;
+  }
+  h1 .accent-word::after {
+    content: '';
+    position: absolute;
+    bottom: 3px; left: 0; right: 0;
+    height: 1px;
+    background: var(--accent-light);
+  }
+
+  .top-lead {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px 32px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .top-lead::before {
+    content: '"';
+    font-family: var(--font-serif);
+    font-size: 64px;
+    color: var(--accent-pale);
+    position: absolute;
+    top: 8px; left: 20px;
+    line-height: 1;
+  }
+  .top-lead p {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    padding-top: 20px;
+  }
+  .top-lead p strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .taka-block {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 20px;
+    background: var(--surface2);
+    padding: 28px 28px;
+    margin-bottom: 40px;
+    border-left: 3px solid var(--accent-light);
+  }
+
+  .avatar {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--accent-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .taka-inner {}
+  .taka-from {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--accent-light);
+    display: block;
+    margin-bottom: 10px;
+    text-transform: none;
+  }
+  .taka-words {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .info-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: nowrap;
+    margin-bottom: 44px;
+    overflow-x: auto;
+  }
+  .info-tag {
+    font-size: 10px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 5px 10px;
+    letter-spacing: 0.05em;
+    background: var(--surface);
+    white-space: nowrap;
+  }
+
+  .start-btn {
+    display: block;
+    width: 100%;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    padding: 24px 40px;
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: background 0.35s ease;
+    position: relative;
+    text-align: left;
+  }
+  .start-btn .btn-arrow {
+    position: absolute;
+    right: 32px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    opacity: 0.5;
+    transition: all 0.35s ease;
+  }
+  .start-btn:hover { background: var(--accent); }
+  .start-btn:hover .btn-arrow { opacity: 1; right: 26px; }
+
+  /* ===== QUIZ ===== */
+  #quiz { padding-top: 52px; }
+
+  .q-header {
+    margin-bottom: 52px;
+  }
+
+  .progress-track {
+    height: 2px;
+    background: var(--border);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-light), var(--gold));
+    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .q-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .phase-name {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--accent-light);
+    text-transform: uppercase;
+  }
+
+  .q-counter {
+    font-family: var(--font-serif);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .q-large-num {
+    font-family: var(--font-old);
+    font-size: 72px;
+    font-weight: 400;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: -4px;
+    letter-spacing: -0.02em;
+  }
+
+  .q-text {
+    font-family: var(--font-serif);
+    font-size: clamp(17px, 4vw, 22px);
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .q-note {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    letter-spacing: 0.05em;
+  }
+
+  .choices { display: flex; flex-direction: column; gap: 12px; }
+
+  .choice-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    width: 100%;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .choice-card-inner {
+    padding: 22px 24px 22px 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .choice-letter {
+    width: 32px; height: 32px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+    margin-top: 2px;
+  }
+
+  .choice-content { flex: 1; }
+
+  .choice-main-text {
+    display: block;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    font-weight: 300;
+    margin-bottom: 4px;
+    letter-spacing: 0.03em;
+  }
+
+  .choice-sub-text {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    display: block;
+    line-height: 1.6;
+  }
+
+  .choice-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent-light);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+    transform-origin: bottom;
+  }
+
+  .choice-card:hover {
+    border-color: var(--accent-light);
+    background: var(--surface2);
+  }
+  .choice-card:hover::before { transform: scaleY(1); }
+  .choice-card:hover .choice-letter {
+    border-color: var(--accent-light);
+    color: var(--accent);
+  }
+
+  /* ===== RESULT ===== */
+  #result { padding-top: 56px; }
+
+  .result-header {
+    margin-bottom: 44px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .result-vol {
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .result-type-name {
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 5.5vw, 34px);
+    font-weight: 700;
+    line-height: 1.55;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .result-type-sub {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    line-height: 1.7;
+  }
+
+  .r-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 32px 32px;
+    margin-bottom: 16px;
+  }
+
+  .r-card-label {
+    font-size: 10px;
+    letter-spacing: 0.45em;
+    color: var(--accent-light);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .r-card-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .r-card-title {
+    font-family: var(--font-serif);
+    font-size: 16.5px;
+    font-weight: 500;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+  }
+
+  .r-card-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    letter-spacing: 0.03em;
+  }
+  .r-card-body strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .taka-result-block {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-mid) 100%);
+    padding: 36px 32px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .taka-result-block::after {
+    content: '"';
+    font-family: var(--font-serif);
+    font-size: 120px;
+    color: rgba(255,255,255,0.07);
+    position: absolute;
+    bottom: -20px; right: 16px;
+    line-height: 1;
+  }
+
+  .taka-result-label {
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    color: rgba(255,255,255,0.5);
+    text-transform: none;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .taka-result-text {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.04em;
+    position: relative;
+    z-index: 1;
+  }
+
+  .steps-section { margin-bottom: 16px; }
+
+  .steps-label {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: var(--muted);
+    margin-bottom: 12px;
+    display: block;
+    text-transform: uppercase;
+  }
+
+  .step-link {
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.25s ease;
+    gap: 20px;
+  }
+  .step-link:hover { border-color: var(--accent-light); background: var(--surface2); }
+
+  .step-num-badge {
+    width: 36px; height: 36px;
+    background: var(--accent-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-num-badge span {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .step-info { flex: 1; }
+  .step-no {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--accent-light);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .step-title {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+  }
+
+  .step-arrow {
+    color: var(--border);
+    font-size: 16px;
+    transition: all 0.25s ease;
+  }
+  .step-link:hover .step-arrow { color: var(--accent-light); transform: translateX(4px); }
+
+  .links-area { margin-bottom: 16px; }
+
+  .links-note {
+    font-size: 11.5px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 16px;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+  }
+
+  .link-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .link-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    transition: all 0.25s ease;
+  }
+  .link-item:hover { border-color: var(--accent-light); color: var(--accent); background: var(--surface2); }
+  .link-item .icon { font-size: 20px; }
+
+  .retry-btn {
+    display: block; width: 100%;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 18px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .retry-btn:hover { border-color: var(--ink-soft); color: var(--ink-soft); }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 0 20px 80px; }
+    h1 { font-size: 24px; line-height: 1.55; }
+    .top-lead { padding: 24px 20px; }
+    .top-lead p { font-size: 13.5px; line-height: 1.85; }
+    .taka-block { padding: 20px; gap: 14px; }
+    .taka-words { font-size: 13px; line-height: 1.85; }
+    .choice-card-inner { padding: 18px 16px; gap: 14px; }
+    .choice-main-text { font-size: 13.5px; line-height: 1.6; }
+    .choice-sub-text { font-size: 11.5px; }
+    .q-text { font-size: 17px; line-height: 1.7; }
+    .q-large-num { font-size: 52px; }
+    .r-card { padding: 24px 20px; }
+    .r-card-body { font-size: 13.5px; line-height: 1.95; }
+    .taka-result-block { padding: 28px 20px; }
+    .taka-result-text { font-size: 13.5px; line-height: 1.85; }
+    .link-grid { grid-template-columns: 1fr 1fr; }
+    .step-link { padding: 16px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== TOP ===== -->
+  <div id="top" class="screen active">
+    <div class="brand-line">
+      <span class="brand-name">bridge TAKA &nbsp;—&nbsp; diagnosis</span>
+    </div>
+
+    <p class="top-catch">自分でも気づいていない気持ちを、一緒に見つけます。</p>
+
+    <h1>
+      美容室で<br>
+      <span class="accent-word">言えなかった</span><br>
+      気持ち、ありますか？
+    </h1>
+
+    <div class="top-lead">
+      <p>
+        「なんとなく思っていたのと違う気がしたけど、<br>まあいいか」<br>
+        「本当はこうしたかったけど、<br>うまく伝えられなかった」<br>
+        「何が悩みなのか、自分でもよくわからない」<br><br>
+        そんな気持ちを、<strong>ずっと抱えていませんか？</strong><br><br>
+        それは、あなたのせいではありません。<br>
+        ただ、まだ言葉になっていないだけです。
+      </p>
+    </div>
+
+    <div class="taka-block">
+      <div class="avatar">T</div>
+      <div class="taka-inner">
+        <span class="taka-from">bridge TAKA より</span>
+        <p class="taka-words">
+          長年、現場で多くの方と向き合ってきて<br>気づいたことがあります。<br><br>「うまく話せない」のではなく、<br>「言葉にする機会がなかった」<br>だけなんです。<br><br>この診断が、<br>あなたと美容師の間に橋をかける<br>きっかけになれたら嬉しいです。
+        </p>
+      </div>
+    </div>
+
+    <div class="info-row">
+      <span class="info-tag">全 8 問</span>
+      <span class="info-tag">約 3 分</span>
+      <span class="info-tag">無料</span>
+      <span class="info-tag">直感でお答えください</span>
+    </div>
+
+    <button class="start-btn" onclick="startQuiz()">
+      診断をはじめる
+      <span class="btn-arrow">→</span>
+    </button>
+  </div>
+
+  <!-- ===== QUIZ ===== -->
+  <div id="quiz" class="screen">
+    <div class="q-header">
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width:12.5%"></div>
+      </div>
+      <div class="q-meta">
+        <span class="phase-name" id="phase-name">共感フェーズ</span>
+        <span class="q-counter" id="q-counter">1 / 8</span>
+      </div>
+    </div>
+
+    <div class="q-large-num" id="q-large-num">01</div>
+    <div class="q-text" id="q-text"></div>
+    <div class="q-note" id="q-note"></div>
+    <div class="choices" id="choices"></div>
+  </div>
+
+  <!-- ===== RESULT ===== -->
+  <div id="result" class="screen">
+    <div class="result-header">
+      <span class="result-vol">Your Result</span>
+      <div class="result-type-name" id="result-type-name"></div>
+      <div class="result-type-sub" id="result-type-sub"></div>
+    </div>
+
+    <div class="r-card">
+      <div class="r-card-label">あなたの「言えていないこと」</div>
+      <div class="r-card-title" id="r-core-title"></div>
+      <div class="r-card-body" id="r-core-body"></div>
+    </div>
+
+    <div class="taka-result-block">
+      <span class="taka-result-label">bridge TAKA より</span>
+      <p class="taka-result-text" id="r-taka"></p>
+    </div>
+
+    <div class="r-card">
+      <div class="r-card-label">次回、美容師に伝えてみてください</div>
+      <div class="r-card-body" id="r-action"></div>
+    </div>
+
+    <div class="steps-section">
+      <span class="steps-label">Next Step — 診断を続ける</span>
+      <a class="step-link" href="https://takahair-bridge.github.io/bridge-diagnosis/step2.html">
+        <div class="step-num-badge"><span>02</span></div>
+        <div class="step-info">
+          <span class="step-no">STEP 2</span>
+          <span class="step-title">今の髪、整理してみよう</span>
+        </div>
+        <span class="step-arrow">→</span>
+      </a>
+      <a class="step-link" href="https://takahair-bridge.github.io/bridge-diagnosis/step3.html">
+        <div class="step-num-badge"><span>03</span></div>
+        <div class="step-info">
+          <span class="step-no">STEP 3</span>
+          <span class="step-title">自分らしいヘアケア診断</span>
+        </div>
+        <span class="step-arrow">→</span>
+      </a>
+    </div>
+
+    <div class="links-area">
+      <a href="https://lin.ee/KR1qGTc" target="_blank" rel="noopener"
+        style="display:block;width:100%;background:var(--accent);color:var(--bg);border:none;padding:20px 32px;font-family:var(--font-serif);font-size:14px;font-weight:500;letter-spacing:0.2em;cursor:pointer;text-align:center;text-decoration:none;margin-bottom:16px;transition:background 0.3s ease;"
+        onmouseover="this.style.background='var(--accent-mid)'" onmouseout="this.style.background='var(--accent)'">
+        LINEで予約・相談する →
+      </a>
+      <p class="links-note">bridgeについて</p>
+      <div class="link-grid">
+        <a class="link-item" href="https://www.instagram.com/takahair_bridge/reels/" target="_blank">
+          <span class="icon">📷</span>Instagram
+        </a>
+        <a class="link-item" href="https://www.personalhairstylist.info/infomation" target="_blank">
+          <span class="icon">🌿</span>公式サイト
+        </a>
+        <a class="link-item" href="https://www.personalhairstylist.info/product" target="_blank">
+          <span class="icon">🧴</span>オンラインショップ
+        </a>
+        <a class="link-item" href="https://lin.ee/KR1qGTc" target="_blank">
+          <span class="icon">📅</span>予約・相談
+        </a>
+      </div>
+    </div>
+
+    <button class="retry-btn" onclick="retry()">もう一度診断する</button>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  {
+    phase: "共感フェーズ",
+    q: "美容室から帰った後、<br>こんな気持ちになったことはありますか？",
+    note: "直感で、一番近いものをお選びください。",
+    choices: [
+      { text: "なんとなく<br>思っていたのと違う気がしたけれど、<br>「まあいいか」と帰った", hint: "言えなかった、という感覚", scores: { C:2, D:1 } },
+      { text: "施術中ずっと<br>「これでよかったのかな」と<br>思っていたけれど、言い出せなかった", hint: "心の中で問い続けていた", scores: { A:2, C:1 } },
+      { text: "「何がしたいか」を聞かれて、<br>うまく言葉が出てこなかった", hint: "言葉にならない感覚", scores: { F:2, B:1 } },
+      { text: "特に不満はなかったけれど、<br>何か物足りない気がした", hint: "何かが足りない、でも何かは分からない", scores: { E:2, F:1 } },
+    ]
+  },
+  {
+    phase: "共感フェーズ",
+    q: "美容室へ向かうとき、<br>こんなことを感じたことがありますか？",
+    note: "「あるある」と感じるものをお選びください。",
+    choices: [
+      { text: "「今日、うまく伝えられるかな」と<br>少し緊張しながら向かった", hint: "行く前から不安がある", scores: { A:2, F:1 } },
+      { text: "「また同じ仕上がりになるだろうな」と<br>どこかで思っていた", hint: "変わらないことへの諦め", scores: { E:2, D:1 } },
+      { text: "「何をオーダーすればいいか」<br>が決まらないまま予約をした", hint: "決め方がわからない", scores: { B:2, F:1 } },
+      { text: "「お任せします」と言いたいけれど、<br>それでいいのか迷っていた", hint: "任せることへの不安", scores: { A:1, C:2 } },
+    ]
+  },
+  {
+    phase: "言語化フェーズ",
+    q: "髪の悩みを聞かれたとき、どんな感じになりますか？",
+    note: "正直な感覚でお選びください。",
+    choices: [
+      { text: "「広がる」「パサつく」くらいしか<br>言葉が出てこない", hint: "悩みを言葉にするのが難しい", scores: { B:3 } },
+      { text: "悩みはあるけれど、<br>原因の心当たりが複数あって絞れない", hint: "悩みが多すぎて整理できない", scores: { D:2, B:1 } },
+      { text: "なりたいイメージはあるのに、<br>それを言葉にできない", hint: "感覚はあるが言語化できない", scores: { C:2, F:1 } },
+      { text: "自分の髪がどういう状態なのか、<br>そもそくよく分からない", hint: "現状把握ができていない", scores: { D:3 } },
+    ]
+  },
+  {
+    phase: "言語化フェーズ",
+    q: "「何か気になることはありますか？」と<br>聞かれたとき、あなたは？",
+    note: "一番近い行動をお選びください。",
+    choices: [
+      { text: "気になることはあるのに、<br>「特にないです」と言ってしまう", hint: "本当のことが言えない", scores: { A:3 } },
+      { text: "「少し広がりが気になるかも…」と、<br>一番軽いことだけ言う", hint: "本当の悩みの手前で止まる", scores: { A:2, E:1 } },
+      { text: "全部話そうとして、<br>まとまりなく話してしまう", hint: "伝えたいがうまくまとまらない", scores: { B:2, D:1 } },
+      { text: "「お任せします」と言って、<br>全部委ねてしまう", hint: "伝えることを手放してしまう", scores: { F:2, C:1 } },
+    ]
+  },
+  {
+    phase: "深層フェーズ",
+    q: "「変えたい」という気持ちはあるのに、<br>踏み出せない理由は何でしょう？",
+    note: "心の奥に近いものをお選びください。",
+    choices: [
+      { text: "失敗したとき、後悔することが怖い", hint: "リスクを取ることへの恐怖", scores: { C:3 } },
+      { text: "「私の髪質ではどうせ無理」<br>という気持ちがある", hint: "自分の髪への諦め", scores: { E:3 } },
+      { text: "「自分に何が似合うのか」が<br>本当に分からない", hint: "似合うの基準が持てない", scores: { F:2, C:1 } },
+      { text: "変えたい気持ちより<br>「今のままでいいか」が勝ってしまう", hint: "変化への踏み出せなさ", scores: { D:2, E:1 } },
+    ]
+  },
+  {
+    phase: "深層フェーズ",
+    q: "「本当はこうしたいのに」と思いながら、<br>諦めていることがありますか？",
+    note: "もし心当たりがあれば、お選びください。",
+    choices: [
+      { text: "骨格や顔型のせいで似合わないと思い、<br>最初から諦めているスタイルがある", hint: "骨格への諦め", scores: { E:2, D:1 } },
+      { text: "ケアを変えたいが<br>何をどう変えればよいか分からず、<br>そのままにしている", hint: "ケア迷子の状態", scores: { B:3 } },
+      { text: "「イメチェンしたい」気持ちはあるが、<br>自分には難しいだろうと思っている", hint: "変化への諦め", scores: { C:2, F:1 } },
+      { text: "もっと相談したいのに、<br>時間を取らせて申し訳ないと遠慮している", hint: "遠慮による諦め", scores: { A:3 } },
+    ]
+  },
+  {
+    phase: "開放フェーズ",
+    q: "もし「何でも正直に話せる場所」<br>があったとしたら、一番伝えたいことは？",
+    note: "本音に近いものをお選びください。",
+    choices: [
+      { text: "「うまく言えないのですが、<br>こんな感じになりたくて…」という<br>曖昧な気持ちをちゃんと聞いてほしい", hint: "", scores: { F:3 } },
+      { text: "「実は以前、<br>少し違うなと思ったのですが…」という<br>言えなかった本音を伝えたい", hint: "", scores: { A:2, C:1 } },
+      { text: "「私の髪、本当はどんな状態なの？」という<br>素朴な疑問に向き合ってほしい", hint: "", scores: { D:2, B:1 } },
+      { text: "「私にはどんなスタイルが似合うのか」を<br>一緒に探してほしい", hint: "", scores: { E:2, F:1 } },
+    ]
+  },
+  {
+    phase: "開放フェーズ",
+    q: "美容室との「理想の関係」を<br>一言で表すとしたら？",
+    note: "最後の質問です。直感でお選びください。",
+    choices: [
+      { text: "「黙っていても分かってくれる」<br>——そんな安心感がほしい", hint: "", scores: { A:3 } },
+      { text: "「一緒に考えてくれる」<br>——そんな伴走者がほしい", hint: "", scores: { B:2, F:1 } },
+      { text: "「私の可能性を引き出してくれる」<br>——そんな存在がほしい", hint: "", scores: { C:2, E:1 } },
+      { text: "「何でも正直に言える」<br>——そんな関係がほしい", hint: "", scores: { D:1, A:1, F:1 } },
+    ]
+  },
+];
+
+const results = {
+  A: {
+    type: "「遠慮」が<br>言葉を飲み込んでいる",
+    sub: "Type A — 気持ちは十分あるんですね。<br>ただ、言い出せていないだけだと思います。",
+    coreTitle: "本当は言いたいことがある。<br>でも「迷惑をかけたくない」が<br>先に来てしまうのでは？",
+    coreBody: `あなたには、<br>美容師に伝えたい気持ちが確かにあります。<br>「こうしたい」<br>「これは違う気がした」<br>「もっと相談したい」<br>——その感覚は正しいんです。<br><br>でも、「時間を取らせて申し訳ない」<br>「言ったら感じが悪いかも」「また次回にしよう」<br>という<strong>遠慮の気持ち</strong>が、<br>毎回その言葉を飲み込んでしまっている<br>と思います。<br><br>その遠慮は、あなたの優しさから来ています。<br>でもその優しさが、あなた自身を<br>ずっと後回しにさせているかもしれません。`,
+    taka: `「遠慮しなくていいですよ」とお伝えしても、<br>遠慮してしまうのが人間ですよね。<br>だから言わせてください。<br>美容師はあなたの話を聞くために、<br>そこにいます。<br>時間を取らせているのではなく、<br>その時間こそが施術の一部です。<br>あなたの「言えなかったこと」を、<br>次回ぜひ持ってきてください。`,
+    action: `次回の来店前に、「一つだけ正直に伝えること」<br>を決めておきましょう。<br>全部でなくていい。一つだけでいい。<br>「実は以前、少し気になっていたのですが…」<br>——その一言から、関係は変わり始めます。`
+  },
+  B: {
+    type: "「言葉」が<br>まだ見つかっていないだけ",
+    sub: "Type B — 悩みはあるんだけど…。<br>ただ、言語化の道具がまだ手元にないの。",
+    coreTitle: "「うまく言えない」のではなく、<br>髪の悩みを言葉に変換する機会が<br>なかっただけだと思います。",
+    coreBody: `「広がる」「パサつく」<br>——それしか言葉が出てこないのは、<br>あなたの言葉の問題ではありません。<br>ヘアの悩みを言語化するための<br><strong>「変換する機会」</strong>がまだなかっただけです。<br><br>美容師は毎日、何十人もの方の<br>「言葉にならない悩み」を受け取り、<br>形にしています。<br>断片的な言葉でも、感覚的な表現でも、<br>それをくみ取るのがプロです。<br><br>「うまく言えないのですが…」という前置きで、<br>十分に伝わります。`,
+    taka: `「うまく話せなくて申し訳ありません」<br>と謝られることが、現場でも多いんです。<br>でも謝らなくていい。<br>「なんかこう…うまく言えないのですが」、<br>それで始めてください。<br>そこから一緒に言葉を探すことができます。<br>あなたの感覚は、必ず形にできます。`,
+    action: `次回の来店時、「うまく言えないのですが…」<br>と正直に切り出してみてください。<br>その後に続く断片的な言葉が、<br>実は一番大切な情報です。<br>本当に。<br>一枚だけ写真を用意していくのも、<br>言葉の代わりになります。`
+  },
+  C: {
+    type: "「失敗への恐れ」が<br>変化を止めている",
+    sub: "Type C — 変わりたい気持ちは本物。<br>ただ、怖さが先に来てしまうのかも。",
+    coreTitle: "「変えたい」という気持ちは、<br>ずっとある。でも失敗を想像すると、<br>一歩が出なくなってしまう。",
+    coreBody: `「こんなふうにしてみたい」「何か変えたいな」<br>——その気持ちは大切です。<br>でも、失敗したときのことを想像すると、<br>どうしても踏み出せなくなる。<br><br>その<strong>「怖さ」は正常な感覚</strong>です。<br>過去の経験や髪は顔の印象になるから、<br>慎重になるのは当然のことです。<br><br>ただ、今あなたが失っているのは<br>「変わらないことのリスク」かもしれません。<br>変えないまま時間が過ぎることも、<br>一つの選択だと思います。`,
+    taka: `「失敗が怖い」という気持ち、<br>すごくよく分かります。<br>だからこそ伝えたいのは、<br>失敗しない変え方があるということです。<br>一気に変えなくていい。「少しだけ試す」<br>という変え方もあります。<br>「ちょっとだけ変えてみたいのですが、怖くて」<br>と、正直に言ってみてください。<br>その怖さをちゃんと受け止めて、<br>一緒に進みます。`,
+    action: `「全部変える」ではなく「一部だけ試す」<br>という発想で考えてみましょう。<br>前髪だけ、毛先だけ、色味だけ少し<br>——小さな変化から始めると、怖さは減ります。<br>「ちょっとだけ変えてみたいのですが」<br>という一言を、<br>次回用意しておいてください。`
+  },
+  D: {
+    type: "「現状把握」が<br>できていないもどかしさ",
+    sub: "Type D — 悩みがあることは分かっているの。<br>でも、何が原因か分からないんです。",
+    coreTitle: "「なんか気になる」はある。でも、<br>それが髪質なのか、ケアなのか、<br>スタイルなのか、分からない。",
+    coreBody: `悩みはある。<br>でもその悩みの「原因」が分からないから、<br>何をどう相談すればいいかも分からない。<br>これはとても多い状態です。<br><br>「広がるのは、<br>くせ毛のせい？カットのせい？ケアのせい？」<br>——原因の仮説が立てられないと、<br><strong>悩みが悩みのまま堂々巡り</strong>してしまいます。<br><br>原因を特定するのは、美容師の仕事です。<br>あなたが「なぜ」まで分かっている必要は<br>ありませんし、頼っていいんです。`,
+    taka: `「何が原因か分からなくて」という言葉、<br>実はとても大事な情報です。<br>「どこが気になるか」だけ教えていただければ、<br>原因を探るのは私の仕事です。<br>「なんか気になるのですが、<br>原因が分からなくて」<br>——その一言で十分です。<br>一緒に整理しましょう。`,
+    action: `「どこが気になるか」だけを<br>一つ決めてきてください。<br>「広がりが気になる」「パサつきが気になる」<br>「なんとなくまとまらない」<br>——それだけで大丈夫です。<br>「なぜ」は考えてこなくていい。<br>それを一緒に探すのが、<br>コンサルテーション（カウンセリング）です。`
+  },
+  E: {
+    type: "「自分の髪への諦め」が<br>積み重なっている",
+    sub: "Type E — 本当はもっとできるはず。<br>でも、諦めが先に来てしまっている。",
+    coreTitle: "「私の髪だから、どうせ無理」——その言葉を、<br>知らずに自分に言い聞かせていませんか？",
+    coreBody: `骨格のせい、くせ毛のせい、量のせい——<br>「どうせ私の髪では無理」という言葉が、<br>いつの間にか心に定着してしまっている。<br><br>でもその「諦め」は、<br>本当に正しいのでしょうか？<br>それは<strong>過去の体験からくる思い込み</strong>かもしれません。<br><br>技術も、素材への理解も、年々変わっています。<br>一度、その「諦め」を手放してみる機会を<br>作ってほしいと思っています。`,
+    taka: `「私の髪では無理だろうと思っていました」<br>と来てくださる方がいます。<br>でも実際にやってみると<br>「え、できるんですか！」となることが<br>本当に多い。<br>あなたの「諦め」は、<br>まだ試されていないものかもしれません。<br>「諦めていたけれど、実はこうしたくて」と、<br>次回話してみてください。`,
+    action: `「諦めていること」を一つ、<br>正直に話してみてください。<br>「こういうスタイル、<br>私には無理だと思っていたのですが…」<br>——その一言から、<br>思いがけない可能性が開くことがあります。<br>諦めの理由を聞いて、<br>それが本当かどうかを一緒に確認するのが、<br>プロの仕事です。`
+  },
+  F: {
+    type: "「なりたいイメージ」が<br>言葉になっていない",
+    sub: "Type F — 感覚はあるの。<br>でも、それを言葉にする術がまだないんです。",
+    coreTitle: "「こんな感じ」という感覚はある。<br>でも形にできなくて、<br>いつも「お任せ」になってしまう。",
+    coreBody: `イメージはある。でも言葉にできない。<br>だから「お任せします」と言うしかない。<br>そして返ってきた結果が「なんか違う」<br>でも、何が違うのかも言えない。<br><br>このサイクルは、<br><strong>「自分のイメージを言語化する機会がなかった」</strong><br>ことから来ています。<br><br>「お任せ」は悪くありません。<br>でも「お任せ」しながら「こういう雰囲気が好き」<br>「これは嫌い」という感覚を持ち込めると、<br>仕上がりは大きく変わります。`,
+    taka: `「お任せします」と言っていただけると、<br>とても嬉しいんです。でも同時に<br>「あなたの好きを教えてほしい」とも思います。<br>言葉じゃなくていい。<br>「なんかこういう雰囲気が好きで」で十分です。<br>写真でも、服のテイストでも、<br>「これは嫌い」という一言でもいい。<br>あなたの感覚が、最高の素材なんです。`,
+    action: `次回は「お任せ」に一言だけ<br>足してみてください。<br>「お任せしますが、こういう雰囲気が好きで」<br>「お任せしますが、これは嫌いで」<br>——その一言が、仕上がりを変えます。<br>好きな雰囲気の写真を一枚だけ持っていくのも、<br>とても有効です。`
+  }
+};
+
+let currentQ = 0;
+let answers = [];
+let scores = { A:0,B:0,C:0,D:0,E:0,F:0 };
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(id);
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderQ() {
+  const q = questions[currentQ];
+  const pct = ((currentQ + 1) / questions.length) * 100;
+
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('phase-name').textContent = q.phase;
+  document.getElementById('q-counter').textContent = `${currentQ + 1} / ${questions.length}`;
+  document.getElementById('q-large-num').textContent = String(currentQ + 1).padStart(2, '0');
+  document.getElementById('q-text').innerHTML = q.q;
+  document.getElementById('q-note').innerHTML = q.note;
+
+  const wrap = document.getElementById('choices');
+  wrap.innerHTML = '';
+  const labels = ['A','B','C','D'];
+
+  q.choices.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-card';
+    btn.style.animation = `emerge 0.5s cubic-bezier(0.16,1,0.3,1) ${i * 0.08}s both`;
+    btn.innerHTML = `
+      <div class="choice-card-inner">
+        <div class="choice-letter">${labels[i]}</div>
+        <div class="choice-content">
+          <span class="choice-main-text">${c.text}</span>
+          ${c.hint ? `<span class="choice-sub-text">${c.hint}</span>` : ''}
+        </div>
+      </div>
+    `;
+    btn.onclick = () => answer(c.scores, i);
+    wrap.appendChild(btn);
+  });
+}
+
+function answer(scoreMap, choiceIndex) {
+  answers.push(choiceIndex);
+  Object.entries(scoreMap).forEach(([k,v]) => scores[k] += v);
+  currentQ++;
+  if (currentQ < questions.length) {
+    renderQ();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  const top = Object.entries(scores).sort((a,b) => b[1]-a[1])[0][0];
+  const r = results[top];
+
+  document.getElementById('result-type-name').innerHTML = r.type;
+  document.getElementById('result-type-sub').innerHTML = r.sub;
+  document.getElementById('r-core-title').innerHTML = r.coreTitle;
+  document.getElementById('r-core-body').innerHTML = r.coreBody;
+  document.getElementById('r-taka').innerHTML = r.taka;
+  document.getElementById('r-action').innerHTML = r.action;
+
+  showScreen('result');
+
+  // スプレッドシートに送信
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbzJtTDbbtu2gtYmwi6BWMRHBDOcS5bnsPXX-rofiyHupV4wBrAdN2Pbb0s8sOI35uO5/exec';
+  fetch(GAS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      resultType: top,
+      q1: answers[0], q2: answers[1], q3: answers[2], q4: answers[3],
+      q5: answers[4], q6: answers[5], q7: answers[6], q8: answers[7]
+    })
+  }).catch(() => {});
+}
+
+function startQuiz() {
+  currentQ = 0;
+  answers = [];
+  scores = { A:0,B:0,C:0,D:0,E:0,F:0 };
+  showScreen('quiz');
+  renderQ();
+}
+
+function retry() { startQuiz(); }
+</script>
+</body>
+</html>

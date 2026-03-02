@@ -231,7 +231,7 @@
   /* Signature */
   .signature { text-align: center; padding: 36px 0 16px; }
   .sig-line { width: 32px; height: 1px; background: var(--gold); margin: 0 auto 24px; }
-  .sig-copy { font-family: var(--font-serif); font-size: 13px; color: var(--ink-light); line-height: 2; margin-bottom: 28px; }
+  .sig-copy { font-family: var(--font-serif); font-size: 13px; color: var(--ink-light); line-height: 2; margin-bottom: 28px; white-space: pre-line; }
   .sig-name { font-size: 16px; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 20px; }
   .sig-link {
     display: inline-block; font-family: var(--font-serif); font-size: 11px;
@@ -374,11 +374,18 @@
     <div class="signature">
       <div class="sig-line"></div>
       <div class="sig-copy">
-        自分らしく、美しく。<br>
-        ライフスタイルに彩とデザインを。
+        正解より、続けられるケアを。<br><br>
+        今日知った成分の名前を、ひとつだけ覚えてみてください。<br>
+        次にドラッグストアや美容室で商品を選ぶとき、<br>
+        きっと見え方が変わってきます。<br><br>
+        小さな一歩が、髪を変えていきます。
       </div>
       <div class="sig-name">bridge　TAKA</div>
     </div>
+
+    <a href="https://lin.ee/KR1qGTc" target="_blank" rel="noopener" class="btn-primary" style="margin-bottom:16px;text-decoration:none;display:block;text-align:center;">
+      LINEで予約・相談する
+    </a>
 
     <div class="result-nav">
       <div class="result-nav-links">
@@ -386,7 +393,7 @@
           <span class="result-nav-label">STEP 01</span>
           <span class="result-nav-name">美容師に言えていないことチェック</span>
         </a>
-        <a href="https://takahair-bridge.github.io/bridge-step2/" class="result-nav-link">
+        <a href="https://takahair-bridge.github.io/bridge-diagnosis/step2.html" class="result-nav-link">
           <span class="result-nav-label">STEP 02</span>
           <span class="result-nav-name">今の髪、整理してみよう</span>
         </a>
@@ -407,7 +414,7 @@
 // ════════════════════════════════
 // GAS エンドポイント
 // ════════════════════════════════
-const GAS_URL = "https://script.google.com/macros/s/AKfycbwiWgX7Ehm9hZHBITWH5hgEuPax4fuEtl5ha6-SHqxVQ75wjgvj8KqkjN7BT3AHycTmbg/exec";
+const GAS_URL = "https://script.google.com/macros/s/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/exec";
 
 // ════════════════════════════════
 // 質問データ
