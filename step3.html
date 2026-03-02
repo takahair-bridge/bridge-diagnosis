@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自分らしいヘアケア診断 | bridge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Zen+Old+Mincho:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8f4ef;
+    --ink: #181410;
+    --ink-light: #5a4a3a;
+    --accent: #2d4a3e;
+    --accent-dark: #1e3329;
+    --gold: #b8953a;
+    --gold-light: #d4b06a;
+    --cream: #f0ebe3;
+    --line: rgba(45,74,62,0.15);
+    --font-serif: 'Noto Serif JP', serif;
+    --font-mincho: 'Zen Old Mincho', serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-mincho);
+    min-height: 100vh;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Q Counter */
+  .q-counter {
+    position: fixed; top: 16px; right: 20px;
+    font-family: var(--font-serif);
+    font-size: 11px; color: var(--gold);
+    letter-spacing: 0.1em; z-index: 100; display: none;
+  }
+  .q-counter.visible { display: block; }
+
+  /* Header */
+  .header { text-align: center; padding: 48px 24px 32px; }
+  .header-step {
+    font-family: var(--font-serif); font-size: 10px;
+    letter-spacing: 0.25em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .header-title {
+    font-family: var(--font-serif); font-size: 22px;
+    font-weight: 300; color: var(--accent); letter-spacing: 0.08em;
+  }
+  .header-line { width: 32px; height: 1px; background: var(--gold); margin: 16px auto 0; }
+
+  /* Screen */
+  .screen {
+    display: none; max-width: 640px;
+    margin: 0 auto; padding: 0 24px 80px;
+    animation: fadeUp 0.5s ease forwards;
+  }
+  .screen.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Start */
+  .start-wrap { text-align: center; padding: 16px 0 40px; }
+  .start-eyebrow {
+    font-family: var(--font-serif); font-size: 10px;
+    letter-spacing: 0.3em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 20px;
+  }
+  .start-copy {
+    font-size: 24px; font-weight: 500; color: var(--accent);
+    line-height: 1.6; margin-bottom: 12px; letter-spacing: 0.04em;
+  }
+  .start-sub {
+    font-family: var(--font-serif); font-size: 13px;
+    color: var(--ink-light); line-height: 1.9; margin-bottom: 36px;
+  }
+  .start-deco {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    margin: 0 auto 36px;
+  }
+  .start-note {
+    font-family: var(--font-serif); font-size: 11px;
+    color: var(--ink-light); opacity: 0.7; margin-bottom: 40px; line-height: 1.8;
+  }
+
+  /* Section Badge */
+  .section-badge {
+    display: inline-block; font-family: var(--font-serif);
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--accent); border: 1px solid var(--accent);
+    padding: 4px 14px; border-radius: 2px; margin-bottom: 28px; opacity: 0.7;
+  }
+
+  /* Question */
+  .q-number {
+    font-family: var(--font-serif); font-size: 10px;
+    letter-spacing: 0.3em; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .q-text {
+    font-size: 19px; font-weight: 500; color: var(--accent);
+    line-height: 1.65; margin-bottom: 8px; letter-spacing: 0.03em;
+    white-space: pre-wrap;
+  }
+  .q-sub {
+    font-family: var(--font-serif); font-size: 12px;
+    color: var(--ink-light); margin-bottom: 32px; line-height: 1.8;
+  }
+
+  /* Options */
+  .options { display: flex; flex-direction: column; gap: 12px; }
+  .option {
+    background: #fff; border: 1.5px solid var(--line); border-radius: 4px;
+    padding: 18px 22px; cursor: pointer; transition: all 0.25s ease;
+    text-align: left; font-family: var(--font-mincho);
+    font-size: 14px; color: var(--ink); line-height: 1.65;
+    position: relative; overflow: hidden;
+  }
+  .option::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 0; background: var(--accent); transition: width 0.25s ease;
+  }
+  .option:hover { border-color: var(--accent); transform: translateX(4px); }
+  .option:hover::before { width: 3px; }
+  .option-main { display: block; font-weight: 500; }
+  .option-sub {
+    display: block; font-family: var(--font-serif);
+    font-size: 11px; color: var(--ink-light); margin-top: 4px; line-height: 1.7;
+  }
+
+  /* Section Break */
+  .section-break { text-align: center; padding: 40px 0; }
+  .section-break-num {
+    font-family: var(--font-serif); font-size: 11px;
+    letter-spacing: 0.3em; color: var(--gold); margin-bottom: 16px;
+  }
+  .section-break-title {
+    font-size: 22px; font-weight: 500; color: var(--accent); margin-bottom: 16px;
+  }
+  .section-break-sub {
+    font-family: var(--font-serif); font-size: 13px;
+    color: var(--ink-light); line-height: 1.9; margin-bottom: 40px;
+  }
+
+  /* Divider */
+  .divider { display: flex; align-items: center; gap: 12px; margin: 40px 0; }
+  .divider-line { flex: 1; height: 1px; background: var(--line); }
+  .divider-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); opacity: 0.5; }
+
+  /* Buttons */
+  .btn-primary {
+    display: block; width: 100%; background: var(--accent); color: #f8f4ef;
+    border: none; border-radius: 3px; padding: 18px 24px;
+    font-family: var(--font-serif); font-size: 13px; letter-spacing: 0.15em;
+    cursor: pointer; transition: all 0.25s; text-align: center;
+  }
+  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+  .btn-gold {
+    display: block; width: 100%; background: transparent; color: var(--gold);
+    border: 1.5px solid var(--gold); border-radius: 3px; padding: 16px 24px;
+    font-family: var(--font-serif); font-size: 13px; letter-spacing: 0.15em;
+    cursor: pointer; transition: all 0.25s; text-align: center;
+  }
+  .btn-gold:hover { background: var(--gold); color: var(--bg); }
+
+  /* Sending */
+  .sending-wrap { text-align: center; padding: 60px 0; }
+  .sending-dot {
+    display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--gold); margin: 0 4px;
+    animation: pulse 1.2s infinite;
+  }
+  .sending-dot:nth-child(2) { animation-delay: 0.2s; }
+  .sending-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse { 0%,80%,100% { opacity: 0.2; } 40% { opacity: 1; } }
+  .sending-text {
+    font-family: var(--font-serif); font-size: 13px;
+    color: var(--ink-light); margin-top: 20px; letter-spacing: 0.1em;
+  }
+
+  /* Result */
+  .result-intro { text-align: center; padding: 16px 0 32px; }
+  .result-tag {
+    display: inline-block; font-family: var(--font-serif);
+    font-size: 10px; letter-spacing: 0.25em; color: var(--gold);
+    border: 1px solid var(--gold); padding: 4px 14px; border-radius: 2px; margin-bottom: 20px;
+  }
+  .result-type-wrap {
+    background: #fff; border: 1.5px solid var(--line); border-radius: 4px;
+    padding: 24px 22px; margin-bottom: 20px; text-align: center;
+  }
+  .result-type-label {
+    font-family: var(--font-serif); font-size: 10px;
+    letter-spacing: 0.25em; color: var(--gold); margin-bottom: 8px;
+  }
+  .result-type-name { font-size: 20px; font-weight: 500; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 4px; }
+  .result-type-cross { font-family: var(--font-serif); font-size: 12px; color: var(--ink-light); }
+
+  .result-card { background: #fff; border: 1.5px solid var(--line); border-radius: 4px; margin-bottom: 16px; overflow: hidden; }
+  .result-card-header {
+    background: var(--accent); color: var(--bg);
+    padding: 12px 22px; font-family: var(--font-serif);
+    font-size: 11px; letter-spacing: 0.2em;
+  }
+  .result-card-body { padding: 20px 22px; font-size: 14px; line-height: 2; color: var(--ink); }
+  .result-card-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+  .result-divider { text-align: center; margin: 28px 0; position: relative; }
+  .result-divider::before {
+    content: ''; position: absolute; top: 50%; left: 0; right: 0;
+    height: 1px; background: var(--line);
+  }
+  .result-divider span {
+    position: relative; background: var(--bg); padding: 0 14px;
+    font-family: var(--font-serif); font-size: 11px; color: var(--gold); letter-spacing: 0.2em;
+  }
+
+  .salon-note {
+    background: var(--cream); border: 1px solid var(--line); border-radius: 3px;
+    padding: 16px 20px; font-family: var(--font-serif);
+    font-size: 13px; color: var(--ink-light); line-height: 1.9; margin-bottom: 20px;
+  }
+
+  /* Signature */
+  .signature { text-align: center; padding: 36px 0 16px; }
+  .sig-line { width: 32px; height: 1px; background: var(--gold); margin: 0 auto 24px; }
+  .sig-copy { font-family: var(--font-serif); font-size: 13px; color: var(--ink-light); line-height: 2; margin-bottom: 28px; }
+  .sig-name { font-size: 16px; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 20px; }
+  .sig-link {
+    display: inline-block; font-family: var(--font-serif); font-size: 11px;
+    color: var(--ink-light); letter-spacing: 0.15em; text-decoration: none;
+    border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: all 0.2s;
+  }
+  .sig-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Product Link */
+  .product-link-block {
+    background: var(--cream); border: 1.5px solid var(--gold-light);
+    border-radius: 4px; padding: 18px 22px; margin-bottom: 20px; transition: border-color 0.25s;
+  }
+  .product-link-block:hover { border-color: var(--gold); }
+  .product-link-inner { display: flex; flex-direction: column; gap: 5px; text-decoration: none; }
+  .product-link-inner:hover .product-link-main { opacity: 0.75; }
+  .product-link-label { font-family: var(--font-serif); font-size: 10px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; }
+  .product-link-main { font-family: var(--font-mincho); font-size: 14px; color: var(--accent); font-weight: 500; }
+  .product-link-sub { font-family: var(--font-serif); font-size: 11px; color: var(--ink-light); line-height: 1.7; }
+
+  /* Result Nav */
+  .result-nav { padding: 32px 0 16px; }
+  .result-nav-links { display: flex; gap: 12px; margin-top: 4px; }
+  .result-nav-link {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;
+    padding: 18px 12px; background: #fff; border: 1.5px solid var(--line);
+    border-radius: 4px; text-decoration: none; transition: all 0.25s;
+  }
+  .result-nav-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .result-nav-label { font-family: var(--font-serif); font-size: 10px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; }
+  .result-nav-name { font-family: var(--font-mincho); font-size: 12px; color: var(--ink); text-align: center; line-height: 1.6; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--line); margin-top: 40px; }
+  .footer p { font-family: var(--font-serif); font-size: 10px; color: var(--ink-light); opacity: 0.4; letter-spacing: 0.15em; }
+
+  @media (max-width: 480px) {
+    .header-title { font-size: 18px; }
+    .start-copy { font-size: 20px; }
+    .q-text { font-size: 17px; }
+    .option { padding: 16px 18px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="q-counter" id="qCounter"></div>
+
+<div class="header">
+  <div class="header-step">STEP 03</div>
+  <div class="header-title">自分らしいヘアケア診断</div>
+  <div class="header-line"></div>
+</div>
+
+<div id="app">
+
+  <!-- スタート画面 -->
+  <div class="screen active" id="screen-start">
+    <div class="start-wrap">
+      <div class="start-eyebrow">Hair Care Diagnosis</div>
+      <div class="start-copy">あなたの性格と髪の状態から<br>ケアタイプを診断します。</div>
+      <div class="start-sub">
+        全18問、まずは直感で選んでください。<br>
+        じっくり考えすぎず、今の自分の感覚を大切に。
+      </div>
+      <div class="start-deco"></div>
+      <div class="start-note">
+        あくまでカテゴライズです。<br>
+        詳しくは担当の美容師さんとご相談くださいね。<br>
+        複数回行うと、より精度が上がります。<br><br>
+        bridge　TAKA
+      </div>
+      <button class="btn-primary" onclick="startDiagnosis()">診断スタート</button>
+    </div>
+  </div>
+
+  <!-- 質問画面 -->
+  <div class="screen" id="screen-question">
+    <div class="section-badge" id="sectionBadge"></div>
+    <div class="q-number" id="qNumber"></div>
+    <div class="q-text" id="qText"></div>
+    <div class="q-sub" id="qSub"></div>
+    <div class="options" id="optionsWrap"></div>
+  </div>
+
+  <!-- セクション区切り -->
+  <div class="screen" id="screen-break">
+    <div class="section-break">
+      <div class="section-break-num">Q 01 – Q 09　完了</div>
+      <div class="section-break-title">前半、お疲れさまでした。</div>
+      <div class="section-break-sub">
+        ここからは「今の髪の状態」について<br>
+        9つの質問にお答えください。<br>
+        気になる部分を、率直に選んでもらえると<br>
+        より精度の高い診断になります。
+      </div>
+      <button class="btn-primary" onclick="startHairSection()">後半へ進む</button>
+    </div>
+  </div>
+
+  <!-- 計算中画面 -->
+  <div class="screen" id="screen-sending">
+    <div class="sending-wrap">
+      <div>
+        <span class="sending-dot"></span>
+        <span class="sending-dot"></span>
+        <span class="sending-dot"></span>
+      </div>
+      <div class="sending-text">診断中...</div>
+    </div>
+  </div>
+
+  <!-- 結果画面 -->
+  <div class="screen" id="screen-result">
+    <div class="result-intro">
+      <div class="result-tag">YOUR RESULT</div>
+    </div>
+    <div class="result-type-wrap">
+      <div class="result-type-label">YOUR TYPE</div>
+      <div class="result-type-name" id="resultPersonality"></div>
+      <div class="result-type-cross" id="resultHair"></div>
+    </div>
+
+    <div id="resultCards"></div>
+
+    <div class="salon-note">
+      気になることがあれば、いつでも担当の美容師さんに気軽に相談してみてください。
+    </div>
+
+    <div class="product-link-block">
+      <a href="https://www.personalhairstylist.info/product" target="_blank" rel="noopener" class="product-link-inner">
+        <span class="product-link-label">Online Store</span>
+        <span class="product-link-main">bridge オンラインストア</span>
+        <span class="product-link-sub">診断でご紹介した成分を配合したアイテムを<br>まとめてご覧いただけます。</span>
+      </a>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+    <div class="signature">
+      <div class="sig-line"></div>
+      <div class="sig-copy">
+        自分らしく、美しく。<br>
+        ライフスタイルに彩とデザインを。
+      </div>
+      <div class="sig-name">bridge　TAKA</div>
+    </div>
+
+    <div class="result-nav">
+      <div class="result-nav-links">
+        <a href="https://takahair-bridge.github.io/bridge-diagnosis/" class="result-nav-link">
+          <span class="result-nav-label">STEP 01</span>
+          <span class="result-nav-name">美容師に言えていないことチェック</span>
+        </a>
+        <a href="https://takahair-bridge.github.io/bridge-step2/" class="result-nav-link">
+          <span class="result-nav-label">STEP 02</span>
+          <span class="result-nav-name">今の髪、整理してみよう</span>
+        </a>
+      </div>
+      <div style="margin-top:12px;">
+        <button class="btn-gold" onclick="resetAll()">もう一度診断する</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>© bridge hair salon &nbsp;|&nbsp; personal hair stylist TAKA</p>
+</div>
+
+<script>
+// ════════════════════════════════
+// GAS エンドポイント
+// ════════════════════════════════
+const GAS_URL = "https://script.google.com/macros/s/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/exec";
+
+// ════════════════════════════════
+// 質問データ
+// ════════════════════════════════
+const QUESTIONS = [
+  {
+    id:1, section:"ヘアへのスタンス診断",
+    text:"ヘアケアにかける時間の\n優先度は？", sub:"",
+    options:[
+      {main:"できるだけ短く済ませたい",       sub:"シンプルに、負担なく続けたい",        score:1},
+      {main:"適度に時間をかけたい",           sub:"大切にはしたいけど、無理はしない",     score:2},
+      {main:"効果があるならしっかりやりたい", sub:"ちゃんとケアする時間を取れる",         score:3}
+    ]
+  },
+  {
+    id:2, section:"ヘアへのスタンス診断",
+    text:"新しいケアを試すときの\nスタンスは？", sub:"",
+    options:[
+      {main:"とりあえず試してみてから考える", sub:"まずは使ってみないとわからない",                 score:1},
+      {main:"口コミやレビューを参考にしてから",sub:"ある程度評判を確認したい",                      score:2},
+      {main:"成分や根拠をしっかり調べてから", sub:"なぜ効くのかを理解してから使いたい",             score:3}
+    ]
+  },
+  {
+    id:3, section:"ヘアへのスタンス診断",
+    text:"髪が決まらない日の\n反応は？", sub:"",
+    options:[
+      {main:"気にしない、開き直る",           sub:"まあ、いっか",                                   score:1},
+      {main:"気になるけど何とかやり過ごす",   sub:"鏡を気にしながら一日過ごす",                     score:2},
+      {main:"気分まで落ちてしまう",           sub:"その日一日ずっと気になっている",                  score:3}
+    ]
+  },
+  {
+    id:4, section:"ヘアへのスタンス診断",
+    text:"習慣化は得意？", sub:"",
+    options:[
+      {main:"苦手、気づいたら忘れてしまう",   sub:"毎日続けるのは難しい",                           score:1},
+      {main:"意識すれば続けられる",           sub:"仕組みがあれば大丈夫",                           score:2},
+      {main:"毎日のルーティンを大切にしたい", sub:"習慣化することが好き",                           score:3}
+    ]
+  },
+  {
+    id:5, section:"ヘアへのスタンス診断",
+    text:"美容室で大事にしているのは？", sub:"",
+    options:[
+      {main:"お家での再現性・扱いやすさ",     sub:"自分でもできる仕上がりが嬉しい",                 score:1},
+      {main:"デザインや色などのセンス",       sub:"おしゃれな仕上がりを楽しみたい",                 score:2},
+      {main:"丁寧なカウンセリング",           sub:"話をきちんと聞いてもらえることが大事",            score:3}
+    ]
+  },
+  {
+    id:6, section:"ヘアへのスタンス診断",
+    text:"新しいスタイルへの\n挑戦意欲は？", sub:"",
+    options:[
+      {main:"変化は苦手、今のままが好き",     sub:"安定した状態でいたい",                           score:1},
+      {main:"少しずつ取り入れたい",           sub:"急激な変化は怖いけど、成長はしたい",             score:2},
+      {main:"積極的に変化を楽しみたい",       sub:"新しい自分を発見することが好き",                 score:3}
+    ]
+  },
+  {
+    id:7, section:"ヘアへのスタンス診断",
+    text:"髪を通して\nどう見られたい？", sub:"",
+    options:[
+      {main:"清潔感・すっきりした印象",       sub:"きちんとしている人に見られたい",                 score:1},
+      {main:"自然体・シンプルな印象",         sub:"飾りすぎず、自分らしくいたい",                   score:2},
+      {main:"こだわりや個性を感じさせたい",   sub:"センスのある人だと思われたい",                   score:3}
+    ]
+  },
+  {
+    id:8, section:"ヘアへのスタンス診断",
+    text:"ヘアケア商品の選び方は？", sub:"",
+    options:[
+      {main:"機能性・使いやすさで選ぶ",       sub:"迷わず使えることが大事",                         score:1},
+      {main:"香り・見た目・デザインも大事",   sub:"気持ちが上がるものを使いたい",                   score:2},
+      {main:"成分・素材・こだわりで選ぶ",     sub:"何が入っているかを確認してから買う",             score:3}
+    ]
+  },
+  {
+    id:9, section:"ヘアへのスタンス診断",
+    text:"ヘアトラブルが起きたとき\nどう動く？", sub:"",
+    options:[
+      {main:"まず自分でネット検索",           sub:"自分でできることを試したい",                     score:1},
+      {main:"友人や口コミを参考に商品を探す", sub:"誰かの成功体験を参考にしたい",                   score:2},
+      {main:"担当美容師に相談する",           sub:"専門家の意見を大切にしたい",                     score:3}
+    ]
+  },
+  {
+    id:10, section:"ヘアの状態診断",
+    text:"根元の立ち上がりは？", sub:"朝、乾かした後の根元の状態で選んでください",
+    options:[
+      {main:"根元がぺたんとしやすい",         sub:"ボリュームが出ず、頭頂部がつぶれる",             score:3},
+      {main:"夕方にはへたってくる",           sub:"朝はいいけど長続きしない",                       score:2},
+      {main:"毎日きちんと立ち上がる",         sub:"特に気になっていない",                           score:1}
+    ]
+  },
+  {
+    id:11, section:"ヘアの状態診断",
+    text:"髪の弾力は？", sub:"指で触れたときの手触りで選んでください",
+    options:[
+      {main:"コシがなくてふにゃっとする",     sub:"触ると柔らかすぎる感じがある",                   score:3},
+      {main:"最近ちょっと気になる",           sub:"以前より弱くなった気がする",                     score:2},
+      {main:"弾力があって問題なし",           sub:"特に気になっていない",                           score:1}
+    ]
+  },
+  {
+    id:12, section:"ヘアの状態診断",
+    text:"毛先の引っかかりは？", sub:"ブラシやコームを通したときの感触で選んでください",
+    options:[
+      {main:"ザラつく・引っかかりが強い",     sub:"ブラシが引っかかり、切れ毛が気になる",           score:3},
+      {main:"少し気になる",                   sub:"たまに引っかかることがある",                     score:2},
+      {main:"とくに気にならない",             sub:"スルッと通る",                                   score:1}
+    ]
+  },
+  {
+    id:13, section:"ヘアの状態診断",
+    text:"ドライ後の毛先の状態は？", sub:"乾かした後の毛先の様子で選んでください",
+    options:[
+      {main:"パサパサに広がる",               sub:"乾かしてもまとまらない",                         score:3},
+      {main:"少し広がるが何とかなる",         sub:"スタイリングでカバーできる",                     score:2},
+      {main:"まとまりよく仕上がる",           sub:"特に気になっていない",                           score:1}
+    ]
+  },
+  {
+    id:14, section:"ヘアの状態診断",
+    text:"湿気の日のうねりは？", sub:"雨の日や湿度が高い日の状態で選んでください",
+    options:[
+      {main:"ひどくて気分まで落ちる",         sub:"湿気のある日は外出が憂鬱になる",                 score:3},
+      {main:"気になる、何とか対処している",   sub:"アイロンやスタイリングでカバー",                 score:2},
+      {main:"あまり気にならない",             sub:"特に問題なし",                                   score:1}
+    ]
+  },
+  {
+    id:15, section:"ヘアの状態診断",
+    text:"アイロン・カラーによる\nダメージは？", sub:"現在の髪の状態で選んでください",
+    options:[
+      {main:"傷んでいる、手触りが気になる",   sub:"ツヤがなくなりパサつきが増えた",                 score:3},
+      {main:"気になりながらもケアで補っている",sub:"あるけどいつものこと",                         score:2},
+      {main:"特に問題を感じていない",         sub:"ケアしているから気にならない",                   score:1}
+    ]
+  },
+  {
+    id:16, section:"ヘアの状態診断",
+    text:"白髪はどのくらい気になる？", sub:"",
+    options:[
+      {main:"かなり増えてきた、気になる",     sub:"量・速さ・見え方が気になっている",               score:3},
+      {main:"ちらほらあるけど、まあいいか",   sub:"気になるけど許容範囲",                           score:2},
+      {main:"あまり気にしていない",           sub:"白髪はほとんどない、または気にしない",            score:1}
+    ]
+  },
+  {
+    id:17, section:"ヘアの状態診断",
+    text:"頭皮の乾燥・つっぱり感は？", sub:"洗髪後や乾燥した日の状態で選んでください",
+    options:[
+      {main:"乾燥しやすく、かゆみも気になる", sub:"洗った後につっぱる感じがある",                  score:3},
+      {main:"たまに感じることがある",         sub:"季節によって気になる",                           score:2},
+      {main:"気にしていない",                 sub:"特に問題なし",                                   score:1}
+    ]
+  },
+  {
+    id:18, section:"ヘアの状態診断",
+    text:"抜け毛の量は？", sub:"1日100本程度は通常の範囲です",
+    options:[
+      {main:"増えた気がして、心配",           sub:"シャワー中・枕・ブラシへの付着が多い",           score:3},
+      {main:"普通にある",                     sub:"特別増えたとは感じていない",                     score:2},
+      {main:"全然気にならない",               sub:"抜け毛は少ない",                                 score:1}
+    ]
+  }
+];
+
+// ════════════════════════════════
+// 判定ロジック
+// ════════════════════════════════
+function getPersonalityType(score) {
+  const s = Math.min(score, 27);
+  if (s >= 25) return "調和優先派";
+  if (s >= 23) return "バランス習慣派";
+  if (s >= 21) return "見た目戦略派";
+  if (s >= 19) return "トレンド好き派";
+  if (s >= 17) return "感覚こだわり派";
+  if (s >= 14) return "扱いやすさ重視派";
+  if (s >= 12) return "安心メンテ派";
+  return "時短シンプル派";
+}
+
+const HAIR_TYPE_MAP = [
+  "ボリューム低下","ハリコシ不足","パサつき","乾燥","うねり",
+  "ダメージ","白髪ケア","頭皮乾燥","血行不足"
+];
+function getHairType(hairScores) {
+  let maxScore = 0, maxIdx = 0;
+  hairScores.forEach((s,i) => { if(s > maxScore){ maxScore=s; maxIdx=i; } });
+  return HAIR_TYPE_MAP[maxIdx];
+}
+
+// ════════════════════════════════
+// コメントデータ
+// ════════════════════════════════
+const EC = "https://www.personalhairstylist.info/product";
+
+// コメント構造: { state, reason, product, routine, from }
+// state   = 今の状態への共感
+// reason  = なぜその成分が必要か
+// product = どんな商品を選べばいいか（具体的に）
+// routine = 週1のスペシャルケア
+// from    = bridgeより
+
+const BASE = {
+  "ボリューム低下": {
+    state: `根元がぺたんとつぶれやすい、夕方には頭頂部のふんわり感がなくなってしまう…そんなお悩みを感じていませんか。以前と比べて髪が細くなったような手触りを感じているなら、今がケアの始めどきです。`,
+    reason: `髪の主成分はケラチンというたんぱく質でできています。年齢や摩擦でケラチンが少しずつ失われると、1本1本が細くなってボリュームが出にくくなります。「加水分解ケラチン」で髪の内部をしっかり補いながら、「ナイアシンアミド」という成分で頭皮の血行と皮脂バランスを整えてあげることが、今の髪に必要なケアです。`,
+    product: `ドラッグストアや美容室専売品で「加水分解ケラチン」「パンテノール」が成分表に入っている洗い流さないタイプのトリートメント（アウトバストリートメント）を探してみてください。テクスチャーは軽めのミルクタイプが根元に使いやすくておすすめです。頭皮ケアには「ナイアシンアミド配合」と書かれたスカルプケア用の美容液やローションを選んでみてください。`,
+    routine: `週に1回、「ナイアシンアミド配合」のスカルプセラムを頭皮全体に馴染ませて2〜3分やさしくマッサージしてから洗い流してみてください。土台から整えると、根元の立ち上がりが少しずつ変わってきます。`,
+    from: `診断はあくまでヒントです。でも、自分の髪のことを知ろうとした今日の時間は、絶対に無駄になりません。それだけで十分です。`
+  },
+  "ハリコシ不足": {
+    state: `触るとふにゃっとした感触、ブラシを通すとすぐ絡まる…。乾かしても形がつきにくいなら、髪のハリ・コシが少なくなっているサインかもしれません。責めなくて大丈夫です、ケアで変えていけます。`,
+    reason: `ハリコシはキューティクル（髪の外側のうろこ状の部分）の密度と深く関わっています。「γ-ドコサラクトン」という植物由来の成分は、ドライヤーの熱で髪と化学的に結合して、ハリを取り戻す力があります。しかもシャンプーで洗い流した後も効果が続くのが嬉しいポイントです。`,
+    product: `「γ-ドコサラクトン」または「エルカラクトン」と成分表示に書かれた、洗い流さないタイプのトリートメントを探してみてください。最近は美容室専売品だけでなく、ドラッグストアでも見かけるようになっています。テクスチャーはオイルよりクリーム・ミルクタイプのほうが根元から使いやすいです。ドライヤーで完全に乾かすことで成分が髪に定着するので、自然乾燥はNGです。`,
+    routine: `週に1回、「ヘマチン配合」と書かれた集中トリートメント（インバストリートメント）を使ってみてください。5〜10分置いてから洗い流すだけで、ハリとツヤが戻ってきます。`,
+    from: `診断はあくまでヒントです。でも、自分の髪のことを知ろうとした今日の時間は、絶対に無駄になりません。それだけで十分です。`
+  },
+  "パサつき": {
+    state: `乾かしたのに毛先がぱさついたまま、まとまらない。ちゃんとトリートメントをしているのに変わらない…という方も多いんです。使っているアイテムの成分が今の髪に合っていないだけかもしれません。`,
+    reason: `パサつきの多くは、髪の内部にある「CMC（細胞間脂質）」という水分をつなぎとめる成分が流れ出てしまったことで起きます。カラーや紫外線の積み重ねで少しずつ失われていきます。CMCに似た成分を補うことで、シリコンに頼らなくても髪表面が整い、しっとりまとまるようになります。`,
+    product: `成分表示に「ラウロイルグルタミン酸ジフィトステリル」「メドウフォーム-δ-ラクトン」と書かれたアウトバストリートメントを探してみてください。少し難しい名前ですが、最近の高品質なアイテムによく使われている成分です。テクスチャーはミルクよりもクリームタイプのほうが毛先のパサつきにしっかり届きます。`,
+    routine: `週に1回、CMC補修成分（「ラウロイルグルタミン酸ジフィトステリル」を探して）が入ったヘアマスクを毛先中心に塗って5分置いてから洗い流してみてください。毛先のまとまりが変わります。`,
+    from: `診断はあくまでヒントです。でも、自分の髪のことを知ろうとした今日の時間は、絶対に無駄になりません。それだけで十分です。`
+  },
+  "乾燥": {
+    state: `保湿したはずなのに、翌日にはまた乾いている。そのお悩み、「水分を入れる」ケアはしていても「水分を閉じ込める」ケアが足りていないのかもしれません。`,
+    reason: `「リピジュア（ポリクオタニウム-51）」は人工細胞膜とも呼ばれるほど、お肌と親和性が高い保水成分です。ヒアルロン酸よりも高い保水力があり、ドライヤーの熱でも蒸発しにくいため、乾かした後もしっとり感が続くのが特徴です。スキンケアの保水膜と同じ発想で、髪に水分を閉じ込めてあげるイメージです。`,
+    product: `「リピジュア」または「ポリクオタニウム-51」と書かれたアウトバストリートメントを探してみてください。ミルクやジェルのテクスチャーが多く、べたつかないので使いやすいです。インバストリートメントなら「セラミド配合」と書かれたものを選ぶと、保水膜を内側からも補えます。`,
+    routine: `週に1回、セラミド配合のヘアマスクをたっぷり毛先に塗り、ラップかシャワーキャップをして体温で5分温めてから洗い流してみてください。じんわり浸透して、翌日のしっとり感が変わります。`,
+    from: `診断はあくまでヒントです。でも、自分の髪のことを知ろうとした今日の時間は、絶対に無駄になりません。それだけで十分です。`
+  },
+  "うねり": {
+    state: `雨の日や湿気が多い日は、別人の髪になってしまう…そんな経験はありませんか。くせやうねりは「体質だから仕方ない」とあきらめていた方も多いかもしれません。でもケアで変えられる部分もあるんです。`,
+    reason: `うねりは、湿気を吸ってキューティクルが開き、水分を偏って吸い込むことで起きます。「γ-ドコサラクトン」「メドウフォーム-δ-ラクトン」は、どちらも植物由来の成分で、ドライヤーの熱によってキューティクルの表面を水を弾きやすい状態に整えてくれます。湿気の侵入を防ぐことで、うねりを穏やかに抑えることができます。`,
+    product: `「γ-ドコサラクトン」または「エルカラクトン」「メドウフォーム-δ-ラクトン」と書かれたアウトバストリートメントを探してみてください。使ったら必ずドライヤーで完全に乾かすことが大切です（自然乾燥では効果が半減してしまいます）。うねり・くせ毛対応と書かれた商品にこれらの成分が入っていることが多いです。`,
+    routine: `週に1回、うねり・くせ毛対応のヘアマスクを中間〜毛先に揉み込んで5分置いてから洗い流してみてください。梅雨時期の前から始めると、季節が変わっても扱いやすい状態が維持しやすくなります。`,
+    from: `診断はあくまでヒントです。でも、自分の髪のことを知ろうとした今日の時間は、絶対に無駄になりません。それだけで十分です。`
+  },
+  "ダメージ": {
+    state: `カラーやパーマを繰り返しているうちに、毛先が引っかかりやすくなった、ツヤがなくなってきた…そう感じているなら、髪の内側から補修してあげることが大切です。`,
+    reason: `ダメージを受けた髪は、内部のケラチン（たんぱく質）が流れ出て、スカスカになっている状態です。「ヘマチン」はケラチンと結びつきやすい成分で、カラーの施術で残ってしまったアルカリ剤を除去しながら同時に補修する、とても頼もしい成分です。色持ちにも効果があります。`,
+    product: `「ヘマチン配合」と書かれたインバストリートメント（洗い流すタイプ）を探してみてください。カラー後の2週間は特に連続して使うと効果を感じやすいです。洗い流さないタイプ（アウトバス）は「CMC補修」「ラウロイルグルタミン酸ジフィトステリル」と書かれたものを選ぶと、保湿と補修を両立できます。`,
+    routine: `週に1回、ヘマチン配合のヘアマスクを塗布後、ドライヤーで少し温めてから5分置いて洗い流してみてください。温めると浸透が高まり、毛先のざらつきが和らぎます。`,
+    from: `診断はあくまでヒントです。でも、自分の髪のことを知ろうとした今日の時間は、絶対に無駄になりません。それだけで十分です。`
+  },
+  "白髪ケア": {
+    state: `白髪が増えてきた、生えてくるペースが早くなった気がする…そういう変化に気づいたとき、少し複雑な気持ちになることもありますよね。白髪そのものを止めることはできませんが、今ある髪を美しく保つケアはできます。`,
+    reason: `「ヘマチン」は白髪にもカラーを入れた髪にも、酸化によるダメージを防ぐ抗酸化成分として働きます。「ビオチン（ビタミンB7）」は毛根の細胞の代謝に関わる成分で、新しく生えてくる髪の健康維持をサポートします。今の髪を整えながら、これから生える髪の土台も作っていくイメージです。`,
+    product: `「ヘマチン配合」のインバストリートメントを毎日のシャンプー後に使ってみてください。カラーをしている方は色持ちも良くなります。「ビオチン」または「ビタミンB7」と書かれたサプリメントや頭皮ケアのローションも、長期的なケアとして取り入れてみてもいいかもしれません。`,
+    routine: `週に1回、ヘマチン配合のヘアマスクを使って集中補修を。白髪部分は乾燥しやすい性質があるので、毛先だけでなく全体的にたっぷり塗るのがポイントです。`,
+    from: `診断はあくまでヒントです。でも、自分の髪のことを知ろうとした今日の時間は、絶対に無駄になりません。それだけで十分です。`
+  },
+  "頭皮乾燥": {
+    state: `洗髪後に頭皮がつっぱる、乾燥してかゆみが出ることがある…頭皮も「皮膚」なので、お顔のスキンケアと同じように保湿とバリアケアが必要なんです。頭皮が健康になると、生えてくる髪の質も変わってきます。`,
+    reason: `頭皮の乾燥はバリア機能が低下しているサインです。「ナイアシンアミド（ビタミンB3）」は、頭皮のセラミド合成を促してバリア機能を修復し、炎症も穏やかに抑えてくれます。スキンケアでも注目の成分で、安全性が高く、敏感な方にも使いやすいのが嬉しいところです。`,
+    product: `「ナイアシンアミド配合」のスカルプケア用ローションやセラムを探してみてください。スキンケアコーナーにも近い商品が増えています。シャンプーは「ノンシリコン」「頭皮ケア向け」と書かれた低刺激タイプに変えてみるだけでも、つっぱり感が改善することがあります。`,
+    routine: `週に1回、ノンシリコンのスカルプパックを頭皮全体に塗り、5分おいてから洗い流してみてください。頭皮のざらつきが取れると、翌日の髪全体の質感がふっと変わるのを感じていただけると思います。`,
+    from: `診断はあくまでヒントです。でも、自分の髪のことを知ろうとした今日の時間は、絶対に無駄になりません。それだけで十分です。`
+  },
+  "血行不足": {
+    state: `抜け毛が以前より増えた気がする、根元のコシがなくなってきた…そんな変化を感じているなら、頭皮の血行が低下しているサインかもしれません。毛根への栄養が届きにくくなっている状態です。`,
+    reason: `「アデノシン」は毛乳頭細胞（毛根の根っこの細胞）に働きかけ、髪が育つサイクルをサポートする成分で、日本の医薬品認可も受けています。「センブリエキス」は昔から使われてきた植物由来の血行促進成分。「ナイアシンアミド」と組み合わせることで、頭皮の代謝を全体的に底上げしていきます。`,
+    product: `「アデノシン配合」または「センブリエキス配合」と書かれた育毛ローションやトニックを探してみてください。医薬部外品で「発毛・育毛」と書かれた商品に多く含まれています。就寝前に頭皮に塗って軽くマッサージする習慣をつけてみてください。毎日続けることで3ヶ月後くらいから変化を感じる方が多いです。`,
+    routine: `週に1回、炭酸系のスカルプシャンプーを使ってみてください。毛穴に詰まった皮脂汚れがやさしく除去されて、育毛成分が頭皮に届きやすくなります。特別なものでなくて大丈夫です。`,
+    from: `診断はあくまでヒントです。でも、自分の髪のことを知ろうとした今日の時間は、絶対に無駄になりません。それだけで十分です。`
+  }
+};
+
+// 性格タイプ別の書き出しトーンを付加
+const PERSONALITY_PREFIX = {
+  "時短シンプル派": {
+    prefix: "シンプルに、でも確実に効かせる。それがいちばん続くケアだと思います。",
+    suffix: "ドライヤーで乾かすだけで完結できるアイテムを選んでいただくと、長く続けやすいです。"
+  },
+  "安心メンテ派": {
+    prefix: "焦らずコツコツ続けることが、一番の近道です。",
+    suffix: "毎日少しずつ、気負わず続けられるアイテムを選んでみてください。2〜3週間後に手触りの変化を感じはじめます。"
+  },
+  "扱いやすさ重視派": {
+    prefix: "スタイリングが決まる髪は、毎日のケアで作られます。",
+    suffix: "使い心地が軽くて扱いやすいテクスチャーのアイテムを選ぶと、ストレスなく続けられます。"
+  },
+  "感覚こだわり派": {
+    prefix: "手触りの変化を楽しみながら、ゆっくり確かめてみてください。",
+    suffix: "使ってみてからの感触の違いを大切に。あなたの感覚は正直なので、それを信じてケアを選んでいただけると。"
+  },
+  "トレンド好き派": {
+    prefix: "スキンケアと同じ発想で、成分で選ぶ時代が髪ケアにも来ています。",
+    suffix: "成分表示をチェックする習慣を取り入れると、アイテム選びの精度がグッと上がります。"
+  },
+  "見た目戦略派": {
+    prefix: "髪の印象は、第一印象の大きな部分を占めます。ケアへの投資は見た目の資産です。",
+    suffix: "ツヤと質感を底上げするアイテムを取り入れることで、スタイリングなしでも印象が変わってきます。"
+  },
+  "バランス習慣派": {
+    prefix: "毎日の積み重ねが、半年後の髪を作ります。無理のないペースで大丈夫です。",
+    suffix: "習慣に組み込みやすいシンプルなアイテムを選ぶと、長く続けやすいです。"
+  },
+  "調和優先派": {
+    prefix: "体と調和するような、自然な素材のケアを選んでみてください。",
+    suffix: "植物由来・低刺激・無添加と書かれた商品を手がかりに探してみると、あなたに合うものが見つかりやすいと思います。"
+  }
+};
+
+// 全コメントを組み立てる
+const C = {};
+Object.entries(PERSONALITY_PREFIX).forEach(([pType, tone]) => {
+  C[pType] = {};
+  Object.entries(BASE).forEach(([hType, base]) => {
+    C[pType][hType] = {
+      state:   `${tone.prefix}\n\n${base.state}`,
+      reason:  base.reason,
+      product: `${base.product}\n\n${tone.suffix}`,
+      routine: base.routine,
+      from:    base.from
+    };
+  });
+});
+
+// ════════════════════════════════
+// 状態管理
+// ════════════════════════════════
+let currentQ = 0;
+let answers  = [];
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function updateCounter(q) {
+  const counter = document.getElementById('qCounter');
+  if (q >= 1 && q <= 18) {
+    counter.textContent = `Q ${String(q).padStart(2,'0')} / 18`;
+    counter.classList.add('visible');
+  } else {
+    counter.classList.remove('visible');
+  }
+}
+
+function startDiagnosis() {
+  currentQ = 0; answers = [];
+  showNextQuestion();
+}
+
+function showNextQuestion() {
+  currentQ++;
+  if (currentQ === 10) { updateCounter(0); showScreen('screen-break'); return; }
+  if (currentQ === 19) { showResult(); return; }
+
+  const q = QUESTIONS[currentQ - 1];
+  updateCounter(currentQ);
+  document.getElementById('sectionBadge').textContent = q.section;
+  document.getElementById('qNumber').textContent = `Q ${String(currentQ).padStart(2,'0')}`;
+  document.getElementById('qText').textContent = q.text;
+  document.getElementById('qSub').textContent = q.sub || '';
+
+  const wrap = document.getElementById('optionsWrap');
+  wrap.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="option-main">${opt.main}</span><span class="option-sub">${opt.sub}</span>`;
+    btn.onclick = () => { answers.push(opt.score); showNextQuestion(); };
+    wrap.appendChild(btn);
+  });
+  showScreen('screen-question');
+}
+
+function startHairSection() { showNextQuestion(); }
+
+function showResult() {
+  updateCounter(0);
+  showScreen('screen-sending');
+  setTimeout(() => {
+    const pScore    = answers.slice(0,9).reduce((a,b)=>a+b,0);
+    const hairScores= answers.slice(9,18);
+    const pType     = getPersonalityType(pScore);
+    const hType     = getHairType(hairScores);
+    renderResult(pType, hType);
+    sendToGAS(answers, pType, hType, pScore, hairScores);
+  }, 1000);
+}
+
+function renderResult(pType, hType) {
+  document.getElementById('resultPersonality').textContent = pType;
+  document.getElementById('resultHair').textContent = `× ${hType}`;
+
+  const comment = C[pType] && C[pType][hType];
+  const cardsEl = document.getElementById('resultCards');
+  cardsEl.innerHTML = '';
+
+  if (comment) {
+    [
+      { title:"今の髪の状態",            body: comment.state   },
+      { title:"なぜこの成分が必要か",    body: comment.reason  },
+      { title:"どんな商品を選ぶといい？", body: comment.product },
+      { title:"週1回のスペシャルケア",   body: comment.routine },
+      { title:"bridge TAKA より",        body: comment.from    }
+    ].forEach(sec => {
+      const card = document.createElement('div');
+      card.className = 'result-card';
+      // \n\n → 段落区切り、\n → 改行
+      const formatted = sec.body
+        .split('\n\n')
+        .map(p => `<p style="margin-bottom:0.8em;">${p.replace(/\n/g,'<br>')}</p>`)
+        .join('');
+      card.innerHTML = `
+        <div class="result-card-header">${sec.title}</div>
+        <div class="result-card-body">${formatted}</div>
+      `;
+      cardsEl.appendChild(card);
+    });
+  }
+  showScreen('screen-result');
+}
+
+// ════════════════════════════════
+// GAS 送信（記録のみ）
+// ════════════════════════════════
+function sendToGAS(answers, pType, hType, pScore, hairScores) {
+  if (!GAS_URL || GAS_URL.includes('XXXXX')) return;
+  const params = new URLSearchParams({
+    pType, hType, pScore,
+    q1:answers[0],  q2:answers[1],  q3:answers[2],
+    q4:answers[3],  q5:answers[4],  q6:answers[5],
+    q7:answers[6],  q8:answers[7],  q9:answers[8],
+    q10:answers[9], q11:answers[10],q12:answers[11],
+    q13:answers[12],q14:answers[13],q15:answers[14],
+    q16:answers[15],q17:answers[16],q18:answers[17],
+    hs0:hairScores[0],hs1:hairScores[1],hs2:hairScores[2],
+    hs3:hairScores[3],hs4:hairScores[4],hs5:hairScores[5],
+    hs6:hairScores[6],hs7:hairScores[7],hs8:hairScores[8]
+  });
+  fetch(`${GAS_URL}?${params}`).catch(()=>{});
+}
+
+function resetAll() {
+  currentQ = 0; answers = [];
+  showScreen('screen-start');
+  updateCounter(0);
+}
+</script>
+</body>
+</html>
