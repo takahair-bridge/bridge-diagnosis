@@ -209,232 +209,7 @@
     opacity: 0.5;
   }
 
-  /* ── Email Screen ── */
-  .email-intro {
-    font-family: var(--font-serif);
-    font-size: 13px;
-    color: var(--ink-light);
-    line-height: 1.9;
-    margin-bottom: 28px;
-  }
-  .email-wrap {
-    background: #fff;
-    border: 1.5px solid var(--line);
-    border-radius: 4px;
-    padding: 28px 24px;
-    margin-bottom: 16px;
-  }
-  .email-label {
-    display: block;
-    font-family: var(--font-serif);
-    font-size: 11px;
-    color: var(--gold);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  input[type="email"] {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 2px;
-    padding: 12px 14px;
-    font-family: var(--font-mincho);
-    font-size: 14px;
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  input[type="email"]:focus { border-color: var(--accent); }
-  .email-skip {
-    display: block;
-    text-align: center;
-    font-family: var(--font-serif);
-    font-size: 11px;
-    color: var(--ink-light);
-    opacity: 0.6;
-    cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    margin-top: 8px;
-  }
-  .email-skip:hover { opacity: 1; }
-
-  /* ── Buttons ── */
-  .btn-primary {
-    display: block;
-    width: 100%;
-    background: var(--accent);
-    color: #f8f4ef;
-    border: none;
-    border-radius: 3px;
-    padding: 18px 24px;
-    font-family: var(--font-serif);
-    font-size: 13px;
-    letter-spacing: 0.15em;
-    cursor: pointer;
-    transition: all 0.25s;
-    text-align: center;
-  }
-  .btn-primary:hover {
-    background: #1c3349;
-    transform: translateY(-1px);
-  }
-  .btn-gold {
-    display: block;
-    width: 100%;
-    background: transparent;
-    color: var(--gold);
-    border: 1.5px solid var(--gold);
-    border-radius: 3px;
-    padding: 16px 24px;
-    font-family: var(--font-serif);
-    font-size: 13px;
-    letter-spacing: 0.15em;
-    cursor: pointer;
-    transition: all 0.25s;
-    text-align: center;
-  }
-  .btn-gold:hover {
-    background: var(--gold);
-    color: var(--bg);
-  }
-
-  /* ── Result Screen ── */
-  .result-intro {
-    text-align: center;
-    padding: 16px 0 32px;
-  }
-  .result-tag {
-    display: inline-block;
-    font-family: var(--font-serif);
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    color: var(--gold);
-    border: 1px solid var(--gold);
-    padding: 4px 14px;
-    border-radius: 2px;
-    margin-bottom: 20px;
-  }
-  .result-heading {
-    font-size: 21px;
-    font-weight: 500;
-    color: var(--accent);
-    line-height: 1.6;
-    margin-bottom: 8px;
-  }
-  .result-sub {
-    font-family: var(--font-serif);
-    font-size: 12px;
-    color: var(--ink-light);
-    line-height: 1.9;
-  }
-
-  .result-card {
-    background: #fff;
-    border: 1.5px solid var(--line);
-    border-radius: 4px;
-    margin-bottom: 20px;
-    overflow: hidden;
-  }
-  .result-card-header {
-    background: var(--accent);
-    color: var(--bg);
-    padding: 14px 22px;
-    font-family: var(--font-serif);
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-  .result-card-body {
-    padding: 24px 22px;
-    font-size: 14px;
-    line-height: 2;
-    color: var(--ink);
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-  .result-card-body strong {
-    color: var(--accent);
-    font-weight: 500;
-  }
-
-  .result-divider {
-    text-align: center;
-    margin: 28px 0;
-    position: relative;
-  }
-  .result-divider::before {
-    content: '';
-    position: absolute;
-    top: 50%; left: 0; right: 0;
-    height: 1px;
-    background: var(--line);
-  }
-  .result-divider span {
-    position: relative;
-    background: var(--bg);
-    padding: 0 14px;
-    font-family: var(--font-serif);
-    font-size: 11px;
-    color: var(--gold);
-    letter-spacing: 0.2em;
-  }
-
-  /* ── Signature ── */
-  .signature {
-    text-align: center;
-    padding: 36px 0 16px;
-  }
-  .sig-line {
-    width: 32px;
-    height: 1px;
-    background: var(--gold);
-    margin: 0 auto 24px;
-  }
-  .sig-copy {
-    font-family: var(--font-serif);
-    font-size: 13px;
-    color: var(--ink-light);
-    line-height: 2;
-    margin-bottom: 28px;
-  }
-  .sig-name {
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.08em;
-    margin-bottom: 20px;
-  }
-  .sig-link {
-    display: inline-block;
-    font-family: var(--font-serif);
-    font-size: 11px;
-    color: var(--ink-light);
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 2px;
-    transition: all 0.2s;
-  }
-  .sig-link:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-
-  /* ── Email result notice ── */
-  .email-sent-notice {
-    background: var(--cream);
-    border: 1px solid var(--line);
-    border-radius: 3px;
-    padding: 14px 18px;
-    text-align: center;
-    font-family: var(--font-serif);
-    font-size: 12px;
-    color: var(--ink-light);
-    line-height: 1.8;
-    margin-bottom: 24px;
-  }
+  
 
   /* ── Footer ── */
   .footer {
@@ -645,23 +420,6 @@
   </div>
 </div>
 
-<!-- ── Screen 4: Email ── -->
-<div class="screen" id="screen-email">
-  <div class="q-number">最後に</div>
-  <div class="q-text">結果をメールで<br>受け取りますか？</div>
-  <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
-  <div class="email-intro">
-    あとで読み返したい方は、メールアドレスをどうぞ。<br>
-    入力しなくても、結果はこのページでご覧いただけます。
-  </div>
-  <div class="email-wrap">
-    <label class="email-label" for="emailInput">email address</label>
-    <input type="email" id="emailInput" placeholder="example@mail.com">
-  </div>
-  <button class="btn-primary" onclick="showResult()">結果を見る</button>
-  <span class="email-skip" onclick="showResult()">メールは不要です。このまま結果を見る</span>
-</div>
-
 <!-- ── Screen 5: Result ── -->
 <div class="screen" id="screen-result">
 
@@ -695,8 +453,6 @@
     <div class="result-card-header">美容師に相談するとしたら</div>
     <div class="result-card-body" id="result-mind"></div>
   </div>
-
-  <div id="email-sent-area"></div>
 
   <div class="signature">
     <div class="sig-line"></div>
@@ -1392,7 +1148,6 @@ function updateProgress(screenId) {
     'screen-q1': 20,
     'screen-q2': 45,
     'screen-q3': 68,
-    'screen-email': 85,
     'screen-result': 100
   };
   document.getElementById('progressBar').style.width = (map[screenId] || 0) + '%';
@@ -1428,14 +1183,11 @@ function selectQ2(key) {
 // ── Q3 ──
 function selectQ3(key) {
   q3Answer = key;
-  goTo('screen-email');
+  showResult();
 }
 
 // ── Show Result ──
 function showResult() {
-  const emailEl = document.getElementById('emailInput');
-  const email = emailEl ? emailEl.value.trim() : '';
-
   // Render technic result
   const technicText = results[q2Answer] || '';
   document.getElementById('result-technic').textContent = technicText;
@@ -1443,16 +1195,6 @@ function showResult() {
   // Render mind result
   const mindText = results[q3Answer] || '';
   document.getElementById('result-mind').textContent = mindText;
-
-  // Email notice
-  const sentArea = document.getElementById('email-sent-area');
-  if (email && email.includes('@')) {
-    sentArea.innerHTML = `<div class="email-sent-notice">
-      ご入力いただいたアドレスへ、この結果をお送りします。<br>
-      <strong style="color:var(--accent);">${email}</strong>
-    </div>`;
-    sendEmail(email, technicText, mindText);
-  }
 
   goTo('screen-result');
 }
@@ -1462,32 +1204,9 @@ function restartDiagnosis() {
   q1Answer = '';
   q2Answer = '';
   q3Answer = '';
-  document.getElementById('emailInput').value = '';
-  document.getElementById('email-sent-area').innerHTML = '';
   goTo('screen-start');
 }
 
-// ── Send Email (GAS) ──
-async function sendEmail(email, technic, mind) {
-  const GAS_URL = 'https://script.google.com/macros/s/YOUR_GAS_ENDPOINT/exec';
-  try {
-    await fetch(GAS_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        email: email,
-        q1: q1Answer,
-        q2: q2Answer,
-        q3: q3Answer,
-        technic: technic,
-        mind: mind,
-        timestamp: new Date().toISOString()
-      })
-    });
-  } catch(e) {
-    console.log('Email send skipped:', e);
-  }
-}
 </script>
 </body>
 </html>
