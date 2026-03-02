@@ -1283,7 +1283,17 @@ function showResult() {
   const mindText = results[q3Answer] || '';
   document.getElementById('result-mind').textContent = mindText;
 
+  // GAS送信
+  sendToGAS(q1Answer, q2Answer, q3Answer);
+
   goTo('screen-result');
+}
+
+// ── GAS送信 ──
+function sendToGAS(q1, q2, q3) {
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbzf74GxE_smsfaKLZUVJHJheiZifzgxee2iS0rILNps33SvEgBaKcqVe4D9vnsJXKz4/exec';
+  const params = new URLSearchParams({ q1, q2, q3 });
+  fetch(`${GAS_URL}?${params}`).catch(() => {});
 }
 
 // ── Restart ──
