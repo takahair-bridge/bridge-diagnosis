@@ -1293,7 +1293,7 @@ function showResult() {
 function sendToGAS(q1, q2, q3) {
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbzf74GxE_smsfaKLZUVJHJheiZifzgxee2iS0rILNps33SvEgBaKcqVe4D9vnsJXKz4/exec';
   const params = new URLSearchParams({ q1, q2, q3 });
-  fetch(`${GAS_URL}?${params}`).catch(() => {});
+  fetch(`${GAS_URL}?${params}`, { mode: 'no-cors' }).catch(() => {});
 }
 
 // ── Restart ──

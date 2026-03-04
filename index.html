@@ -1033,16 +1033,12 @@ function showResult() {
 
   // スプレッドシートに送信
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbzJtTDbbtu2gtYmwi6BWMRHBDOcS5bnsPXX-rofiyHupV4wBrAdN2Pbb0s8sOI35uO5/exec';
-  fetch(GAS_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      resultType: top,
-      q1: answers[0], q2: answers[1], q3: answers[2], q4: answers[3],
-      q5: answers[4], q6: answers[5], q7: answers[6], q8: answers[7]
-    })
-  }).catch(() => {});
+  const params1 = new URLSearchParams({
+    resultType: top,
+    q1: answers[0], q2: answers[1], q3: answers[2], q4: answers[3],
+    q5: answers[4], q6: answers[5], q7: answers[6], q8: answers[7]
+  });
+  fetch(GAS_URL + '?' + params1, { mode: 'no-cors' }).catch(() => {});
 }
 
 function startQuiz() {

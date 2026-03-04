@@ -854,7 +854,7 @@ function sendToGAS(answers, pType, hType, pScore, hairScores) {
     hs3:hairScores[3],hs4:hairScores[4],hs5:hairScores[5],
     hs6:hairScores[6],hs7:hairScores[7],hs8:hairScores[8]
   });
-  fetch(`${GAS_URL}?${params}`).catch(()=>{});
+  fetch(`${GAS_URL}?${params}`, { mode: 'no-cors' }).catch(()=>{});
 }
 
 function resetAll() {
