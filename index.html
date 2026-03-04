@@ -1038,7 +1038,7 @@ function showResult() {
     q1: answers[0], q2: answers[1], q3: answers[2], q4: answers[3],
     q5: answers[4], q6: answers[5], q7: answers[6], q8: answers[7]
   });
-  fetch(GAS_URL + '?' + params1, { mode: 'no-cors' }).catch(() => {});
+  new Image().src = GAS_URL + '?' + params1;
 }
 
 function startQuiz() {
