@@ -211,6 +211,7 @@
     border-left: 3px solid var(--accent-light);
   }
 
+  /* アバター画像：src="あなたの顔写真パス" を設定してください */
   .avatar {
     width: 52px; height: 52px;
     border-radius: 50%;
@@ -707,7 +708,10 @@
     </div>
 
     <div class="taka-block">
-      <div class="avatar">T</div>
+      <!-- 顔写真：src を実際の画像パスに差し替えてください（例: src="DSC_7587_Original.jpg"） -->
+      <div class="avatar" style="overflow:hidden;padding:0;">
+        <img src="DSC_7587_Original.jpg" alt="TAKA" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.parentElement.innerHTML='T';this.parentElement.style.cssText='display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:20px;font-weight:700;color:var(--accent);';">
+      </div>
       <div class="taka-inner">
         <span class="taka-from">bridge TAKA より</span>
         <p class="taka-words">
@@ -1033,12 +1037,16 @@ function showResult() {
 
   // スプレッドシートに送信
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbzJtTDbbtu2gtYmwi6BWMRHBDOcS5bnsPXX-rofiyHupV4wBrAdN2Pbb0s8sOI35uO5/exec';
-  const params1 = new URLSearchParams({
-    resultType: top,
-    q1: answers[0], q2: answers[1], q3: answers[2], q4: answers[3],
-    q5: answers[4], q6: answers[5], q7: answers[6], q8: answers[7]
-  });
-  new Image().src = GAS_URL + '?' + params1;
+  fetch(GAS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      resultType: top,
+      q1: answers[0], q2: answers[1], q3: answers[2], q4: answers[3],
+      q5: answers[4], q6: answers[5], q7: answers[6], q8: answers[7]
+    })
+  }).catch(() => {});
 }
 
 function startQuiz() {
