@@ -806,10 +806,10 @@
         <a class="link-item" href="https://www.instagram.com/takahair_bridge/reels/" target="_blank">
           <span class="icon">📷</span>Instagram
         </a>
-        <a class="link-item" href="https://www.personalhairstylist.info/infomation" target="_blank">
+        <a class="link-item" href="https://hub.personalhairstylist.info" target="_blank">
           <span class="icon">🌿</span>公式サイト
         </a>
-        <a class="link-item" href="https://www.personalhairstylist.info/product" target="_blank">
+        <a class="link-item" href="https://takahair-bridge.github.io/bridge-Products/" target="_blank">
           <span class="icon">🧴</span>オンラインショップ
         </a>
         <a class="link-item" href="https://lin.ee/KR1qGTc" target="_blank">
@@ -973,6 +973,7 @@ let scores = { A:0,B:0,C:0,D:0,E:0,F:0 };
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const el = document.getElementById(id);
+  if (!el) return;
   el.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -981,14 +982,15 @@ function renderQ() {
   const q = questions[currentQ];
   const pct = ((currentQ + 1) / questions.length) * 100;
 
-  document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('phase-name').textContent = q.phase;
-  document.getElementById('q-counter').textContent = `${currentQ + 1} / ${questions.length}`;
-  document.getElementById('q-large-num').textContent = String(currentQ + 1).padStart(2, '0');
-  document.getElementById('q-text').innerHTML = q.q;
-  document.getElementById('q-note').innerHTML = q.note;
+  const pf = document.getElementById('progress-fill'); if (pf) pf.style.width = pct + '%';
+  const ph = document.getElementById('phase-name'); if (ph) ph.textContent = q.phase;
+  const qc = document.getElementById('q-counter'); if (qc) qc.textContent = `${currentQ + 1} / ${questions.length}`;
+  const qn = document.getElementById('q-large-num'); if (qn) qn.textContent = String(currentQ + 1).padStart(2, '0');
+  const qt = document.getElementById('q-text'); if (qt) qt.innerHTML = q.q;
+  const qo = document.getElementById('q-note'); if (qo) qo.innerHTML = q.note;
 
   const wrap = document.getElementById('choices');
+  if (!wrap) return;
   wrap.innerHTML = '';
   const labels = ['A','B','C','D'];
 
@@ -1026,12 +1028,13 @@ function showResult() {
   const top = Object.entries(scores).sort((a,b) => b[1]-a[1])[0][0];
   const r = results[top];
 
-  document.getElementById('result-type-name').innerHTML = r.type;
-  document.getElementById('result-type-sub').innerHTML = r.sub;
-  document.getElementById('r-core-title').innerHTML = r.coreTitle;
-  document.getElementById('r-core-body').innerHTML = r.coreBody;
-  document.getElementById('r-taka').innerHTML = r.taka;
-  document.getElementById('r-action').innerHTML = r.action;
+  const _s = (id, val) => { const el = document.getElementById(id); if (el) el.innerHTML = val; };
+  _s('result-type-name', r.type);
+  _s('result-type-sub', r.sub);
+  _s('r-core-title', r.coreTitle);
+  _s('r-core-body', r.coreBody);
+  _s('r-taka', r.taka);
+  _s('r-action', r.action);
 
   showScreen('result');
 
@@ -1054,7 +1057,7 @@ function startQuiz() {
   answers = [];
   scores = { A:0,B:0,C:0,D:0,E:0,F:0 };
   showScreen('quiz');
-  renderQ();
+  if (document.getElementById('quiz')) renderQ();
 }
 
 function retry() { startQuiz(); }
