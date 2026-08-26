@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" id="html">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -70,6 +70,20 @@ body::before{content:'';display:block;height:3px;background:linear-gradient(90de
 
 .opencount{font-family:var(--font-serif);font-size:12.5px;letter-spacing:.06em;color:var(--accent-mid);text-align:right;margin:-8px 0 30px;}
 .opencount[hidden]{display:none;}
+.langrow{display:flex;justify-content:flex-end;margin:-26px 0 26px;}
+.langbtn{font-family:var(--font-en);font-size:13px;letter-spacing:.22em;color:var(--accent-mid);background:transparent;border:1px solid var(--border);border-radius:2px;padding:7px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.langbtn:active{border-color:var(--accent-light);}
+.maplink{display:inline-block;margin-top:12px;font-family:var(--font-serif);font-size:12.5px;letter-spacing:.06em;color:var(--accent-mid);text-decoration:none;border:1px solid var(--border);border-radius:2px;padding:8px 14px;-webkit-tap-highlight-color:transparent;}
+.maplink:active{border-color:var(--accent-light);}
+.next{margin-top:30px;text-align:center;}
+.next a{display:inline-block;font-family:var(--font-serif);font-size:14px;line-height:2.05;letter-spacing:.03em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-light);padding-bottom:4px;}
+.next a[hidden]{display:none;}
+html.en body{font-family:var(--font-serif);}
+html.en h1{line-height:1.5;letter-spacing:.01em;font-size:clamp(24px,6.8vw,31px);}
+html.en .lead,html.en p.t,html.en h2,html.en .promise li,html.en .landing,html.en .ncb{letter-spacing:.005em;line-height:1.85;}
+html.en .chstep,html.en .closing .cl{letter-spacing:.02em;}
+html.en .btn{letter-spacing:.08em;}
+html.en .tex{font-size:12px;}
 .top-catch{font-family:var(--font-serif);font-size:12px;letter-spacing:.1em;color:var(--muted);margin-bottom:22px;}
 h1{font-family:var(--font-serif);font-weight:700;font-size:clamp(25px,7.2vw,33px);line-height:1.78;letter-spacing:.045em;margin-bottom:26px;}
 h1 .aw{color:var(--accent);border-bottom:1px solid var(--accent-light);}
@@ -99,7 +113,8 @@ strong{font-weight:500;color:var(--accent);}
 .texs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;}
 .tex{background:var(--surface);border:1px solid var(--border);border-radius:2px;min-height:50px;display:flex;align-items:center;justify-content:center;text-align:center;font-family:var(--font-serif);font-size:11.5px;line-height:1.5;color:var(--ink-soft);cursor:pointer;transition:.22s;-webkit-tap-highlight-color:transparent;}
 .tex.on{border-color:var(--accent);background:var(--accent-pale);color:var(--accent);}
-.gaugebox{background:var(--surface);border:1px solid var(--border);border-radius:2px;padding:10px 2px 6px;margin-top:16px;touch-action:none;cursor:ns-resize;}
+.gaugebox{background:var(--surface);border:1px solid var(--border);border-radius:2px;padding:10px 2px 6px;margin-top:16px;touch-action:none;-ms-touch-action:none;overscroll-behavior:contain;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:ns-resize;}
+.gaugebox svg,.gaugebox image{touch-action:none;pointer-events:auto;}
 .gaugebox svg{display:block;width:100%;height:auto;}
 .readout{background:var(--surface2);border-radius:2px;padding:18px 16px;margin-top:14px;text-align:center;}
 .readout .ro1{font-family:var(--font-old);font-size:19px;letter-spacing:.04em;color:var(--accent);line-height:1.7;}
@@ -213,19 +228,20 @@ strong{font-weight:500;color:var(--accent);}
 <div class="wrap">
 
   <div class="brand-line"><span class="brand-name">bridge</span></div>
-  <h1>あなたの毛先、<br><span class="aw">何年何月に生まれたの？</span></h1>
-  <div class="opencount" id="openCount" hidden>これまでに <span id="openCountN">—</span>回、楽しんでもらいました。</div>
+  <div class="langrow"><button type="button" class="langbtn" id="langBtn">EN</button></div>
+  <h1 data-i="h1">あなたの毛先、<br><span class="aw">何年何月に生まれたの？</span></h1>
+  <div class="opencount" id="openCount" hidden><span id="openCountT">これまでに —回、楽しんでもらいました。</span></div>
 
-  <p class="lead">髪は1ヶ月におよそ1cm伸びます。<br>一本一本成長速度は違いますが、<br>おおよその数字で換算します。</p>
-  <p class="lead">それを基に今日までの過去をさかのぼって、<br>そしてこれからの未来を見にいきます。</p>
+  <p class="lead" data-i="lead1">髪は1ヶ月におよそ1cm伸びます。<br>一本一本成長速度は違いますが、<br>おおよその数字で換算します。</p>
+  <p class="lead" data-i="lead2">それを基に今日までの過去をさかのぼって、<br>そしてこれからの未来を見にいきます。</p>
 
   <!-- ① 約束 -->
   <section>
     <div class="sec-label">Promise</div>
     <div class="card promise">
-      <div class="pt">選んだことも、写真も、<br>どこにも送られません。</div>
+      <div class="pt" data-i="pr1">選んだことも、写真も、<br>どこにも送られません。</div>
       <ul>
-        <li>あなたの答えも写真も、この画面の外には出ません。閉じたら消えます。数えているのは、ページが開かれた回数だけです。</li>
+        <li data-i="pr2">あなたの答えも写真も、この画面の外には出ません。閉じたら消えます。数えているのは、ページが開かれた回数だけです。</li>
       </ul>
     </div>
   </section>
@@ -233,15 +249,15 @@ strong{font-weight:500;color:var(--accent);}
   <!-- ② 選ぶ -->
   <section>
     <div class="sec-label">Choose</div>
-    <h2>髪が落ちる位置は、<br>どこですか？</h2>
-    <p class="t" style="margin-bottom:24px;">いちばん長いところをひと束、<br>肩の前に持ってきてください。<br>引っぱらず、そのまま落ちる位置で結構です。</p>
+    <h2 data-i="ch1">髪が落ちる位置は、<br>どこですか？</h2>
+    <p class="t" style="margin-bottom:24px;" data-i="ch2">いちばん長いところをひと束、<br>肩の前に持ってきてください。<br>引っぱらず、そのまま落ちる位置で結構です。</p>
 
-    <div class="qlabel">髪のくせ</div>
+    <div class="qlabel" data-i="ch3">髪のくせ</div>
     <div class="texs" id="texs"></div>
 
     <!-- ▼▼ ゲージ：体固定・髪だけ載せ替えの実写4髪質（gauge_4tex_v0_11 由来）▼▼ -->
     <div class="card quiet" id="coilNote" style="display:none;margin-top:12px;">
-        <p class="t sm">細かいコイルの髪は、専門的な技術と知識が必要です。<br>bridgeでは対応しかねる施術がございます。<br>お手数ですが、事前にご相談ください。</p>
+        <p class="t sm" id="coilJa">細かいコイルの髪は、専門的な技術と知識が必要です。<br>bridgeでは対応しかねる施術がございます。<br>お手数ですが、事前にご相談ください。</p>
         <p class="t sm" style="margin-top:10px;color:var(--muted);">Tightly coiled hair requires specialised training and products.<br>There are services we are not able to offer at bridge.<br>Please contact us in advance so we can advise you.</p>
       </div>
       <div class="gaugebox"><div id="gaugeArt"></div></div>
@@ -251,12 +267,12 @@ strong{font-weight:500;color:var(--accent);}
       <div class="ro1" id="ro1">—</div>
       <div class="ro2" id="ro2"></div>
     </div>
-    <p class="t sm" id="curlNote" style="display:none;margin-top:14px;">もっと正確に知りたい方へ。<br>「まっすぐ」を選んだうえで、<br>髪を引っぱったときに毛先が来る位置を選ぶと、<br>かなり近い数字が出ます。</p>
+    <p class="t sm" id="curlNote" data-i="ch4" style="display:none;margin-top:14px;">もっと正確に知りたい方へ。<br>「まっすぐ」を選んだうえで、<br>髪を引っぱったときに毛先が来る位置を選ぶと、<br>かなり近い数字が出ます。</p>
 
-    <div class="qlabel" style="margin-top:32px;">年代（これから先の話に使います）</div>
+    <div class="qlabel" style="margin-top:32px;" data-i="ch5">年代（これから先の話に使います）</div>
     <div class="ages" id="ages"></div>
 
-    <button class="btn" id="go" disabled>さかのぼる</button>
+    <button class="btn" id="go" data-i="go" disabled>さかのぼる</button>
   </section>
 
   <div id="result">
@@ -265,7 +281,7 @@ strong{font-weight:500;color:var(--accent);}
     <section>
       <div class="sec-label">Result</div>
       <div class="card">
-        <div class="cap">いまの毛先が生まれたのは</div>
+        <div class="cap" data-i="re1">いまの毛先が生まれたのは</div>
         <div class="hero" id="tipDate">—</div>
         <div class="thin" id="tipAge"></div>
         <p class="t" style="margin-top:16px;" id="tipNote"></p>
@@ -275,30 +291,30 @@ strong{font-weight:500;color:var(--accent);}
     <!-- ③-2 隠れている長さ：くせがある人だけ表示 -->
     <section id="hiddenSec" style="display:none;">
       <div class="sec-label">Hidden</div>
-      <h2>あなたの髪は、<br>実は、見えているより長い！</h2>
+      <h2 data-i="hd1">あなたの髪は、<br>実は、見えているより長い！</h2>
       <div class="card strongcard">
         <div class="twocol">
           <div class="col">
-            <div class="collabel">見えている長さ</div>
+            <div class="collabel" data-i="hd2">見えている長さ</div>
             <div class="colnum" id="hidFall">—</div>
           </div>
           <div class="colarrow">→</div>
           <div class="col">
-            <div class="collabel">ほんとうの長さは</div>
+            <div class="collabel" data-i="hd3">ほんとうの長さは</div>
             <div class="colnum big" id="hidReal">—</div>
           </div>
         </div>
         <div class="hr"></div>
         <p class="t" id="hidLead"></p>
-        <p class="t sm" style="margin-top:14px;">縮む割合は、カールで20〜40%、細かいコイルで50〜75%以上とされています。この年表は、戻したほうの長さで数えています。</p>
-        <div class="src"><span class="badge">◎</span>複数の公開資料で一致</div>
+        <p class="t sm" style="margin-top:14px;" data-i="hd4">縮む割合は、カールで20〜40%、細かいコイルで50〜75%以上とされています。この年表は、戻したほうの長さで数えています。</p>
+        <div class="src" data-i="hd5"><span class="badge">◎</span>複数の公開資料で一致</div>
       </div>
     </section>
 
     <!-- ④ 髪の目盛り＋年表 -->
     <section>
       <div class="sec-label">Timeline</div>
-      <h2>ここまでの、髪の履歴書。</h2>
+      <h2 data-i="tl1">ここまでの、髪の履歴書。</h2>
 
       <div class="strandbox">
         <div class="strandhead" id="uniHead">—</div>
@@ -309,170 +325,220 @@ strong{font-weight:500;color:var(--accent);}
     <!-- ⑤⑥ 未来 -->
     <section>
       <div class="sec-label">Forward</div>
-      <h2>ここから先の、髪そのものの話。</h2>
+      <h2 data-i="fw1">これからの、未来の髪のおはなし。</h2>
+      <p class="t sm" style="margin-top:-8px;margin-bottom:22px;" data-i="fw2">読みながら、想像してみてくださいね。</p>
 
-      <!-- ▼ 写真（任意）。すべてこの端末の中だけで処理します ▼ -->
-      <div class="card photocard" id="photoIntro">
-        <div class="pt2">遊びだと思って、1枚どうぞ。</div>
-        <p class="t" style="margin-top:14px;">正面から、髪を両肩の前におろして。<br>明るいところ、白っぽい壁の前がきれいに出ます。</p>
-        <p class="t sm" style="margin-top:12px;">1枚あると、髪の色が変わっていく様子を、<br>あなたの髪で見られます。<br>冒頭の約束のとおり、写真はこの端末から出ません。<br>使わずに読み進めることもできます。</p>
-        <div class="photobtns">
-          <button class="btn" id="btnCam" style="margin-top:0;">写真を撮る</button>
-          <button class="btn ghost" id="btnLib" style="margin-top:10px;">アルバムから選ぶ</button>
-          <input type="file" accept="image/*" capture="user" id="fileCam" hidden>
-          <input type="file" accept="image/*" id="fileLib" hidden>
-        </div>
-      </div>
-
-      <div id="photoLive" style="display:none;">
-        <div class="card" style="padding:14px;">
-          <div class="canvwrap" style="position:relative;">
-            <video id="phVideo" autoplay playsinline muted style="width:100%;display:block;transform:scaleX(-1);border-radius:2px;background:#181410;"></video>
-            <div class="phGuide"></div>
-          </div>
-          <p class="t sm" style="margin-top:12px;text-align:center;">点線に、頭と髪を合わせてください。</p>
-          <div class="photobtns" style="margin-top:12px;">
-            <button class="btn" id="phShutter" style="margin-top:0;">撮る</button>
-            <button class="btn ghost" id="phLiveCancel" style="margin-top:10px;">やめる</button>
-          </div>
-        </div>
-      </div>
-
-      <div id="photoStage" style="display:none;">
-        <div class="card" style="padding:14px;">
-          <div class="canvwrap" id="canvWrap" style="position:relative;touch-action:none;">
-            <canvas id="photoCanvas" style="width:100%;display:block;border-radius:2px;"></canvas>
-            <div class="phGuide"></div>
-          </div>
-          <p class="t sm" style="margin-top:12px;text-align:center;">写真を指で動かして、<br>点線に頭と髪を合わせてください。<br>2本の指でひろげると、大きくなります。</p>
-          <div class="photobtns" style="margin-top:12px;">
-            <button class="btn" id="ringDone" style="margin-top:0;">この位置で決める</button>
-          </div>
-        </div>
-      </div>
-
-      <div id="photoResult" style="display:none;">
-        <div class="card" style="padding:14px;">
-          <div class="canvwrap"><canvas id="outCanvas" style="width:100%;display:block;border-radius:2px;"></canvas></div>
-          <p class="t sm" style="margin-top:12px;">この画像は、髪の色だけを変えています。<br>お顔には一切手を触れていません。</p>
-          <p class="t sm" style="margin-top:10px;"><strong>この写真は、閉じたら消えます。</strong><br>残したければ、スクリーンショットを。</p>
-          <p class="t sm" style="margin-top:10px;">あくまで予測です。当たるものでもありません。<br>「自分はこうなるのか。じゃあ、気をつけていこう」<br>——それくらいで、ちょうどいいです。</p>
-          <div class="photobtns" style="margin-top:12px;">
-            <button class="btn ghost" id="photoClear" style="margin-top:0;">写真を消す</button>
-          </div>
-        </div>
-      </div>
-      <!-- ▲ ここまで ▲ -->
 
       <div class="tabs" id="tabs">
-        <div class="tab on" data-y="3">3年後</div>
-        <div class="tab" data-y="10">10年後</div>
-        <div class="tab" data-y="20">20年後</div>
+        <div class="tab on" data-y="3" data-i="fw3">3年後</div>
+        <div class="tab" data-y="10" data-i="fw4">10年後</div>
+        <div class="tab" data-y="20" data-i="fw5">20年後</div>
       </div>
       <div class="card">
         <div class="cap" id="futCap">—</div>
         <div style="margin-top:18px;">
-          <div class="nc"><div class="nch">白髪</div><div class="ncb" id="fShiraga"></div></div>
-          <div class="nc"><div class="nch">うねり</div><div class="ncb" id="fUneri"></div></div>
-          <div class="nc"><div class="nch">太さ</div><div class="ncb" id="fFutosa"></div></div>
+          <div class="nc"><div class="nch" data-i="fw6">白髪</div><div class="ncb" id="fShiraga"></div></div>
+          <div class="nc"><div class="nch" data-i="fw7">うねり</div><div class="ncb" id="fUneri"></div></div>
+          <div class="nc"><div class="nch" data-i="fw8">太さ</div><div class="ncb" id="fFutosa"></div></div>
         </div>
-        <p class="t sm" style="margin-top:19px;">ここに出しているのは、<br>複数の公開資料で一致した範囲のみです。</p>
-        <div class="src"><span class="badge">◎</span>複数の公開資料で一致した範囲のみ</div>
+        <p class="t sm" style="margin-top:19px;" data-i="fw9">ここに出しているのは、<br>複数の公開資料で一致した範囲のみです。</p>
+        <div class="src" data-i="fw10"><span class="badge">◎</span>複数の公開資料で一致した範囲のみ</div>
       </div>
     </section>
 
     <!-- ⑧ 連鎖 -->
     <section>
       <div class="sec-label">Chain</div>
-      <h2>ひとつだけ、大切な話をさせてください。</h2>
+      <h2 data-i="cn1">ひとつだけ、大切な話をさせてください。</h2>
       <div class="chain">
-        <div class="chstep">白髪が気になる</div>
+        <div class="chstep" data-i="cn2">白髪が気になる</div>
         <div class="charr">↓</div>
-        <div class="chstep">カラーの頻度が上がる</div>
+        <div class="chstep" data-i="cn3">カラーの頻度が上がる</div>
         <div class="charr">↓</div>
-        <div class="chstep">うねりが、さらに増す</div>
-        <div class="chnote">カラー剤の繰り返しで、<br>うねりが増長することが分かっています</div>
+        <div class="chstep" data-i="cn4">うねりが、さらに増す</div>
+        <div class="chnote" data-i="cn5">カラー剤の繰り返しで、<br>うねりが増長することが分かっています</div>
         <div class="charr">↓</div>
-        <div class="chstep">まとまらなくなる</div>
-        <div class="landing">カラー剤を繰り返すと、<br>うねりが増すことが分かっています。<br>だから、<br><strong>毎回ぜんぶを染めない方がいい。</strong>根元だけを染める、<br>という選択肢もあります。<br>他にも、あなた自身のための手法はあると思います。</div>
-        <div class="src" style="text-align:center;"><span class="badge">◎</span>うねりとカラーの関係：国内大手メーカー調べ（公開資料・複数一致）</div>
+        <div class="chstep" data-i="cn6">まとまらなくなる</div>
+        <div class="landing" data-i="cn7">カラー剤を繰り返すと、<br>うねりが増すことが分かっています。<br>だから、<br><strong>毎回ぜんぶを染めない方がいい。</strong>根元だけを染める、<br>という選択肢もあります。<br>他にも、あなた自身のための手法はあると思います。</div>
+        <div class="src" style="text-align:center;" data-i="cn8"><span class="badge">◎</span>うねりとカラーの関係：国内大手メーカー調べ（公開資料・複数一致）</div>
       </div>
     </section>
 
     <!-- 案⑥ 強さ：息継ぎの1枚 -->
     <section>
       <div class="sec-label">Strength</div>
-      <h2>ついでに、髪のネタをふたつ。</h2>
+      <h2 data-i="st1">ついでに、髪のネタをふたつ。</h2>
       <div class="card quiet">
-        <div class="cap">あなたの髪を1本ずつ、端から端までつないだ全長</div>
+        <div class="cap" data-i="st2">あなたの髪を1本ずつ、端から端までつないだ全長</div>
         <div class="sub" id="totalKm">—</div>
         <p class="t" style="margin-top:10px;" id="kmNote"></p>
+        <a class="maplink" id="mapLink" href="https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E9%A7%85" target="_blank" rel="noopener" data-track="map">東京駅を、地図で見る</a>
         <div style="border-top:1px solid var(--border);margin:20px 8px;"></div>
-        <div class="cap">あなたの髪、全部で支えられる重さ</div>
+        <div class="cap" data-i="st3">あなたの髪、全部で支えられる重さ</div>
         <div class="sub" id="strength">—</div>
-        <p class="t" style="margin-top:14px;">髪は1本で100gほどを支えます。<br>10万本あれば、<br>乗用車10台ぶんくらいになります。</p>
-        <p class="t" style="margin-top:14px;"><strong>ただし、<br>濡れているときは強度が大きく落ちます。</strong>だから、<br>乾かさずに寝ないでください。<br>ここだけは、<br>今夜から役に立ちます。</p>
-        <div class="src"><span class="badge">◎</span>1本あたりの強度・濡れたときの低下：複数の公開資料で一致</div>
+        <p class="t" style="margin-top:14px;" data-i="st4">髪は1本で100gほどを支えます。<br>10万本あれば、<br>乗用車10台ぶんくらいになります。</p>
+        <p class="t" style="margin-top:14px;" data-i="st5"><strong>ただし、<br>濡れているときは強度が大きく落ちます。</strong>だから、<br>乾かさずに寝ないでください。<br>ここだけは、<br>今夜から役に立ちます。</p>
+        <div class="src" data-i="st6"><span class="badge">◎</span>1本あたりの強度・濡れたときの低下：複数の公開資料で一致</div>
       </div>
     </section>
 
     <div class="closing">
-      <div class="cl">髪は、覚えています。<br>あなたと共に歩んだ思い出を。</div>
+      <div class="cl" data-i="cl1">髪は、覚えています。<br>あなたと共に歩んだ思い出を。</div>
+    </div>
+    <div class="next">
+      <a id="nextJa" href="https://takahair-bridge.github.io/bridge-diagnosis/step2.html" data-track="step2">毛先の生まれ月がわかったら、<br>今の髪も、整理してみませんか。</a>
+      <a id="nextEn" href="https://takahair-bridge.github.io/hair-in-japan/" data-track="hij" hidden>If you're planning to sit in a chair in Japan,<br>this writes the first message for you.</a>
     </div>
 
-    <button class="btn ghost" onclick="reset_()" style="margin-top:42px;">長さを選び直す</button>
+    <button class="btn ghost" onclick="reset_()" style="margin-top:42px;" data-i="rs1">長さを選び直す</button>
 
     <!-- できないこと・出典 -->
     <section class="foot">
       <div class="sec-label">Notes</div>
-      <p class="t">本当は、<br>写真から測ったほうが正確です。<br>でもそれをやると、<br>写真を扱うことになります。<br><strong>正確さより、<br>あなたの写真が残らないほうを選びました。</strong>だからこのページは、<br>いちばん近いものを選んでいただく形にしています。</p>
-      <p class="t sm" style="margin-top:16px;">伸びる速さには個人差があります。<br>また夏は速く、<br>冬はゆるやかになると言われていますが、<br>何%変わるかの数字が確認できなかったため、<br>このページでは<strong>季節の差を計算に入れていません。</strong>等間隔で数えています。</p>
-      <p class="t sm" style="margin-top:12px;">白髪・うねり・太さのデータは、<br>日本人を対象にした調査によるものです。</p>
-      <p class="t" style="margin-top:28px;"><strong>抜けることも、リズムのうちです。</strong></p>
-      <p class="t sm" style="margin-top:10px;">1本の髪は、数年かけて伸びて（女性でおよそ4〜6年）、<br>2〜3週間で成長を止め、<br>3〜4ヶ月の休みに入ってから、自然に抜けます。<br>そしてまた、同じ場所から生えてきます。<br>1日に50〜100本抜けるのは、そのリズムの音です。</p>
-      <p class="t" style="margin-top:22px;"><strong>ホルモンと、髪。</strong></p>
-      <p class="t sm" style="margin-top:10px;">出産のあと、2〜3ヶ月ごろから<br>髪がたくさん抜けることがあります。<br>妊娠中に「抜けずに待っていた髪」が、<br>まとめて休みに入るためです。<br>多くの場合、半年〜1年ほどで自然に戻っていきます。<br>1年を過ぎても気になるときは、皮膚科の先生へ。</p>
-      <p class="t sm" style="margin-top:10px;">更年期にかけては、女性ホルモンがゆっくり減ることで、<br>髪が細く、うねりやすくなる傾向があります。<br>年齢のせいだけではなく、体のリズムの話です。</p>
-      <p class="t sm" style="margin-top:12px;">このページの数字は、公開されている調査からの目安です。<br>医学的な診断ではありません。<br>髪や頭皮に気になることがあれば、<br>皮膚科の先生を頼ってください。</p>
+      <p class="t" data-i="nt1">本当は、<br>写真から測ったほうが正確です。<br>でもそれをやると、<br>写真を扱うことになります。<br><strong>正確さより、<br>あなたの写真が残らないほうを選びました。</strong>だからこのページは、<br>いちばん近いものを選んでいただく形にしています。</p>
+      <p class="t sm" style="margin-top:16px;" data-i="nt2">伸びる速さには個人差があります。<br>また夏は速く、<br>冬はゆるやかになると言われていますが、<br>何%変わるかの数字が確認できなかったため、<br>このページでは<strong>季節の差を計算に入れていません。</strong>等間隔で数えています。</p>
+      <p class="t sm" style="margin-top:12px;" data-i="nt3">白髪・うねり・太さのデータは、<br>日本人を対象にした調査によるものです。</p>
+      <p class="t" style="margin-top:28px;" data-i="nt4"><strong>抜けることも、リズムのうちです。</strong></p>
+      <p class="t sm" style="margin-top:10px;" data-i="nt5">1本の髪は、数年かけて伸びて（女性でおよそ4〜6年）、<br>2〜3週間で成長を止め、<br>3〜4ヶ月の休みに入ってから、自然に抜けます。<br>そしてまた、同じ場所から生えてきます。<br>1日に50〜100本抜けるのは、そのリズムの音です。</p>
+      <p class="t" style="margin-top:22px;" data-i="nt6"><strong>ホルモンと、髪。</strong></p>
+      <p class="t sm" style="margin-top:10px;" data-i="nt7">出産のあと、2〜3ヶ月ごろから<br>髪がたくさん抜けることがあります。<br>妊娠中に「抜けずに待っていた髪」が、<br>まとめて休みに入るためです。<br>多くの場合、半年〜1年ほどで自然に戻っていきます。<br>1年を過ぎても気になるときは、皮膚科の先生へ。</p>
+      <p class="t sm" style="margin-top:10px;" data-i="nt8">更年期にかけては、女性ホルモンがゆっくり減ることで、<br>髪が細く、うねりやすくなる傾向があります。<br>年齢のせいだけではなく、体のリズムの話です。</p>
+      <p class="t sm" style="margin-top:12px;" data-i="nt9">このページの数字は、公開されている調査からの目安です。<br>医学的な診断ではありません。<br>髪や頭皮に気になることがあれば、<br>皮膚科の先生を頼ってください。</p>
       <dl style="margin-top:22px;">
-        <dt><span class="badge">◎</span>伸びる速さ</dt><dd>髪質で変わります。直毛（アジア系）1.3〜1.4cm／月、波打つ髪（ヨーロッパ系）1.2cm／月、コイル（アフリカ系）0.8〜0.9cm／月。毛穴の角度とらせん構造の違いによるものです（複数の公開資料で一致）</dd>
-        <dt><span class="badge">◎</span>縮み（shrinkage）</dt><dd>乾いた状態で見える長さは、本当の長さより短くなります。カール（3A〜3C）で20〜40%、コイル（4A〜4C）で50〜75%以上。このページでは、くせの答えからこの割合を戻して計算しています</dd>
-        <dt><span class="badge">◎</span>成長期</dt><dd>1本の髪が伸び続けられる期間は、女性で4〜6年、最長8年ほど（国内大手メーカー調べほか・複数一致）</dd>
-        <dt><span class="badge">◎</span>体の各部の高さ</dt><dd>頬骨・あご・肩・鎖骨・みぞおち・おへそ・腰の位置は、国内の公的機関が公開している人体寸法データベース（青年女性群）の実測値から換算しています</dd>
-        <dt><span class="badge">◎</span>本数</dt><dd>日本人 平均約10万本（複数の公開資料で一致）</dd>
-        <dt><span class="badge">◎</span>白髪</dt><dd>平均35歳前後から。35〜39歳で約7割の人に白髪があるとされる／50代では9割超に1本以上／量は40代前半 約2割 → 40代後半 約4割 → 50代 約半分 → 70代 70〜100%（いずれも複数の公開資料で一致）</dd>
-        <dt><span class="badge">◎</span>うねり</dt><dd>不規則にうねった毛の割合は 10-20代 &lt; 30-40代 &lt; 50-60代 と増加。原因は2種類のコルテックス細胞の偏りで、なぜ年齢で増えるかは未解明（国内大手メーカー調べ・公開資料）</dd>
-        <dt><span class="badge">◎</span>抜けるリズム・産後とホルモンの変化</dt><dd>皮膚科領域の公開情報・国内大手メーカー調べ（複数一致）</dd>
-        <dt><span class="badge">◎</span>太さ</dt><dd>平均0.07〜0.08mm。女性は30歳前後がピークで、以後細くなる（複数一致）</dd>
-        <dt><span class="badge">◎</span>強さ</dt><dd>1本で100〜150gを支える。濡れると強度が大きく低下（複数一致・ここでは控えめに100gで計算）</dd>
+        <dt data-i="dt0"><span class="badge">◎</span>伸びる速さ</dt><dd data-i="dd0">髪質で変わります。直毛（アジア系）1.3〜1.4cm／月、波打つ髪（ヨーロッパ系）1.2cm／月、コイル（アフリカ系）0.8〜0.9cm／月。毛穴の角度とらせん構造の違いによるものです（複数の公開資料で一致）</dd>
+        <dt data-i="dt1"><span class="badge">◎</span>縮み（shrinkage）</dt><dd data-i="dd1">乾いた状態で見える長さは、本当の長さより短くなります。カール（3A〜3C）で20〜40%、コイル（4A〜4C）で50〜75%以上。このページでは、くせの答えからこの割合を戻して計算しています</dd>
+        <dt data-i="dt2"><span class="badge">◎</span>成長期</dt><dd data-i="dd2">1本の髪が伸び続けられる期間は、女性で4〜6年、最長8年ほど（国内大手メーカー調べほか・複数一致）</dd>
+        <dt data-i="dt3"><span class="badge">◎</span>体の各部の高さ</dt><dd data-i="dd3">頬骨・あご・肩・鎖骨・みぞおち・おへそ・腰の位置は、国内の公的機関が公開している人体寸法データベース（青年女性群）の実測値から換算しています</dd>
+        <dt data-i="dt4"><span class="badge">◎</span>本数</dt><dd data-i="dd4">日本人 平均約10万本（複数の公開資料で一致）</dd>
+        <dt data-i="dt5"><span class="badge">◎</span>白髪</dt><dd data-i="dd5">平均35歳前後から。35〜39歳で約7割の人に白髪があるとされる／50代では9割超に1本以上／量は40代前半 約2割 → 40代後半 約4割 → 50代 約半分 → 70代 70〜100%（いずれも複数の公開資料で一致）</dd>
+        <dt data-i="dt6"><span class="badge">◎</span>うねり</dt><dd data-i="dd6">不規則にうねった毛の割合は 10-20代 &lt; 30-40代 &lt; 50-60代 と増加。原因は2種類のコルテックス細胞の偏りで、なぜ年齢で増えるかは未解明（国内大手メーカー調べ・公開資料）</dd>
+        <dt data-i="dt7"><span class="badge">◎</span>抜けるリズム・産後とホルモンの変化</dt><dd data-i="dd7">皮膚科領域の公開情報・国内大手メーカー調べ（複数一致）</dd>
+        <dt data-i="dt8"><span class="badge">◎</span>太さ</dt><dd data-i="dd8">平均0.07〜0.08mm。女性は30歳前後がピークで、以後細くなる（複数一致）</dd>
+        <dt data-i="dt9"><span class="badge">◎</span>強さ</dt><dd data-i="dd9">1本で100〜150gを支える。濡れると強度が大きく低下（複数一致・ここでは控えめに100gで計算）</dd>
       </dl>
     </section>
   </div>
 
-  <a class="owner" href="https://takahair-bridge.github.io/bridge-lp/" data-track="lp">
-    <div class="on1">TAKA｜bridge</div>
-    <p>大阪・北浜／2ヶ月に一度東京（銀座・自由が丘）<br>東京・ニューヨーク、今は大阪で20年以上美容師をやっています。</p>
-    <p class="ocatch">「ライフスタイルに彩とデザインを」</p>
+  <a class="owner" id="owner" href="https://takahair-bridge.github.io/bridge-lp/" data-track="lp">
+    <div class="on1" data-i="ow1">TAKA｜bridge</div>
+    <p data-i="ow2">大阪・北浜／2ヶ月に一度東京（銀座・自由が丘）<br>東京・ニューヨーク、今は大阪で20年以上美容師をやっています。</p>
+    <p class="ocatch" data-i="ow3">「ライフスタイルに彩とデザインを」</p>
     <div class="osign"><span>── bridge</span></div>
   </a>
 
 </div>
 
 <script>
+/* ★ v2.7 英語版：LANG＝'ja'|'en'。初期は日本語固定、?lang=en で英語、ボタンで切替。
+   静的文＝data-i の辞書（日本語は起動時にDOMから保存）／JS生成文＝L(ja,en) */
+var LANG = 'ja';
+try{ if ((new URLSearchParams(location.search).get('lang')||'').toLowerCase()==='en') LANG='en'; }catch(e){}
+function L(ja, en){ return LANG==='en' ? en : ja; }
+var EN = {
+h1:'Your hair ends —<br><span class="aw">what month were they born?</span>',
+lead1:'Hair grows about 1 cm a month.<br>Every strand is a little different,<br>so we work with a rough figure.',
+lead2:'From there, we go back through the past to today —<br>and then look ahead to the hair to come.',
+pr1:'Nothing you choose, and no photo,<br>is sent anywhere.',
+pr2:'Your answers stay on this screen. Close the page and they are gone. The only thing counted is how many times the page has been opened.',
+ch1:'Where does your hair fall<br>when you let it go?',
+ch2:'Take one strand from the longest part<br>and bring it over the front of your shoulder.<br>Don\u2019t pull — just let it fall where it falls.',
+ch3:'Texture',
+ch4:'If you\u2019d like a closer number:<br>choose \u201cStraight\u201d, then pick the spot<br>your ends reach when the hair is pulled.<br>That gets quite close.',
+ch5:'Your decade (for the part about the future)',
+go:'Go back in time',
+re1:'Your hair ends were born in',
+hd1:'Your hair is longer<br>than it looks!',
+hd2:'What you see', hd3:'The real length',
+hd4:'Curly hair shrinks by 20–40%, tightly coiled hair by 50–75% or more. The timeline below uses the stretched-out length.',
+hd5:'<span class="badge">◎</span>Consistent across several public sources',
+tl1:'Your hair history, so far.',
+fw1:'Now, the story of your hair to come.',
+fw2:'Read along, and picture it.',
+fw3:'In 3 years', fw4:'In 10 years', fw5:'In 20 years',
+fw6:'Grey hair', fw7:'Waviness', fw8:'Thickness',
+fw9:'Only what several public sources<br>agree on is shown here.',
+fw10:'<span class="badge">◎</span>Only ranges where several public sources agree',
+cn1:'Just one thing — an important one.',
+cn2:'Grey hair starts to bother you',
+cn3:'You color more often',
+cn4:'The waviness gets worse',
+cn5:'Repeated coloring is known<br>to increase waviness',
+cn6:'It stops sitting right',
+cn7:'Repeated coloring is known<br>to increase waviness.<br>So —<br><strong>it\u2019s better not to color everything, every time.</strong> Coloring only the roots<br>is one option.<br>There are other ways, too, made for you alone.',
+cn8:'<span class="badge">◎</span>Waviness and coloring: studies by major Japanese manufacturers (public, consistent)',
+st1:'And two small hair facts, while we\u2019re here.',
+st2:'All your hairs, joined end to end',
+st3:'The weight all your hair could hold, together',
+st4:'One hair holds about 100 g.<br>With 100,000 of them,<br>that\u2019s about ten passenger cars.',
+st5:'<strong>But —<br>wet hair loses much of its strength.</strong>So please<br>don\u2019t go to bed with it damp.<br>This one<br>is useful from tonight.',
+st6:'<span class="badge">◎</span>Strength per hair and loss when wet: consistent across public sources',
+cl1:'Your hair remembers.<br>The days it walked with you.',
+rs1:'Choose the length again',
+nt1:'To be honest,<br>measuring from a photo would be more accurate.<br>But that means<br>handling your photo.<br><strong>We chose keeping your photo out of this<br>over being precise.</strong>So this page asks you<br>to pick the closest match instead.',
+nt2:'Growth speed varies from person to person.<br>It is said to be faster in summer<br>and slower in winter,<br>but we could not confirm by how much,<br>so <strong>seasons are not part of the calculation.</strong> The months are counted evenly.',
+nt3:'The figures on grey hair, waviness and thickness<br>come from studies of Japanese women.',
+nt4:'<strong>Shedding is part of the rhythm, too.</strong>',
+nt5:'A single hair grows for several years (about 4–6 for women),<br>stops for 2–3 weeks,<br>rests for 3–4 months, then falls out on its own.<br>And a new one grows from the same place.<br>Losing 50–100 hairs a day is the sound of that rhythm.',
+nt6:'<strong>Hormones, and hair.</strong>',
+nt7:'Two to three months after giving birth,<br>a lot of hair may fall out at once.<br>The hairs that \u201cwaited\u201d during pregnancy<br>all go into their rest at the same time.<br>In most cases it settles back within six months to a year.<br>If it still worries you after a year, see a dermatologist.',
+nt8:'Around menopause, as estrogen slowly declines,<br>hair tends to become finer and wavier.<br>It\u2019s not just age — it\u2019s the body\u2019s rhythm.',
+nt9:'The numbers on this page are estimates from published studies.<br>This is not a medical diagnosis.<br>If anything about your hair or scalp concerns you,<br>please see a dermatologist.',
+dt0:'<span class="badge">◎</span>Growth speed', dd0:'Depends on texture. Straight (East Asian) 1.3–1.4 cm/month, wavy (European) 1.2 cm/month, coily (African) 0.8–0.9 cm/month — from follicle angle and helical structure (consistent across public sources)',
+dt1:'<span class="badge">◎</span>Shrinkage', dd1:'Dry hair looks shorter than it really is: curls (3A–3C) by 20–40%, coils (4A–4C) by 50–75% or more. This page reverses that ratio based on your texture',
+dt2:'<span class="badge">◎</span>Growth phase', dd2:'One hair keeps growing for 4–6 years in women, up to about 8 (major Japanese manufacturers and others, consistent)',
+dt3:'<span class="badge">◎</span>Body landmarks', dd3:'Cheekbone, chin, shoulder, collarbone, sternum, navel and waist heights are converted from measured values in a public Japanese body-dimension database (young adult women)',
+dt4:'<span class="badge">◎</span>Number of hairs', dd4:'Japanese average about 100,000 (consistent across public sources)',
+dt5:'<span class="badge">◎</span>Grey hair', dd5:'Starts around 35 on average. About 70% of people aged 35–39 have some / over 90% in their 50s have at least one / amount: early 40s about 20% → late 40s about 40% → 50s about half → 70s 70–100% (all consistent across public sources)',
+dt6:'<span class="badge">◎</span>Waviness', dd6:'The share of irregularly wavy hairs rises: 10s–20s &lt; 30s–40s &lt; 50s–60s. The cause is an imbalance of two cortex cell types; why it increases with age is not yet understood (major Japanese manufacturer, public data)',
+dt7:'<span class="badge">◎</span>Shedding rhythm, postpartum and hormonal change', dd7:'Public dermatology information and major Japanese manufacturers (consistent)',
+dt8:'<span class="badge">◎</span>Thickness', dd8:'Average 0.07–0.08 mm. Peaks around 30 for women, then thins (consistent)',
+dt9:'<span class="badge">◎</span>Strength', dd9:'One hair holds 100–150 g. Strength drops sharply when wet (consistent; 100 g used here to be conservative)',
+ow1:'TAKA｜bridge',
+ow2:'Osaka, Kitahama — and Tokyo (Ginza, Jiyugaoka) every two months.<br>Tokyo, New York, and now Osaka, for over 20 years.',
+ow3:'\u201cLifestyle enriched with color and design\u201d'
+};
+var JA = {};
+var I18N_TITLE = {ja:document.title, en:'Hair History — the month your hair ends were born.'};
+function applyStatic(){
+  var els = document.querySelectorAll('[data-i]');
+  Array.prototype.forEach.call(els, function(el){
+    var k = el.getAttribute('data-i');
+    if (!(k in JA)) JA[k] = el.innerHTML;
+    if (LANG==='en'){ if (k in EN) el.innerHTML = EN[k]; } else el.innerHTML = JA[k];
+  });
+  document.getElementById('html').setAttribute('lang', LANG);
+  document.getElementById('html').classList.toggle('en', LANG==='en');
+  document.title = I18N_TITLE[LANG];
+  document.getElementById('langBtn').textContent = LANG==='en' ? '日本語' : 'EN';
+  var cj = document.getElementById('coilJa'); if (cj) cj.style.display = LANG==='en' ? 'none' : '';
+  document.getElementById('nextJa').hidden = (LANG==='en');
+  document.getElementById('nextEn').hidden = (LANG!=='en');
+  var m = document.getElementById('mapLink');
+  if (LANG==='en'){ m.href='https://www.google.com/maps/search/?api=1&query=Tokyo+Station'; m.textContent='See Tokyo Station on the map'; }
+  else { m.href='https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E4%BA%AC%E9%A7%85'; m.textContent='東京駅を、地図で見る'; }
+  var o = document.getElementById('owner');
+  if (LANG==='en'){ o.href='https://www.instagram.com/takahair_bridge/'; o.setAttribute('data-track','instagram'); }
+  else { o.href='https://takahair-bridge.github.io/bridge-lp/'; o.setAttribute('data-track','lp'); }
+  if (window.__hhCount) window.__hhCount();
+}
+applyStatic();
+</script>
+
+<script>
 (function(){
 'use strict';
 
-var AGES = [{k:20,l:'20代'},{k:30,l:'30代'},{k:40,l:'40代'},{k:50,l:'50代'},{k:60,l:'60代〜'}];
+var AGES = [{k:20,l:'20代',e:'20s'},{k:30,l:'30代',e:'30s'},{k:40,l:'40代',e:'40s'},{k:50,l:'50代',e:'50s'},{k:60,l:'60代〜',e:'60s +'}];
 
 // 落ちる位置の目盛り（頭頂からのcm・出典 国内の公的機関が公開する人体寸法データベース 青年女性群）
 var MARKS = [{k:'頬骨より上',cm:12,fx:170,dot:1},{k:'リップ',cm:16,fx:172},{k:'あご',cm:22,fx:167},
              {k:'肩',cm:26,fx:128},{k:'鎖骨',cm:30,fx:150},{k:'胸上',cm:38,fx:166},
              {k:'みぞおち',cm:51,fx:149},{k:'おへそ',cm:62,fx:148},{k:'腰',cm:69,fx:161}];
 // 髪質：sh=乾いた状態で見える割合／g=1ヶ月に伸びるcm
-var TEX = [{l:'まっすぐ',name:'くせ',a:0,p:1,v:0,sh:1.00,g:1.3},
-           {l:'ゆるく<br>波打つ',name:'ウェーブ',a:4,p:64,v:4,sh:0.90,g:1.2},
-           {l:'カール',name:'カール',a:7,p:30,v:9,sh:0.68,g:1.1},
-           {l:'細かい<br>コイル',name:'コイル',a:5,p:14,v:15,sh:0.40,g:0.9}];
+var TEX = [{l:'まっすぐ',e:'Straight',name:'くせ',en:'Hair',a:0,p:1,v:0,sh:1.00,g:1.3},
+           {l:'ゆるく<br>波打つ',e:'Loose<br>waves',name:'ウェーブ',en:'Wavy hair',a:4,p:64,v:4,sh:0.90,g:1.2},
+           {l:'カール',e:'Curly',name:'カール',en:'Curly hair',a:7,p:30,v:9,sh:0.68,g:1.1},
+           {l:'細かい<br>コイル',e:'Tight<br>coils',name:'コイル',en:'Coily hair',a:5,p:14,v:15,sh:0.40,g:0.9}];
 var SHOULDER_FALL = 26;
 var GMAX = 98;
 var VBH=280, IMW=160, IMH=265.5, IMY=7;   // 画像320×531を160×265.5で置く
@@ -483,6 +549,8 @@ var GIMG = [[{"tip": 25.9, "d": "data:image/webp;base64,UklGRmQgAABXRUJQVlA4IFgg
 var GMARKS = [{"k": "耳の上", "tip": 26}, {"k": "耳たぶ", "tip": 29}, {"k": "あご", "tip": 32}, {"k": "肩", "tip": 39}, {"k": "脇", "tip": 48}, {"k": "肘", "tip": 58}, {"k": "ウエスト", "tip": 66}, {"k": "ベルト", "tip": 72}, {"k": "ヒップ", "tip": 82}, {"k": "腿", "tip": 92}];
 var GANCH = [[26, 12], [29, 16], [32, 22], [39, 26], [48, 38], [58, 51], [66, 62], [72, 69], [82, 84], [92, 98]];
 var GLM = [[27, "耳の上"], [30, "耳たぶ"], [32, "あご"], [40, "肩"], [48, "脇"], [58, "肘"], [66, "ウエスト"], [74, "ベルト"], [82, "ヒップ"], [999, "腿"]];
+var LM_EN = {"耳の上":"above the ear","耳たぶ":"earlobe","あご":"chin","肩":"shoulder","脇":"underarm","肘":"elbow","ウエスト":"waist","ベルト":"belt","ヒップ":"hip","腿":"thigh"};
+function lmT(k){ return LANG==="en" ? (LM_EN[k]||k) : k; }
 function tipCm(t){
   if (t <= GANCH[0][0]) return GANCH[0][1];
   for (var k=1;k<GANCH.length;k++){ if (t <= GANCH[k][0]){ var a=GANCH[k-1], b=GANCH[k]; return a[1]+(b[1]-a[1])*(t-a[0])/(b[0]-a[0]); } }
@@ -503,7 +571,7 @@ var G = { disp: 39, target: 39, raf: null, lo: -1, hi: -1, nodes: null };
 function buildGauge(){
   var RAIL = IMW + 20, set = GIMG[pickTex];
   var top = tipY(set[0].tip), bot = tipY(set[set.length-1].tip);
-  var s = '<svg viewBox="0 0 '+(RAIL+96)+' '+VBH+'" role="img" aria-label="髪が落ちる位置を選ぶ図">';
+  var s = '<svg viewBox="0 0 '+(RAIL+96)+' '+VBH+'" role="img" aria-label="'+L('髪が落ちる位置を選ぶ図','Choose where your hair falls')+'">';
   s += '<image id="gA" href="" x="0" y="'+IMY+'" width="'+IMW+'" height="'+IMH+'"/>';
   s += '<image id="gB" href="" x="0" y="'+IMY+'" width="'+IMW+'" height="'+IMH+'" opacity="0"/>';
   s += '<path d="M '+RAIL+' '+top+' L '+RAIL+' '+bot+'" stroke="#e4dbcd" stroke-width="2.5" stroke-linecap="round"/>';
@@ -514,7 +582,7 @@ function buildGauge(){
     var y = tipY(o.tip), ty = y; if (ty - last < 13) ty = last + 13; last = ty;
     s += '<path id="gt'+i+'" d="M '+(RAIL-7)+' '+y+' L '+(RAIL+7)+' '+y+'" stroke="#e2d9cb" stroke-width="1"/>';
     if (Math.abs(ty - y) > 1) s += '<path d="M '+(RAIL+7)+' '+y+' L '+(RAIL+13)+' '+ty+'" stroke="#e2d9cb" stroke-width="1"/>';
-    s += '<text id="gl'+i+'" x="'+(RAIL+17)+'" y="'+(ty+3.8)+'" font-family="Noto Serif JP, serif" font-size="10.5" fill="#a89684">'+o.k+'</text>';
+    s += '<text id="gl'+i+'" x="'+(RAIL+17)+'" y="'+(ty+3.8)+'" font-family="Noto Serif JP, serif" font-size="10.5" fill="#a89684">'+(LANG==='en'?lmT(o.k).charAt(0).toUpperCase()+lmT(o.k).slice(1):o.k)+'</text>';
   });
   s += '<g id="gKnob"><circle cx="'+RAIL+'" cy="0" r="9.5" fill="#5a3a24"/>'
      + '<path d="M '+(RAIL-3.5)+' -2.5 l 3.5 -3.5 l 3.5 3.5 M '+(RAIL-3.5)+' 2.5 l 3.5 3.5 l 3.5 -3.5" stroke="#f8f4ef" stroke-width="1.3" fill="none" stroke-linecap="round"/></g>';
@@ -544,7 +612,7 @@ function updateGauge(force){
   n.knob.setAttribute('transform', 'translate(0,'+E.toFixed(1)+')');
   n.tip.setAttribute('transform', 'translate(0,'+E.toFixed(1)+')');
   var cm = Math.round(tipCm(c)), lm = tipLm(c);
-  n.tipT.textContent = 'およそ' + cm + 'cm';
+  n.tipT.textContent = L('およそ' + cm + 'cm', 'about ' + cm + ' cm');
   n.ticks.forEach(function(o){
     if (!o.t) return;
     var on = (o.k === lm);
@@ -553,7 +621,7 @@ function updateGauge(force){
     o.l.setAttribute('fill', on ? '#5a3a24' : '#a89684');
     o.l.setAttribute('font-size', on ? '11.5' : '10.5');
   });
-  document.getElementById('ro1').innerHTML = lm + 'のあたり　およそ ' + cm + 'cm';
+  document.getElementById('ro1').innerHTML = L(lm + 'のあたり　およそ ' + cm + 'cm', 'Around the ' + lmT(lm) + '　about ' + cm + ' cm');
 }
 
 function gAnim(){
@@ -572,14 +640,14 @@ function gTo(t){
   G.target = Math.max(texMin(), Math.min(texMax(), t));
   if (!G.raf) G.raf = requestAnimationFrame(gAnim);
 }
-function markLabel(){ return tipLm(pickTip) + 'のあたり'; }
+function markLabel(){ return L(tipLm(pickTip) + 'のあたり', 'around the ' + lmT(tipLm(pickTip))); }
 function realCm(){ return Math.round(pickFall / TEX[pickTex].sh); }
 function paintGauge(){
   pickTip = Math.max(texMin(), Math.min(texMax(), pickTip));   // 髪質を替えても毛先の位置（目印）は保つ
   pickFall = tipCm(pickTip);
   G.disp = pickTip; G.target = pickTip;
   buildGauge();
-  document.getElementById('ro2').innerHTML = 'この位置から、さかのぼります。';
+  document.getElementById('ro2').innerHTML = L('この位置から、さかのぼります。', 'We go back from here.');
   document.getElementById('curlNote').style.display = pickTex > 0 ? 'block' : 'none';
   var cn=document.getElementById('coilNote'); if(cn) cn.style.display=(pickTex===3)?'block':'none';
   Array.prototype.forEach.call(document.getElementById('texs').children, function(c,i){
@@ -589,7 +657,7 @@ function paintGauge(){
 var texsEl = document.getElementById('texs');
 TEX.forEach(function(o,i){
   var d = document.createElement('div');
-  d.className = 'tex'; d.innerHTML = o.l;
+  d.className = 'tex'; d.innerHTML = L(o.l, o.e);
   d.onclick = function(){ pickTex = i; paintGauge(); };
   texsEl.appendChild(d);
 });
@@ -602,12 +670,14 @@ function gpick(ev){
 gbox.addEventListener('pointerdown', function(e){ gdown = true; gbox.setPointerCapture(e.pointerId); gpick(e); e.preventDefault(); });
 gbox.addEventListener('pointermove', function(e){ if (gdown) gpick(e); });
 gbox.addEventListener('pointerup', function(){ gdown = false; });
+// 指で動かしている間はページをスクロールさせない（touch-actionが効かないアプリ内ブラウザ向けの保険）
+['touchstart','touchmove'].forEach(function(ev){ gbox.addEventListener(ev, function(e){ e.preventDefault(); }, { passive:false }); });
 gbox.addEventListener('pointercancel', function(){ gdown = false; });
 
 var agesEl = document.getElementById('ages');
 AGES.forEach(function(o){
   var d = document.createElement('div');
-  d.className = 'age'; d.textContent = o.l;
+  d.className = 'age'; d.textContent = L(o.l, o.e);
   d.onclick = function(){
     pickAge = o.k;
     Array.prototype.forEach.call(agesEl.children, function(c){ c.classList.remove('on'); });
@@ -617,20 +687,21 @@ AGES.forEach(function(o){
 });
 function sync(){ document.getElementById('go').disabled = !pickAge; }
 
-function br_(t){ return String(t).replace(/([、。])(?!$)/g, '$1<br>'); }
+function br_(t){ t = String(t); if (LANG==='en') return t.replace(/([.!?])\s+(?=\S)/g, '$1<br>'); return t.replace(/([、。])(?!$)/g, '$1<br>'); }
 
 function minusMonths(base, m){ var d = new Date(base.getTime()); d.setMonth(d.getMonth() - m); return d; }
-function jp(d){ return d.getFullYear() + '年' + (d.getMonth()+1) + '月'; }
+var MON_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+function jp(d){ return L(d.getFullYear() + '年' + (d.getMonth()+1) + '月', MON_EN[d.getMonth()] + ' ' + d.getFullYear()); }
 function monthsBetween(a, b){ return (b.getFullYear()-a.getFullYear())*12 + (b.getMonth()-a.getMonth()); }
 
 var REFS = [
-  {km:18, label:'東京駅から川崎まで'},
-  {km:27, label:'東京駅から横浜まで'},
-  {km:34, label:'東京駅から千葉まで'},
-  {km:40, label:'東京駅から八王子まで'},
-  {km:45, label:'東京駅から鎌倉まで'},
-  {km:76, label:'東京駅から小田原まで'},
-  {km:95, label:'東京駅から熱海まで'}
+  {km:18, label:'東京駅から川崎まで', en:'from Tokyo Station to Kawasaki'},
+  {km:27, label:'東京駅から横浜まで', en:'from Tokyo Station to Yokohama'},
+  {km:34, label:'東京駅から千葉まで', en:'from Tokyo Station to Chiba'},
+  {km:40, label:'東京駅から八王子まで', en:'from Tokyo Station to Hachioji'},
+  {km:45, label:'東京駅から鎌倉まで', en:'from Tokyo Station to Kamakura'},
+  {km:76, label:'東京駅から小田原まで', en:'from Tokyo Station to Odawara'},
+  {km:95, label:'東京駅から熱海まで', en:'from Tokyo Station to Atami'}
 ];
 function distanceLine(km){
   var best = null;
@@ -643,6 +714,12 @@ function distanceLine(km){
   });
   var rel = Math.abs(km - best.target) / best.target;
   var one = best.times === 1;
+  if (LANG==='en'){
+    var b = best.ref.en;
+    if (rel <= 0.06) return one ? ('Exactly the distance ' + b + '.') : ('Exactly enough to go ' + b + ' and back.');
+    if (km > best.target) return one ? ('A little more than the distance ' + b + '.') : ('Enough to go ' + b + ' and back, with a little left over.');
+    return one ? ('Almost the distance ' + b + '.') : ('Almost enough to go ' + b + ' and back.');
+  }
   if (rel <= 0.06) return best.ref.label + (one ? '、ちょうど届く距離です。' : '、ちょうど往復できる距離です。');
   if (km > best.target) return one ? (best.ref.label + 'を、少し超える長さです。')
                                    : (best.ref.label + 'を往復して、まだ少し余る長さです。');
@@ -651,6 +728,15 @@ function distanceLine(km){
 }
 
 function shiragaText(age){
+  if (LANG==='en'){
+    if (age < 35) return 'Grey hair starts around 35 on average. That is still a little way off.';
+    if (age < 40) return 'Between 35 and 39, about 70% of people have at least one grey hair. Having some becomes the majority.';
+    if (age < 45) return 'In amount, roughly 20% of the hair. Still a time when the roots alone are enough.';
+    if (age < 50) return 'In amount, roughly 40%. A time to start thinking about how often, and how much of it, you color.';
+    if (age < 60) return 'About half. Over 90% of people have at least one. From here it becomes a question of how to live with it.';
+    if (age < 70) return 'For many, more than half is grey. Whether you keep coloring all of it, or make use of it, changes the hair a great deal.';
+    return '70–100%. By now, many people have chosen not to color at all.';
+  }
   if (age < 35) return '白髪が出はじめる平均は、35歳前後と言われています。まだ少し先の話です。';
   if (age < 40) return '35〜39歳では、約7割の人に白髪が1本以上あるとされています。「ある」ことのほうが、多数派になります。';
   if (age < 45) return '量としては、髪全体のおよそ2割ほど。まだ、根元だけで足りる時期です。';
@@ -660,11 +746,21 @@ function shiragaText(age){
   return '70〜100%。この頃には、染めない選択をしている人も多くいます。';
 }
 function uneriText(age){
+  if (LANG==='en'){
+    if (age < 30) return 'Irregularly wavy hairs are still few at this age.';
+    if (age < 50) return 'In your 30s and 40s, the share of wavy hairs begins to rise. “It used to be straight” is not your imagination.';
+    return 'The 50s and 60s are when wavy hairs are most common. The cause is an imbalance of two cell types; why it grows with age is not yet understood.';
+  }
   if (age < 30) return '不規則にうねる毛は、この年代ではまだ少ないとされています。';
   if (age < 50) return '30〜40代は、うねる毛の割合が増えはじめる時期です。「昔はまっすぐだったのに」は、気のせいではありません。';
   return '50〜60代が、うねる毛の割合がいちばん多い年代とされています。原因は2種類の細胞の偏りですが、なぜ年齢で増えるのかは、まだ分かっていません。';
 }
 function futosaText(age){
+  if (LANG==='en'){
+    if (age < 30) return 'For women, hair is thickest around 30. You are close to your thickest years now.';
+    if (age < 45) return 'Past the peak, hair thins little by little. The average is 0.07–0.08 mm. The difference is tiny, but it shows in how the hair sits.';
+    return 'Each hair grows finer, and the volume of the whole falls. More often it is thinner, not fewer.';
+  }
   if (age < 30) return '髪の太さは、女性の場合30歳前後がピークとされています。いまが、いちばん太い時期に近いです。';
   if (age < 45) return 'ピークを過ぎて、少しずつ細くなっていく時期です。平均は0.07〜0.08mm。差はごくわずかですが、まとまりに出ます。';
   return '1本ずつが細くなり、束としてのボリュームが落ちてきます。減ったのではなく、細くなったほうが理由として多いです。';
@@ -682,11 +778,18 @@ function buildNodes(today, real, g, sh, fall){
   var marks = [];
   if (fall > SHOULDER_FALL) {
     var m = Math.round((fall - SHOULDER_FALL) / (g * sh));
-    if (m > 0 && m < totalMonths) marks.push({cm: Math.round(m * g), label:'肩に届いた月',
-      date: minusMonths(today, m), body:'鏡の中の印象が、いちばん変わったころです。'});
+    if (m > 0 && m < totalMonths) marks.push({cm: Math.round(m * g), label:L('肩に届いた月','The month it reached your shoulder'),
+      date: minusMonths(today, m), body:L('鏡の中の印象が、いちばん変わったころです。','Around when the mirror started to look different.')});
   }
   // 春（4月）・夏（7月）・秋（10月）・冬（1月）の節目を拾う
   var SEASONS = [[3,'春'],[6,'夏'],[9,'秋'],[0,'冬']];
+  var SEASON_EN = {'春':'Spring','夏':'Summer','秋':'Autumn','冬':'Winter'};
+  var SEASON_WORD_EN = {
+    '春':['A little restless, with new scenery around you.','Walking under the cherry blossoms.','About to begin something.'],
+    '夏':['Going to see the sea.','Walking past a festival.','When the nights felt longest.'],
+    '秋':['Starting to enjoy dressing up again.','When the wind felt good.','A little wistful at the shorter days.'],
+    '冬':['Hair tucked into a scarf.','When your breath turned white.','Quietly making a wish for the new year.']
+  };
   var SEASON_WORD = {
     '春':['新しい景色に、少しそわそわしていた、あのころです。','桜の下を歩いていた、あのころです。','なにかを始めようとしていた、あのころです。'],
     '夏':['海を見に行っていた、あのころです。','お祭りを横目に歩いていた、あのころです。','夜がいちばん長く感じていた、あのころです。'],
@@ -695,7 +798,7 @@ function buildNodes(today, real, g, sh, fall){
   };
   var _sw = {};
   function seasonWord(name, date){
-    var list = SEASON_WORD[name] || [];
+    var list = (LANG==='en' ? SEASON_WORD_EN[name] : SEASON_WORD[name]) || [];
     if (!list.length) return '';
     var i = (date.getFullYear() + date.getMonth()) % list.length;
     if (_sw[name] === list[i] && list.length > 1) i = (i + 1) % list.length;
@@ -740,7 +843,7 @@ function buildNodes(today, real, g, sh, fall){
   }
   picks.forEach(function(i){
     var mm = monthsBetween(sums[i].date, today);
-    marks.push({cm: Math.round(mm * g), label: sums[i].date.getFullYear() + '年の' + sums[i].name,
+    marks.push({cm: Math.round(mm * g), label: L(sums[i].date.getFullYear() + '年の' + sums[i].name, SEASON_EN[sums[i].name] + ' ' + sums[i].date.getFullYear()),
                 date: sums[i].date, body:'', season: sums[i].name, word: seasonWord(sums[i].name, sums[i].date)});
   });
   marks.sort(function(a,b){ return b.cm - a.cm; });
@@ -764,15 +867,15 @@ function drawUnified(cm, tip, marks){
     for(var j=R.length-1;j>=0;j--)d+=' L '+R[j][0].toFixed(1)+' '+R[j][1];
     return d+' Z';
   }
-  var nodes=[{cm:cm,l1:jp(tip),l2:'いまの毛先が、頭皮から顔を出した月。',hi:true}];
+  var nodes=[{cm:cm,l1:jp(tip),l2:L('いまの毛先が、頭皮から顔を出した月。','The month your ends first appeared.'),hi:true}];
   marks.forEach(function(m){
-    nodes.push({cm:m.cm,l1b:m.label,date:m.date,l2:m.body||m.word||'',cmtag:'根元から '+m.cm+'cm'});
+    nodes.push({cm:m.cm,l1b:m.label,date:m.date,l2:m.body||m.word||'',cmtag:L('根元から '+m.cm+'cm', m.cm+' cm from the root')});
   });
-  nodes.push({cm:0,l1:'今日',l2:'ここから、未来へ。',hi:true});
+  nodes.push({cm:0,l1:L('今日','Today'),l2:L('ここから、未来へ。','From here, onward.'),hi:true});
   nodes.sort(function(a,b){return b.cm-a.cm;});
   var lab=nodes.map(function(n){
     var lines=0;
-    if(n.l2){ lines=(n.l2.length>17)?2:1; }
+    if(n.l2){ lines=(n.l2.length>(LANG==='en'?36:17))?2:1; }
     var h=14+lines*15+(n.cmtag?14:0)+12;
     return {n:n,ty:y(n.cm),ly:y(n.cm),h:h,l2lines:lines};
   });
@@ -781,7 +884,7 @@ function drawUnified(cm, tip, marks){
     if(lab[i].ly<need)lab[i].ly=need;
   }
   var H=Math.max(BOT+24,Math.ceil(lab[lab.length-1].ly+lab[lab.length-1].h)+8);
-  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="あなたの髪の年表。実際の比率で描いています">';
+  var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+L('あなたの髪の年表。実際の比率で描いています','Your hair timeline, drawn to scale')+'">';
   s+='<path d="'+strandShape(7,2.4,0)+'" fill="#5a3a24"/>';
   s+='<path d="'+strandShape(2.6,0.8,-1.2)+'" fill="#a8845e" opacity="0.55"/>';
   lab.forEach(function(o){
@@ -790,11 +893,14 @@ function drawUnified(cm, tip, marks){
     var col=n.hi?'#5a3a24':'#8a5e42';
     g0+='<circle cx="'+CX+'" cy="'+o.ty.toFixed(1)+'" r="'+(n.hi?4.5:3)+'" fill="'+(n.hi?'#5a3a24':'#f8f4ef')+'" stroke="#5a3a24" stroke-width="1.2"/>';
     g0+='<path d="M '+(CX+7)+' '+o.ty.toFixed(1)+' L '+(LX-12)+' '+o.ly.toFixed(1)+' L '+(LX-4)+' '+o.ly.toFixed(1)+'" fill="none" stroke="#cfc4b6" stroke-width="1"/>';
-    var l1=n.l1b?(n.l1b+'　'+(n.date.getMonth()+1)+'月'):n.l1;
+    var l1=n.l1b?(LANG==='en'?(n.l1b+' · '+MON_EN[n.date.getMonth()]):(n.l1b+'　'+(n.date.getMonth()+1)+'月')):n.l1;
     g0+='<text x="'+LX+'" y="'+(o.ly+1).toFixed(1)+'" font-family="Zen Old Mincho, Noto Serif JP, serif" font-size="13.5" fill="'+col+'"'+(n.hi?' font-weight="700"':'')+'>'+l1+'</text>';
     if(n.l2){
       var l2a=n.l2,l2b='';
-      if(o.l2lines===2){
+      if(o.l2lines===2 && LANG==='en'){
+        var sp=l2a.lastIndexOf(' ',36); if(sp<10)sp=l2a.indexOf(' ',10);
+        if(sp>0){l2b=l2a.slice(sp+1);l2a=l2a.slice(0,sp);}
+      } else if(o.l2lines===2){
         var cut=l2a.slice(0,l2a.length-2).lastIndexOf('、');
         if(cut<6)cut=l2a.indexOf('、',6);
         if(cut>0&&cut<l2a.length-2){l2b=l2a.slice(cut+1);l2a=l2a.slice(0,cut+1);}
@@ -825,12 +931,12 @@ function render(){
   var tip = n.tip, mo = n.months;
 
   document.getElementById('tipDate').textContent = jp(tip);
-  document.getElementById('tipAge').textContent = 'いまから ' + mo + 'ヶ月前　＝　' + (Math.round(mo/12*10)/10) + '年前';
-  var note = 'その月に、いまの毛先は頭皮から顔を出しました。それから ' + mo + 'ヶ月、あなたと一緒にいます。';
+  document.getElementById('tipAge').textContent = L('いまから ' + mo + 'ヶ月前　＝　' + (Math.round(mo/12*10)/10) + '年前', mo + ' months ago　=　' + (Math.round(mo/12*10)/10) + ' years ago');
+  var note = L('その月に、いまの毛先は頭皮から顔を出しました。それから ' + mo + 'ヶ月、あなたと一緒にいます。', 'That month, your hair ends first came through the scalp. They have been with you for ' + mo + ' months since.');
   if (n.capped) {
-    note = '髪が伸び続けられる期間は、女性で4〜6年、いちばん長い人でも8年ほどとされています。この毛先は、その上限まであなたと一緒にいてくれた髪です。ここでは8年（96ヶ月）でお話しします。';
+    note = L('髪が伸び続けられる期間は、女性で4〜6年、いちばん長い人でも8年ほどとされています。この毛先は、その上限まであなたと一緒にいてくれた髪です。ここでは8年（96ヶ月）でお話しします。', 'Hair can keep growing for about 4–6 years in women, and up to about 8 at most. These ends have stayed with you right up to that limit. We use 8 years (96 months) here.');
   } else if (mo > 72) {
-    note += '\n髪が伸び続けられる期間は、女性で4〜6年、いちばん長い人でも8年ほど。この毛先は、そのいちばん長い部類です。';
+    note += L('\n髪が伸び続けられる期間は、女性で4〜6年、いちばん長い人でも8年ほど。この毛先は、そのいちばん長い部類です。', '\nHair keeps growing for 4–6 years in women, about 8 at most. These ends are among the longest-lasting.');
   }
   document.getElementById('tipNote').innerHTML = br_(note).replace(/\n/g, '<br>');
 
@@ -839,21 +945,21 @@ function render(){
     hid.style.display = '';
     document.getElementById('hidFall').innerHTML = fall + '<span>cm</span>';
     document.getElementById('hidReal').innerHTML = real + '<span>cm</span>';
-    document.getElementById('hidLead').innerHTML = br_(TEX[pickTex].name + 'のある髪は、縮んでいます。');
+    document.getElementById('hidLead').innerHTML = br_(L(TEX[pickTex].name + 'のある髪は、縮んでいます。', TEX[pickTex].en + ' sits shorter than it really is.'));
   } else {
     hid.style.display = 'none';
   }
 
-  document.getElementById('uniHead').innerHTML = 'あなたの ' + real + 'cm を、そのままの比率で。<br>1ヶ月に、およそ' + tx.g + 'cm。上が古く、下が今日。';
+  document.getElementById('uniHead').innerHTML = L('あなたの ' + real + 'cm を、そのままの比率で。<br>1ヶ月に、およそ' + tx.g + 'cm。上が古く、下が今日。', 'Your ' + real + ' cm, at true proportion.<br>About ' + tx.g + ' cm a month. Older at the top, today at the bottom.');
   document.getElementById('uni').innerHTML = drawUnified(real, tip, n.marks);
   var _uk = document.querySelectorAll('#uni .uninode'), _ui = 0;
   (function _ul(){ if(_ui >= _uk.length) return; _uk[_ui].classList.add('lit'); _ui++; setTimeout(_ul, 260); })();
   
 
   var km = real;
-  document.getElementById('totalKm').innerHTML = 'およそ <b>' + km + '</b><span class="unit">km</span>';
+  document.getElementById('totalKm').innerHTML = L('およそ', 'about') + ' <b>' + km + '</b><span class="unit">km</span>';
   document.getElementById('kmNote').innerHTML = br_(distanceLine(km));
-  document.getElementById('strength').innerHTML = 'およそ <b>10</b><span class="unit">トン</span>';
+  document.getElementById('strength').innerHTML = L('およそ', 'about') + ' <b>10</b><span class="unit">' + L('トン','tons') + '</span>';
 
   paintFuture();
 }
@@ -864,7 +970,6 @@ Array.prototype.forEach.call(document.querySelectorAll('#tabs .tab'), function(t
     t.classList.add('on');
     pickYear = Number(t.getAttribute('data-y'));
     paintFuture();
-    if (PH.ready) phRender(phRatio());
   };
 });
 
@@ -873,284 +978,29 @@ function paintFuture(){
   var mid = pickAge + 5;
   var fut = mid + pickYear;
   var band = Math.floor(fut / 10) * 10;
-  document.getElementById('futCap').textContent =
-    pickYear + '年後、' + band + '代' + (fut % 10 < 5 ? 'の前半' : 'の後半') + 'のころ';
+  document.getElementById('futCap').textContent = L(
+    pickYear + '年後、' + band + '代' + (fut % 10 < 5 ? 'の前半' : 'の後半') + 'のころ',
+    'In ' + pickYear + ' years — your ' + (fut % 10 < 5 ? 'early ' : 'late ') + band + 's');
   document.getElementById('fShiraga').innerHTML = br_(shiragaText(fut));
   document.getElementById('fUneri').innerHTML   = br_(uneriText(fut));
   document.getElementById('fFutosa').innerHTML  = br_(futosaText(fut));
-  if (typeof PH !== 'undefined' && PH.ready) phRender(phRatio());
 }
 
 paintGauge();
 
-
-// ══════════ 写真（すべて端末内。1バイトも送信しません）══════════
-// ガイドは画面に固定。写真のほうを動かして合わせる（ライブでも撮影後でも作法は同じ）
-var CW = 420, CH = 520;
-var PH = { img:null, w:0, h:0, hair:null, detail:null, blob:null, ds:null,
-           ring:{x:0,y:0,r:0}, ready:false, raw:null, view:{s:1,x:0,y:0}, stream:null };
-
-function phShow(id, on){ var e=document.getElementById(id); if(e) e.style.display = on ? '' : 'none'; }
-
-function guideSVG(){
-  var d = '';
-  var P = function(path){ d += '<path d="'+path+'" fill="none" stroke="#181410" stroke-width="4.5" stroke-dasharray="7 8" opacity="0.28" stroke-linecap="round"/>'
-                             + '<path d="'+path+'" fill="none" stroke="#fffcf9" stroke-width="2" stroke-dasharray="7 8" opacity="0.95" stroke-linecap="round"/>'; };
-  d += '<ellipse cx="210" cy="150" rx="72" ry="92" fill="none" stroke="#181410" stroke-width="4.5" stroke-dasharray="7 8" opacity="0.28"/>';
-  d += '<ellipse cx="210" cy="150" rx="72" ry="92" fill="none" stroke="#fffcf9" stroke-width="2" stroke-dasharray="7 8" opacity="0.95"/>';
-  P('M 141 205 C 122 300, 110 390, 104 466');
-  P('M 279 205 C 298 300, 310 390, 316 466');
-  return '<svg viewBox="0 0 '+CW+' '+CH+'" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;">'+d+'</svg>';
-}
-Array.prototype.forEach.call(document.querySelectorAll('.phGuide'), function(g){
-  g.style.cssText='position:absolute;inset:0;pointer-events:none;';
-  g.innerHTML = guideSVG();
-});
-
-function phStopCam(){
-  if (PH.stream){ PH.stream.getTracks().forEach(function(t){ t.stop(); }); PH.stream = null; }
-}
-function phStartCam(){
-  if (!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)){
-    document.getElementById('fileCam').click(); return;
-  }
-  navigator.mediaDevices.getUserMedia({ video: { facingMode:'user', width:{ideal:1280}, height:{ideal:1600} }, audio:false })
-    .then(function(stream){
-      PH.stream = stream;
-      document.getElementById('phVideo').srcObject = stream;
-      phShow('photoIntro', false); phShow('photoLive', true);
-      phShow('photoStage', false); phShow('photoResult', false);
-    })
-    .catch(function(){ document.getElementById('fileCam').click(); }); // 静かに端末カメラへ
-}
-function phShutter(){
-  var v = document.getElementById('phVideo');
-  if (!v.videoWidth){ return; }
-  var c = document.createElement('canvas');
-  c.width = v.videoWidth; c.height = v.videoHeight;
-  var x = c.getContext('2d');
-  x.translate(c.width, 0); x.scale(-1, 1);       // 見たままの向きで残す
-  x.drawImage(v, 0, 0);
-  phStopCam();
-  phEnterStage(c, c.width, c.height);
-  phShow('photoLive', false);
-}
-function phLoad(file){
-  if (!file) return;
-  var url = URL.createObjectURL(file);
-  var im = new Image();
-  im.onload = function(){
-    URL.revokeObjectURL(url);
-    phEnterStage(im, im.width, im.height);
-  };
-  im.onerror = function(){ URL.revokeObjectURL(url); };
-  im.src = url;
-}
-function phEnterStage(src, iw, ih){
-  PH.raw = src; PH.rw = iw; PH.rh = ih;
-  var cover = Math.max(CW/iw, CH/ih);
-  PH.view = { s: cover, x: (CW - iw*cover)/2, y: (CH - ih*cover)/2 };
-  PH.ready = false;
-  var c = document.getElementById('photoCanvas');
-  c.width = CW; c.height = CH;
-  phDrawStage();
-  phShow('photoIntro', false); phShow('photoStage', true); phShow('photoResult', false);
-}
-function phDrawStage(){
-  var c = document.getElementById('photoCanvas'), x = c.getContext('2d');
-  x.fillStyle = '#181410'; x.fillRect(0, 0, CW, CH);
-  x.save();
-  x.translate(PH.view.x, PH.view.y);
-  x.scale(PH.view.s, PH.view.s);
-  x.drawImage(PH.raw, 0, 0);
-  x.restore();
-}
-(function phPanZoom(){
-  var wrap = document.getElementById('canvWrap');
-  var pts = {};
-  function dist(a,b){ var dx=a.x-b.x, dy=a.y-b.y; return Math.sqrt(dx*dx+dy*dy); }
-  function k(){ return CW / wrap.clientWidth; }
-  wrap.addEventListener('pointerdown', function(e){
-    pts[e.pointerId] = {x:e.clientX, y:e.clientY};
-    wrap.setPointerCapture(e.pointerId);
-    e.preventDefault();
-  });
-  wrap.addEventListener('pointermove', function(e){
-    if (!pts[e.pointerId] || !PH.raw) return;
-    var ids = Object.keys(pts);
-    var prev = { x: pts[e.pointerId].x, y: pts[e.pointerId].y };
-    if (ids.length === 1){
-      PH.view.x += (e.clientX - prev.x) * k();
-      PH.view.y += (e.clientY - prev.y) * k();
-    } else if (ids.length >= 2){
-      var otherId = ids[0] === String(e.pointerId) ? ids[1] : ids[0];
-      var other = pts[otherId];
-      var d0 = dist(prev, other), d1 = dist({x:e.clientX,y:e.clientY}, other);
-      if (d0 > 8){
-        var f = d1 / d0;
-        var mx = ((e.clientX + other.x)/2 - wrap.getBoundingClientRect().left) * k();
-        var my = ((e.clientY + other.y)/2 - wrap.getBoundingClientRect().top) * k();
-        PH.view.x = mx - (mx - PH.view.x) * f;
-        PH.view.y = my - (my - PH.view.y) * f;
-        PH.view.s *= f;
-      }
-    }
-    pts[e.pointerId] = {x:e.clientX, y:e.clientY};
-    phDrawStage();
-    e.preventDefault();
-  });
-  function up(e){ delete pts[e.pointerId]; }
-  wrap.addEventListener('pointerup', up);
-  wrap.addEventListener('pointercancel', up);
-  wrap.addEventListener('wheel', function(e){
-    if (!PH.raw) return;
-    var f = e.deltaY < 0 ? 1.07 : 0.93;
-    var r = wrap.getBoundingClientRect();
-    var mx = (e.clientX - r.left) * k(), my = (e.clientY - r.top) * k();
-    PH.view.x = mx - (mx - PH.view.x) * f;
-    PH.view.y = my - (my - PH.view.y) * f;
-    PH.view.s *= f;
-    phDrawStage();
-    e.preventDefault();
-  }, {passive:false});
-})();
-
-// ── 髪の見分けと、毛の筋の取り出し ──
-// 合成のノイズを乗せると縦の棒に見えるので、写真の中にある毛の筋そのものを拾う
-function boxBlur(src, w, h, r){
-  var tmp = new Float32Array(w*h), out = new Float32Array(w*h), n = 2*r+1, x, y, acc, row;
-  for (y = 0; y < h; y++){
-    row = y*w; acc = 0;
-    for (x = -r; x <= r; x++) acc += src[row + Math.min(w-1, Math.max(0, x))];
-    for (x = 0; x < w; x++){
-      tmp[row+x] = acc / n;
-      acc += src[row + Math.min(w-1, x+r+1)] - src[row + Math.max(0, x-r)];
-    }
-  }
-  for (x = 0; x < w; x++){
-    acc = 0;
-    for (y = -r; y <= r; y++) acc += tmp[Math.min(h-1, Math.max(0, y))*w + x];
-    for (y = 0; y < h; y++){
-      out[y*w+x] = acc / n;
-      acc += tmp[Math.min(h-1, y+r+1)*w + x] - tmp[Math.max(0, y-r)*w + x];
-    }
-  }
-  return out;
-}
-
-function phBuild(){
-  var d = PH.img.data, R = PH.ring, W = PH.w, H = PH.h, i, x, y;
-  var fx = R.x, fy = R.y + R.r*0.14, frx = R.r*0.60, fry = R.r*0.68;  // 顔は触らない
-
-  var L = new Float32Array(W*H);
-  for (i = 0; i < W*H; i++) L[i] = 0.299*d[i*4] + 0.587*d[i*4+1] + 0.114*d[i*4+2];
-
-  // 輪の中の明るさを並べて、暗い側 45% を髪とみなす
-  var samp = [];
-  for (y = 0; y < H; y += 3) for (x = 0; x < W; x += 3){
-    var dx = (x-R.x)/R.r, dy = (y-R.y)/R.r;
-    if (dx*dx + dy*dy > 1) continue;
-    var ex = (x-fx)/frx, ey = (y-fy)/fry;
-    if (ex*ex + ey*ey < 1) continue;
-    samp.push(L[y*W+x]);
-  }
-  if (samp.length < 200) return false;
-  samp.sort(function(a,b){ return a-b; });
-  var thr = samp[Math.floor(samp.length*0.45)];
-
-  PH.hair = new Uint8Array(W*H);
-  for (y = 0; y < H; y++) for (x = 0; x < W; x++){
-    var dx2 = (x-R.x)/R.r, dy2 = (y-R.y)/R.r;
-    if (dx2*dx2 + dy2*dy2 > 1) continue;
-    var ex2 = (x-fx)/frx, ey2 = (y-fy)/fry;
-    if (ex2*ex2 + ey2*ey2 < 1) continue;
-    if (L[y*W+x] <= thr) PH.hair[y*W+x] = 1;
-  }
-
-  // 毛の筋 ＝ そこだけ局所平均より明るい部分
-  var Lb = boxBlur(L, W, H, 3);
-  PH.detail = new Float32Array(W*H);
-  var ds = [];
-  for (i = 0; i < W*H; i++){
-    PH.detail[i] = L[i] - Lb[i];
-    if (PH.hair[i] && (i % 5 === 0)) ds.push(PH.detail[i]);
-  }
-  if (!ds.length) return false;
-  ds.sort(function(a,b){ return a-b; });
-  PH.ds = ds;
-
-  // どのあたりが先に白くなるか（まだら）
-  var sz = Math.max(4, R.r*0.16);
-  PH.blob = new Float32Array(W*H);
-  for (y = 0; y < H; y++) for (x = 0; x < W; x++){
-    var v = Math.sin(Math.floor(x/sz)*12.9898 + Math.floor(y/sz)*78.233) * 43758.5453;
-    PH.blob[y*W+x] = v - Math.floor(v);
-  }
-  PH.ready = true;
-  return true;
-}
-
-function phRender(ratio){
-  if (!PH.ready) return;
-  var W = PH.w, H = PH.h, src = PH.img.data;
-  var out = document.getElementById('outCanvas');
-  out.width = W; out.height = H;
-  var ctx = out.getContext('2d'), dst = ctx.createImageData(W, H), o = dst.data, i;
-  for (i = 0; i < W*H; i++){
-    o[i*4] = src[i*4]; o[i*4+1] = src[i*4+1]; o[i*4+2] = src[i*4+2]; o[i*4+3] = 255;
-  }
-  if (ratio > 0){
-    var k = Math.min(PH.ds.length-1, Math.max(0, Math.floor(PH.ds.length * (1 - ratio*0.72))));
-    var dThr = PH.ds[k], bLim = ratio*0.9 + 0.25, m = 0.72;
-    for (i = 0; i < W*H; i++){
-      if (!PH.hair[i]) continue;
-      if (PH.detail[i] <= dThr) continue;
-      if (PH.blob[i] >= bLim) continue;
-      o[i*4]   = src[i*4]   + (212 - src[i*4])  *m;
-      o[i*4+1] = src[i*4+1] + (208 - src[i*4+1])*m;
-      o[i*4+2] = src[i*4+2] + (200 - src[i*4+2])*m;
-    }
-  }
-  ctx.putImageData(dst, 0, 0);
-}
-
-// 年代＋年数から、白髪の割合を出す（文章と同じ根拠）
-function phRatio(){
-  if (!pickAge) return 0;
-  var a = pickAge + 5 + pickYear;
-  if (a < 35) return 0.05;
-  if (a < 40) return 0.15;
-  if (a < 45) return 0.25;
-  if (a < 50) return 0.42;
-  if (a < 60) return 0.55;
-  if (a < 70) return 0.68;
-  return 0.80;
-}
-
-document.getElementById('btnCam').addEventListener('click', phStartCam);
-document.getElementById('btnLib').addEventListener('click', function(){ document.getElementById('fileLib').click(); });
-document.getElementById('phShutter').addEventListener('click', phShutter);
-document.getElementById('phLiveCancel').addEventListener('click', function(){
-  phStopCam(); phShow('photoLive', false); phShow('photoIntro', true);
-});
-document.getElementById('fileCam').addEventListener('change', function(e){ phShow('photoLive', false); phLoad(e.target.files[0]); });
-document.getElementById('fileLib').addEventListener('change', function(e){ phLoad(e.target.files[0]); });
-document.getElementById('ringDone').addEventListener('click', function(){
-  var c = document.getElementById('photoCanvas');
-  PH.w = CW; PH.h = CH;
-  PH.img = c.getContext('2d').getImageData(0, 0, CW, CH);
-  PH.ring = { x: CW*0.5, y: CH*0.44, r: CW*0.42 };   // ガイドに合わせた固定の輪
-  if (!phBuild()) return;
-  phShow('photoStage', false); phShow('photoResult', true);
-  phRender(phRatio());
-});
-document.getElementById('photoClear').addEventListener('click', function(){
-  phStopCam();
-  PH = { img:null, w:0, h:0, hair:null, detail:null, blob:null, ds:null, ring:{x:0,y:0,r:0}, ready:false, raw:null, view:{s:1,x:0,y:0}, stream:null };
-  document.getElementById('fileCam').value = '';
-  document.getElementById('fileLib').value = '';
-  phShow('photoResult', false); phShow('photoStage', false); phShow('photoLive', false); phShow('photoIntro', true);
-});
+/* ★ v2.7 言語切替：静的文→ゲージ→くせ・年代の札→結果が出ていれば描き直し */
+window.setLang = function(l){
+  LANG = (l==='en') ? 'en' : 'ja';
+  applyStatic();
+  Array.prototype.forEach.call(texsEl.children, function(c,i){ c.innerHTML = L(TEX[i].l, TEX[i].e); });
+  Array.prototype.forEach.call(agesEl.children, function(c,i){ c.textContent = L(AGES[i].l, AGES[i].e); });
+  paintGauge();
+  if (document.getElementById('result').classList.contains('show')) render();
+};
+document.getElementById('langBtn').onclick = function(){
+  window.setLang(LANG==='en' ? 'ja' : 'en');
+  if (window.__hhSend) window.__hhSend('tap', LANG==='en' ? 'lang-en' : 'lang-ja');
+};
 
 window.reset_ = function(){
   document.getElementById('result').classList.remove('show');
@@ -1159,7 +1009,7 @@ window.reset_ = function(){
 })();
 </script>
 
-<!-- bridge 導線計測 / gas_32 v2.4 へ送る。Cookieなし・ストレージなし・個人情報なし・失敗しても画面は止まらない。
+<!-- bridge 導線計測 / gas_32 v2.5 へ送る。Cookieなし・ストレージなし・個人情報なし・失敗しても画面は止まらない。
      数えるのはページが開かれた回数（view）と、リンクが押された回数（tap）だけ。選んだ髪質・答え・写真は送らない -->
 <script>
 (function(){
@@ -1195,7 +1045,8 @@ window.reset_ = function(){
       new Image().src = u;
     }catch(e){}
   }
-  send('view');   // 表示のたびに1（再読み込みも1・ストレージ不使用）
+  window.__hhSend = send;
+  send('view', (typeof LANG!=='undefined' && LANG==='en') ? 'en' : '');   // 表示のたびに1（?lang=en で開いた回は a=en）
   document.addEventListener('click', function(ev){
     try{
       var t = ev.target;
@@ -1210,15 +1061,21 @@ window.reset_ = function(){
 <script>
 (function(){
   var EXEC = 'https://script.google.com/macros/s/AKfycbxBv2a450pD_4AqkjQgt2dwyST-xzV5Anq69es8MFdb_ZRB94M74NuemP36KD0QKX95/exec';
-  var el = document.getElementById('openCount'), n = document.getElementById('openCountN');
+  var el = document.getElementById('openCount'), n = document.getElementById('openCountT'), cnt = null;
   if (!el || !n) return;
-  // count＝このページの表示回数（gas_32 v2.4）。10回に満たないうちは静かにしておく
+  window.__hhCount = function(){
+    if (cnt == null) return;
+    n.textContent = (typeof LANG!=='undefined' && LANG==='en')
+      ? ('Enjoyed ' + cnt.toLocaleString('en-US') + ' times so far.')
+      : ('これまでに ' + cnt.toLocaleString('ja-JP') + '回、楽しんでもらいました。');
+  };
+  // count＝このページの表示回数（gas_32 v2.5）。10回に満たないうちは静かにしておく
   fetch(EXEC + '?k=brg&t=count&_=' + Date.now())
     .then(function(r){ return r.json(); })
     .then(function(d){
       var v = (d && (d.count != null ? d.count : d.n));
       if (v == null || isNaN(Number(v)) || Number(v) < 10) return;
-      n.textContent = Number(v).toLocaleString('ja-JP');
+      cnt = Number(v); window.__hhCount();
       el.hidden = false;
     })
     .catch(function(){});
