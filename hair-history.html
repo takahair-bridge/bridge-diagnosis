@@ -1015,7 +1015,7 @@ window.reset_ = function(){
 (function(){
   var EXEC = 'https://script.google.com/macros/s/AKfycbxBv2a450pD_4AqkjQgt2dwyST-xzV5Anq69es8MFdb_ZRB94M74NuemP36KD0QKX95/exec';
   var PAGE = 'hh';
-  var OK   = ['instagram','tiktok','google','hub','oversea','line','recloud','sign','direct','other'];
+  var OK   = ['instagram','tiktok','google','hub','lp','diagnosis','oversea','line','recloud','sign','direct','other'];   // v2.8 lp・diagnosis 追加
   function src(){
     try{
       var q = new URLSearchParams(location.search);
@@ -1028,6 +1028,8 @@ window.reset_ = function(){
         else if(r.indexOf('google') > -1) s = 'google';
         else if(r.indexOf('hub.personalhairstylist') > -1) s = 'hub';
         else if(r.indexOf('bridge-oversea') > -1) s = 'oversea';
+        else if(r.indexOf('bridge-lp') > -1) s = 'lp';
+        else if(r.indexOf('bridge-diagnosis') > -1) s = 'diagnosis';
         else if(r.indexOf('line') > -1) s = 'line';
         else s = 'other';
       }
