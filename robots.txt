@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://takahair-bridge.github.io/bridge-diagnosis/sitemap.xml
